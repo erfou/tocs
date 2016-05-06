@@ -1,6 +1,6 @@
 var validate = function(req) {
 	console.log("from validate");
-	toReturn = {valid: true, errorMessage: ""};
+	var toReturn = {valid: true, errorMessage: ""};
 	var body = req.body;
 	var pos = req.body.position;
 	if(pos === null && pos === undefined) {
@@ -10,7 +10,7 @@ var validate = function(req) {
 
 	validateField.call(this, pos.row, "Row", new RegExp('^[0-9]{1,2}$'), toReturn);
 	validateField.call(this, pos.column, "Column", new RegExp('^[A-Z]{1}$'), toReturn);
-	validateField.call(this, body.status, "Status", new RegExp('^(true|false)$'), toReturn);
+	validateField.call(this, body.occuped, "Status", new RegExp('^(true|false)$'), toReturn);
 	console.log("validate: " + toReturn.valid + " " + toReturn.errorMessage);
 	return toReturn;
 }

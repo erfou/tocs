@@ -6,7 +6,7 @@ var seatSchema = new Schema({
 		row: String,
 		column: String
 	},
-	status: String
+	occuped: Boolean
 });
 
 module.exports = mongoose.model('Seat', seatSchema);

@@ -1,5 +1,5 @@
 var Seat = require('../models/seatDao');
-var seatConverter = require('../converters/SeatConverter');
+var seatConverter = require('../converters/seatConverter');
 var SeatService = {
 	getAllSeat : function(req, res) {
 		Seat.find(function(err, result) {
