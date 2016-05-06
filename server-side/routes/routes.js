@@ -17,10 +17,5 @@ router.route('/list')
         res.json({ message: 'List of seats.'});
 	});
 
-router.route('/status')
-    .post(function(req, res) {
-        console.log(req.body);
-      res.json({ message: 'seat ' + req.body.position.row + req.body.position.column + ' status ' + req.body.status });
-    })
 // more routes for our API will happen here
 module.exports = router;

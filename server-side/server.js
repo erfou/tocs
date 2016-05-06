@@ -7,8 +7,8 @@ var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var mongoose    = require('mongoose'); 
 
-mongoose.connect('mongodb://localhost:27017');
-var router    = require('./routes'); 
+mongoose.connect('mongodb://localhost:27017/onBoardRealTimeSeatMap');
+//var router    = require('./routes/route'); 
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -20,7 +20,8 @@ var port = process.env.PORT || 8080;        // set our port
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
-app.use('/seats/', router);
+app.use(require('./routes/routes'));
+app.use('/seats/', require('./routes/seatRoutes'));
 
 // START THE SERVER
 // =============================================================================

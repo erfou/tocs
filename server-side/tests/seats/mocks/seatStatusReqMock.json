@@ -3,5 +3,5 @@
         "row": "14",
         "column": "C"
     },
-    "status" : "occuped"
+    "occuped" : "true"
 }
