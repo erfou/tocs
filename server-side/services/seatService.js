@@ -17,6 +17,7 @@ var SeatService = {
 			if(!err) {
 				res.json(result);	
 			} else {
+				console.log(err.stack);
 				res.json(err)
 			}
 		});
