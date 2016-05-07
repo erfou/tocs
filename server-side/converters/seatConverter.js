@@ -4,10 +4,7 @@ var SeatConverter = {
 
 	jsonToDao : function(req){
 		var seatDao = new Seat();
-		var pos = req.body.position
-		seatDao._id = pos.row + pos.column;
-		seatDao.position = req.body.position;
-		seatDao.occuped = req.body.occuped;
+		initFields.call(this, seatDao, req);
 		return seatDao;
 	},
 	
@@ -17,7 +14,19 @@ var SeatConverter = {
 			position : seatDao.position,
 		 	occuped : seatDao.occuped			
 		};
-	}
+	},
+	
+	mergeJsonIntoDao : function(seatDao, req) {
+		initFields.call(this, seatDao, req);
+		
+	},
+};
+
+function initFields(seatDao, req) {
+		var pos = req.body.position
+		seatDao._id = pos.row + pos.column;
+		seatDao.position = pos;
+		seatDao.occuped = req.body.occuped;
 }
 
 module.exports = SeatConverter;

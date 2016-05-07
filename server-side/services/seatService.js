@@ -15,31 +15,28 @@ var SeatService = {
 		var seatDao = seatConverter.jsonToDao(req);
 		seatDao.save(function(err, result) {
 			if(!err) {
-				res.json(result);	
+				res.json(seatConverter.daoToJson(result));	
 			} else {
 				console.log(err.stack);
 				res.json(err)
 			}
 		});
 	},
-	updateSeatStatus : function(req, res) {
+	updateSeat : function(req, res) {
 		Seat.findById(req.params.seat_id, function(err, result) {
 			if(!err) {
 				if(result) {
-					result.occuped = req.body.occuped;
-					result.position = req.body.position;
-					//var seatDao = seatConverter.jsonToDao(req);
-					//seatDao._id = result._id;
+					seatConverter.mergeJsonIntoDao(result, req);
 					result.save(function(err, result) {
 						if(!err) {
-							res.json(result);	
+							res.json(seatConverter.daoToJson(result));	
 						} else {
 							res.json(err);
 						}
 					});
 					
 				} else {
-					res.json("result of findById: " + result);
+					res.json({ message : "No result found for id: " + req.params.seat_id});
 				}
 			} else {
 				res.json(err);
@@ -50,12 +47,22 @@ var SeatService = {
 	getSeatById : function(req, res) {
 		Seat.findById(req.params.seat_id, function(err, result) {
 			if(!err) {
-				res.json(result);
+				res.json(seatConverter.daoToJson(result));
 			} else {
 				res.json({ message: "Error occured during the seat retrieve.", error: err })
 			}
 		})
+	},
+	deleteSeat : function(req, res) {
+		Seat.findByIdAndRemove(req.params.seat_id, function(err, result) {
+			if(!err) {
+				res.json(result);
+			} else {
+				res.json(err);
+			}
+		})
 	}
+
 }
 
 module.exports = SeatService;

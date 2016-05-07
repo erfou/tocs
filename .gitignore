@@ -1,3 +1,2 @@
 server-side/node_modules
-
-server-side/data/mongod.lock
+server-side/data/*

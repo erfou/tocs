@@ -8,7 +8,6 @@ var bodyParser = require('body-parser');
 var mongoose    = require('mongoose'); 
 
 mongoose.connect('mongodb://localhost:27017/onBoardRealTimeSeatMap');
-//var router    = require('./routes/route'); 
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -22,7 +21,8 @@ var port = process.env.PORT || 8080;        // set our port
 // all of our routes will be prefixed with /api
 app.use(require('./routes/routes'));
 app.use('/seats/', require('./routes/seatRoutes'));
-app.use('/services/', require('./routes/serviceRoutes'));
+app.use('/categories/', require('./routes/categoryRoutes'));
+app.use('/categories/:category_id/items', require('./routes/itemRoutes'));
 
 
 // START THE SERVER

@@ -2,9 +2,10 @@
   "name": "users-api",
   "main": "app-conf/server.js",
   "dependencies": {
+    "body-parser": "~1.0.1",
     "express": "~4.0.0",
-    "mongoose": "~3.6.13",
-    "body-parser": "~1.0.1"
+    "mongoose": "^4.1.12",
+    "mongoose-auto-increment": "^5.0.1"
   },
   "devDependencies": {
     "mocha": "^2.4.5",
