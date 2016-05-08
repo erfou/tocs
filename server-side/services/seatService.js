@@ -1,68 +1,68 @@
 var Seat = require('../models/seatDao');
 var seatConverter = require('../converters/seatConverter');
 var SeatService = {
-	getAllSeats : function(req, callback) {
+	getAllSeats : function(req, res) {
 		Seat.find(function(err, result) {
 			if(!err) {
-				callback(result);
+				res.json(result);
 			} else {
 				console.log("Error occured during retrieve of seats list: " + err);
-				callback({ message: "Error occured during retrieve of seats list."});
+				res.json({ message: "Error occured during retrieve of seats list."})
 			}
-		});
+		})
 	},
-	addNewSeat : function(req, callback) {
+	addNewSeat : function(req, res) {
 		var seatDao = seatConverter.jsonToDao(req);
 		seatDao.save(function(err, result) {
 			if(!err) {
-				callback(seatConverter.daoToJson(result));	
+				res.json(seatConverter.daoToJson(result));	
 			} else {
 				console.log(err.stack);
-				callback(err);
+				res.json(err)
 			}
 		});
 	},
-	updateSeat : function(req, callback) {
+	updateSeat : function(req, res) {
 		Seat.findById(req.params.seat_id, function(err, result) {
 			if(!err) {
 				if(result) {
 					seatConverter.mergeJsonIntoDao(result, req);
 					result.save(function(err, result) {
 						if(!err) {
-							callback(seatConverter.daoToJson(result));	
+							res.json(seatConverter.daoToJson(result));	
 						} else {
-							callback(err);
+							res.json(err);
 						}
 					});
 					
 				} else {
-					callback({ message : "No result found for id: " + req.params.seat_id});
+					res.json({ message : "No result found for id: " + req.params.seat_id});
 				}
 			} else {
-				callback(err);
+				res.json(err);
 			}
-		});
+		})
 
 	},
-	getSeatById : function(req, callback) {
+	getSeatById : function(req, res) {
 		Seat.findById(req.params.seat_id, function(err, result) {
 			if(!err) {
-				callback(seatConverter.daoToJson(result));
+				res.json(seatConverter.daoToJson(result));
 			} else {
-				callback({ message: "Error occured during the seat retrieve.", error: err });
+				res.json({ message: "Error occured during the seat retrieve.", error: err })
 			}
-		});
+		})
 	},
-	deleteSeat : function(req, callback) {
+	deleteSeat : function(req, res) {
 		Seat.findByIdAndRemove(req.params.seat_id, function(err, result) {
 			if(!err) {
-				callback(result);
+				res.json(result);
 			} else {
-				callback(err);
+				res.json(err);
 			}
-		});
+		})
 	}
 
-};
+}
 
 module.exports = SeatService;
