@@ -47,6 +47,19 @@ var SeatService = {
 	getSeatById : function(req, callback) {
 		Seat.findById(req.params.seat_id, function(err, result) {
 			if(!err) {
+				console.log("from service result: " + result);
+				console.log("from service result._id: " + result._id);
+				callback(seatConverter.daoToJson(result));
+			} else {
+				callback({ message: "Error occured during the seat retrieve.", error: err });
+			}
+		});
+	},
+	getSeatByPosition : function(req, callback) {
+		Seat.findById('16C', function(err, result) {
+			if(!err) {
+				console.log("from service result: " + result);
+				console.log("from service result._id: " + result._id);
 				callback(seatConverter.daoToJson(result));
 			} else {
 				callback({ message: "Error occured during the seat retrieve.", error: err });
