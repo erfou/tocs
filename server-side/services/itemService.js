@@ -1,67 +1,67 @@
 var Item = require('../models/itemDao');
 var itemConverter = require('../converters/itemConverter');
 var ItemService = {
-	getAllItems : function(req, res) {
+	getAllItems : function(req, callback) {
 		Item.find({'categoryId' : req.params.category_id},function(err, result) {
 			if(!err) {
-				res.json(result);
+				callback(result);
 			} else {
 				console.log("Error occured during retrieve of seats list: " + err);
-				res.json({ message: "Error occured during retrieve of seats list."})
-			}
-		})
-	},
-	addNewItem : function(req, res) {
-		var itemDao = itemConverter.jsonToDao(req);
-		itemDao.save(function(err, result) {
-			if(!err) {
-				res.json(itemConverter.daoToJson(result));	
-			} else {
-				console.log(err.stack);
-				res.json(err)
+				callback({ message: "Error occured during retrieve of seats list."});
 			}
 		});
 	},
-	updateItem : function(req, res) {
+	addNewItem : function(req, callback) {
+		var itemDao = itemConverter.jsonToDao(req);
+		itemDao.save(function(err, result) {
+			if(!err) {
+				callback(itemConverter.daoToJson(result));	
+			} else {
+				console.log(err.stack);
+				callback(err);
+			}
+		});
+	},
+	updateItem : function(req, callback) {
 		Item.findById(req.params.item_id, function(err, result) {
 			if(!err) {
 				if(result) {
 					itemConverter.mergeJsonIntoDao(result, req);
 					result.save(function(err, result) {
 						if(!err) {
-							res.json(itemConverter.daoToJson(result));	
+							callback(itemConverter.daoToJson(result));	
 						} else {
-							res.json(err);
+							callback(err);
 						}
 					});
 					
 				} else {
-					res.json({ message : "No result found for id: " + req.params.item_id});
+					callback({ message : "No result found for id: " + req.params.item_id});
 				}
 			} else {
-				res.json(err);
+				callback(err);
 			}
-		})
+		});
 
 	},
-	getItemById : function(req, res) {
+	getItemById : function(req, callback) {
 		Item.findById(req.params.item_id, function(err, result) {
 			if(!err) {
-				res.json(itemConverter.daoToJson(result));
+				callback(itemConverter.daoToJson(result));
 			} else {
-				res.json({ message: "Error occured during the seat retrieve.", error: err })
+				callback({ message: "Error occured during the seat retrieve.", error: err });
 			}
-		})
+		});
 	},
-	deleteItem : function(req, res) {
+	deleteItem : function(req, callback) {
 		Item.findByIdAndRemove(req.params.item_id, function(err, result) {
 			if(!err) {
-				res.json(result);
+				callback(result);
 			} else {
-				res.json(err);
+				callback(err);
 			}
-		})
+		});
 	}
-}
+};
 
 module.exports = ItemService;

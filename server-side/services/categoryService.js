@@ -1,67 +1,69 @@
 var Category = require('../models/categoryDao');
 var categoryConverter = require('../converters/categoryConverter');
 var CategoryService = {
-	getAllCategories : function(req, res) {
+	getAllCategories : function(req, callback) {
 		Category.find(function(err, result) {
 			if(!err) {
-				res.json(result);
+				console.log(result);
+				callback(result);
 			} else {
 				console.log("Error occured during retrieve of seats list: " + err);
-				res.json({ message: "Error occured during retrieve of seats list."})
-			}
-		})
-	},
-	addNewCategory : function(req, res) {
-		var categoryDao = categoryConverter.jsonToDao(req);
-		categoryDao.save(function(err, result) {
-			if(!err) {
-				res.json(categoryConverter.daoToJson(result));	
-			} else {
-				console.log(err.stack);
-				res.json(err)
+				callback({ message: "Error occured during retrieve of seats list."});
 			}
 		});
 	},
-	updateCategory : function(req, res) {
+	addNewCategory : function(req, callback) {
+		var categoryDao = categoryConverter.jsonToDao(req);
+		categoryDao.save(function(err, result) {
+			if(!err) {
+				callback(categoryConverter.daoToJson(result));	
+			} else {
+				console.log(err.stack);
+				callback(err);
+			}
+		});
+	},
+	updateCategory : function(req, callback) {
 		Category.findById(req.params.category_id, function(err, result) {
 			if(!err) {
 				if(result) {
 					categoryConverter.mergeJsonIntoDao(result, req);
 					result.save(function(err, result) {
 						if(!err) {
-							res.json(categoryConverter.daoToJson(result));	
+							callback(categoryConverter.daoToJson(result));	
 						} else {
-							res.json(err);
+							callback(err);
 						}
 					});
 					
 				} else {
-					res.json({ message: "No result found for id: " + req.params.category_id});
+					callback({ message: "No result found for id: " + req.params.category_id});
 				}
 			} else {
-				res.json(err);
+				callback(err);
 			}
-		})
+		});
 
 	},
-	getCategoryById : function(req, res) {
+	getCategoryById : function(req, callback) {
 		Category.findById(req.params.category_id, function(err, result) {
 			if(!err) {
-				res.json(categoryConverter.daoToJson(result));
+				console.log(categoryConverter.daoToJson(result));
+				callback(categoryConverter.daoToJson(result));
 			} else {
-				res.json({ message: "Error occured during the seat retrieve.", error: err })
+				callback({ message: "Error occured during the seat retrieve.", error: err });
 			}
-		})
+		});
 	},
-	deleteCategory : function(req, res) {
+	deleteCategory : function(req, callback) {
 		Category.findByIdAndRemove(req.params.category_id, function(err, result) {
 			if(!err) {
-				res.json(result);
+				callback(result);
 			} else {
-				res.json(err);
+				callback(err);
 			}
-		})
+		});
 	}
-}
+};
 
 module.exports = CategoryService;
