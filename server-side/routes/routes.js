@@ -12,10 +12,5 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 
-router.route('/list')
-	.get(function(req, res) {
-        res.json({ message: 'List of seats.'});
-	});
-
 // more routes for our API will happen here
 module.exports = router;
