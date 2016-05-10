@@ -39,7 +39,7 @@ router.route('/:seat_id')
 			}
 		});
   	})
-  	.put(function(req, res) {
+  	.post(function(req, res) {
   		seatService.updateSeat(req.params.seat_id, function(err, result) {
 			if(!err) {
 				res.json(result);

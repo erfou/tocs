@@ -9,7 +9,7 @@ var SeatService = {
 
 		Seat.find(function(err, results) {
 			if(!err) {
-				for (seat of results) {
+				for (var seat of results) {
   					seatsForm.seats.push(seatConverter.daoToJson(seat));	
   				}
 				callback(seatsForm);
