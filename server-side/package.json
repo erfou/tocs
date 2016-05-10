@@ -2,6 +2,7 @@
   "name": "users-api",
   "main": "app-conf/server.js",
   "dependencies": {
+    "async": "^2.0.0-rc.4",
     "body-parser": "~1.0.1",
     "express": "~4.0.0",
     "mongoose": "^4.1.12"
