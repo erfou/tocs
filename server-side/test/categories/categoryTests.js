@@ -4,31 +4,27 @@ var expect = require("expect");
 // This agent refers to PORT where program is runninng.
 var server = supertest.agent("http://localhost:8080");
 
-var putSeat99ZReqMock = require('./mocks/putSeat99ZReqMock');
-var postSeat99ZOccupedFalseReqMock = require('./mocks/postSeat99ZOccupedFalseReqMock');
-//var seat99ZResMock = require('./mocks/seat99ZResMock');
+var putCategoryTestReqMock = require('./mocks/putCategoryTestReqMock');
+var postCategoryTestReqMock = require('./mocks/postCategoryTestReqMock');
+
+var categoryTestId;
+// test begin
+
+describe("Category tests", function(){
 
 
-var seatId = putSeat99ZReqMock.position.row + putSeat99ZReqMock.position.column;
-
-var seatAdded;
-// UNIT test begin
-
-describe("Seat tests", function(){
-
-
-  it("should return inserted (id of) seat", function(done) {
+  it("should return inserted (id of) category", function(done) {
     server
-    .put("/seats/")
-    .send(putSeat99ZReqMock)
+    .put("/categories/")
+    .send(putCategoryTestReqMock)
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
     .end(function(err, res) {
       if(!err) {
         expect(res).toExist();
         expect(res.body).toExist();
-        seatAdded = res.body;
-        expect(res.body._id).toEqual(seatId, res.body._id + ' not equal to ' +  seatId);
+        categoryTestId = res.body._id;
+        expect(res.body._id).toExist();
         done();
       } else {
         throw err;
@@ -36,17 +32,16 @@ describe("Seat tests", function(){
     });
   });
 
-  it("should return list of seats", function(done) {
+  it("should return list of categories", function(done) {
      server
-    .get("/seats/")
+    .get("/categories/")
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
     .end(function(err, res) {
       if(!err) {
         expect(res).toExist();
         expect(res.body).toExist();
-        expect(res.body.seats).toExist();
-        expect(res.body.seats).toInclude(seatAdded, "seats doesn't contains " + seatAdded);
+        expect(res.body.categories).toExist();
         done();
       } else {
         throw err;
@@ -54,18 +49,18 @@ describe("Seat tests", function(){
     });
   });
 
-  it("should return seat with field occuped update", function(done) {
+  it("should return category without ECO has compatible class", function(done) {
     server
-    .post("/seats/" + seatId)
-    .send(postSeat99ZOccupedFalseReqMock)
+    .post("/categories/" + categoryTestId)
+    .send(postCategoryTestReqMock)
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
     .end(function(err, res) {
       if(!err) {
         expect(res).toExist();
         expect(res.body).toExist();
-        expect(res.body._id).toEqual(seatId, res.body._id + ' not equal to ' +  seatId);
-        expect(res.body.occuped).toBe(postSeat99ZOccupedFalseReqMock.occuped, res.body.occuped + ' not equal to ' +  postSeat99ZOccupedFalseReqMock.occuped);
+        expect(res.body._id).toEqual(categoryTestId, res.body._id + " not equal to " +  categoryTestId);
+        expect(res.body.compatibleClasses).toExclude("ECO", "compatibleClasses should contain ECO ");
       } else {
         throw err;
       }
@@ -73,16 +68,16 @@ describe("Seat tests", function(){
     });
   });
 
-  it("should return asked seat",function(done) {
+  it("should return asked category",function(done) {
     server
-    .get("/seats/" + seatId)
+    .get("/categories/" + categoryTestId)
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
     .end(function(err, res) {
       if(!err) {
         expect(res).toExist();
         expect(res.body).toExist();
-        expect(res.body._id).toEqual(seatId);
+        expect(res.body._id).toEqual(categoryTestId);
         done();
       } else {
         throw err;
@@ -90,16 +85,16 @@ describe("Seat tests", function(){
     });
   });
 
-  it("should delete asked seat",function(done) {
+  it("should delete asked category",function(done) {
     server
-    .delete("/seats/" + seatId)
+    .delete("/categories/" + categoryTestId)
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
     .end(function(err, res) {
       if(!err) {
         expect(res).toExist();
         expect(res.body).toExist();
-        expect(res.body._id).toEqual(seatId);
+        expect(res.body._id).toEqual(categoryTestId);
         done();
       } else {
         throw err;

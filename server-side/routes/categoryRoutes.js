@@ -12,7 +12,7 @@ router.route('/')
 				res.json(err);
 			}
 		});
-	}).post(function(req, res) {
+	}).put(function(req, res) {
 		categoryService.addNewCategory(req, function(err, result) {
 			if(!err) {
 				res.json(result);
@@ -34,7 +34,8 @@ router.route('/:category_id')
 			}
 		});
   	})
-  	.put(function(req, res) {
+  	.post(function(req, res) {
+  		console.log("req from category routes: " + req);
 		categoryService.updateCategory(req, function(err, result) {
 			if(!err) {
 				res.json(result);

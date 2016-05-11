@@ -1,4 +1,4 @@
-var Seat = require('../models/seatDao');
+var Seat = require('./seatDao');
 
 var SeatConverter = {
 
@@ -7,7 +7,6 @@ var SeatConverter = {
 		initFields.call(this, seatDao, req);
 		return seatDao;
 	},
-	
 	daoToJson : function(seatDao){
 		console.log("from converter: seatDao" + seatDao);
 		console.log("from converter: seatDao._id" + seatDao._id);
@@ -18,6 +17,13 @@ var SeatConverter = {
 		};
 		console.log("from converter: result" + result);
 		return result;
+	},
+	daoListToJson : function(seatListDao) {
+		var seatsForm = { seats: [] };
+		for (var seat of seatListDao) {
+			seatsForm.seats.push(this.daoToJson(seat));	
+		}
+		return seatsForm;
 	},
 	
 	mergeJsonIntoDao : function(seatDao, req) {

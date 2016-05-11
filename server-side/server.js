@@ -20,8 +20,8 @@ var port = process.env.PORT || 8080;        // set our port
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use(require('./routes/routes'));
-app.use('/seats/', require('./routes/seatRoutes'));
-app.use('/clients/', require('./routes/clientRoutes'));
+app.use('/seats/', require('./seats').routes);
+//app.use('/clients/', require('./routes/clientRoutes'));
 app.use('/categories/', require('./routes/categoryRoutes'));
 app.use('/categories/:category_id/items', require('./routes/itemRoutes'));
 

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var seatValidator = require('../validators/seatValidator');
-var seatService = require('../services/seatService');
+var seatValidator = require('./seatValidator');
+var seatService = require('./seatServices');
 
 router.route('/')
 	.get(function(req, res) {

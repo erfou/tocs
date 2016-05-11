@@ -13,8 +13,15 @@ var CategoryConverter = {
 			_id : categoryDao._id,
 			name : categoryDao.name,
 		 	description : categoryDao.description,		
-		 	fareClasses : categoryDao.fareClasses			
+		 	compatibleClasses : categoryDao.compatibleClasses			
 		};
+	},
+	daoListToJson : function(categoryListDao) {
+		var categoriesForm = { categories: [] };
+		for (var category of categoryListDao) {
+			categoriesForm.categories.push(this.daoToJson(category));	
+		}
+		return categoriesForm;
 	},
 	
 	mergeJsonIntoDao : function(categoryDao, req) {
@@ -26,6 +33,7 @@ var CategoryConverter = {
 function initFields(categoryDao, req) {
 		categoryDao.name = req.body.name;
 		categoryDao.description = req.body.description;
-		categoryDao.fareClasses = req.body.fareClasses;
+		categoryDao.compatibleClasses = req.body.compatibleClasses;
 }
+
 module.exports = CategoryConverter;

@@ -1,19 +1,12 @@
-var Seat = require('../models/seatDao');
-var seatConverter = require('../converters/seatConverter');
+var Seat = require('./seatDao');
+var seatConverter = require('./seatConverter');
 
 var SeatService = {
 	getAllSeats : function(req, callback) {
-		var seatsForm = {
-			seats: []
-		};
-
 		Seat.find(function(err, results) {
 			if(!err) {
 				if(results) {
-					for (var seat of results) {
-	  					seatsForm.seats.push(seatConverter.daoToJson(seat));	
-	  				}
-					callback(seatsForm);
+					callback(seatConverter.daoListToJson(results));
 				} else {
 					callback({ message: "No seats found."});
 				}

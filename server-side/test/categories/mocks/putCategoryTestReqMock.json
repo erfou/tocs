@@ -1,0 +1,9 @@
+{
+    "name": "Test",
+    "description": "Catégorie de test",
+    "compatibleClasses": [
+            "PRE",
+            "ECO",
+            "BUS"
+        ]
+}

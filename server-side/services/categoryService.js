@@ -2,10 +2,10 @@ var Category = require('../models/categoryDao');
 var categoryConverter = require('../converters/categoryConverter');
 var CategoryService = {
 	getAllCategories : function(req, callback) {
-		Category.find(function(err, result) {
+		Category.find(function(err, results) {
 			if(!err) {
-				console.log(result);
-				callback(result);
+				console.log(results);
+				callback(categoryConverter.daoListToJson(results));
 			} else {
 				console.log("Error occured during retrieve of seats list: " + err);
 				callback({ message: "Error occured during retrieve of seats list."});
