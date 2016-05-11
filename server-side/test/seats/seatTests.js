@@ -71,15 +71,20 @@ describe("Seat tests", function(){
     });
   });
 
-/*
   it("should return asked seat",function(done) {
     server
     .get("/seats/" + seatId)
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
-    .end(function(res) {
-      res.body._id.should.equal(seatId);
-      done();
+    .end(function(err, res) {
+      if(!err) {
+        expect(res).toExist();
+        expect(res.body).toExist();
+        expect(res.body._id).toEqual(seatId);
+        done();
+      } else {
+        throw err;
+      }
     });
   });
 
@@ -88,9 +93,15 @@ describe("Seat tests", function(){
     .delete("/seats/" + seatId)
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
-    .end(function(res) {
-      res.body.occuped.should.equal(postSeatReq.occuped);
-      done();
+    .end(function(err, res) {
+      if(!err) {
+        expect(res).toExist();
+        expect(res.body).toExist();
+        expect(res.body._id).toEqual(seatId);
+        done();
+      } else {
+        throw err;
+      }
     });
   });
 
@@ -99,10 +110,18 @@ describe("Seat tests", function(){
     .get("/seats/" + seatId)
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
-    .end(function(res) {
-      res.body.should.equal("zez");
-      done();
+    .end(function(err, res) {
+      var noResultRes = require("./mocks/getSeatsNoResult");
+        if(!err) {
+          expect(res).toExist();
+          expect(res.body).toExist();
+          expect(res.body.message).toExist();
+          expect(res.body.message).toEqual(noResultRes.message, res.body.message + " not equal to: " + noResultRes.message);
+          done();
+        } else {
+          throw err;
+        }
     });
   });
-*/
+
 });

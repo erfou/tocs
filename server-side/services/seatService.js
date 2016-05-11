@@ -9,10 +9,14 @@ var SeatService = {
 
 		Seat.find(function(err, results) {
 			if(!err) {
-				for (var seat of results) {
-  					seatsForm.seats.push(seatConverter.daoToJson(seat));	
-  				}
-				callback(seatsForm);
+				if(results) {
+					for (var seat of results) {
+	  					seatsForm.seats.push(seatConverter.daoToJson(seat));	
+	  				}
+					callback(seatsForm);
+				} else {
+					callback({ message: "No seats found."});
+				}
 			} else {
 				console.log("Error occured during retrieve of seats list: " + err);
 				callback({ message: "Error occured during retrieve of seats list."});
@@ -22,9 +26,13 @@ var SeatService = {
 	getSeatById : function(id, callback) {
 		Seat.findById(id, function(err, result) {
 			if(!err) {
-				console.log("from service result: " + result);
-				console.log("from service result._id: " + result._id);
-				callback(seatConverter.daoToJson(result));
+				if(result) {
+					console.log("from service result: " + result);
+					console.log("from service result._id: " + result._id);
+					callback(seatConverter.daoToJson(result));
+				} else {
+					callback({ message: "No result found for id: " + id })
+				}
 			} else {
 				callback({ message: "Error occured during the seat retrieve.", error: err });
 			}
@@ -40,9 +48,13 @@ var SeatService = {
 				console.log("err from service: " + err);
 				console.log("result from service: " + result);
 				if(!err) {
-					console.log("from service result: " + result);
-					console.log("from service result._id: " + result._id);
-					callback(seatConverter.daoToJson(result));
+					if(result) {
+						console.log("from service result: " + result);
+						console.log("from service result._id: " + result._id);
+						callback(seatConverter.daoToJson(result));
+					} else {
+						callback({ message: "No result found for position: " + position });
+					}
 				} else {
 					callback({ message: "Error occured during the seat retrieve.", error: err });
 				}
@@ -52,7 +64,11 @@ var SeatService = {
 		var seatDao = seatConverter.jsonToDao(req);
 		seatDao.save(function(err, result) {
 			if(!err) {
-				callback(seatConverter.daoToJson(result));	
+				if(result) {
+					callback(seatConverter.daoToJson(result));	
+				} else {
+					callback({ message: "error saving: " + req + " result doesn't exist: " + result});
+				}
 			} else {
 				console.log(err.stack);
 				callback(err);
