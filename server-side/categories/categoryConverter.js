@@ -1,4 +1,4 @@
-var Category = require('../models/categoryDao');
+var Category = require('./categoryDao');
 
 var CategoryConverter = {
 

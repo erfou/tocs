@@ -22,7 +22,7 @@ var port = process.env.PORT || 8080;        // set our port
 app.use(require('./routes/routes'));
 app.use('/seats/', require('./seats').routes);
 //app.use('/clients/', require('./routes/clientRoutes'));
-app.use('/categories/', require('./routes/categoryRoutes'));
+app.use('/categories/', require('./categories').routes);
 app.use('/categories/:category_id/items', require('./routes/itemRoutes'));
 
 

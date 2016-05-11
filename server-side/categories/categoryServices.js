@@ -1,5 +1,5 @@
-var Category = require('../models/categoryDao');
-var categoryConverter = require('../converters/categoryConverter');
+var Category = require('./categoryDao');
+var categoryConverter = require('./categoryConverter');
 var CategoryService = {
 	getAllCategories : function(req, callback) {
 		Category.find(function(err, results) {
