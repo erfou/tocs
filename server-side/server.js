@@ -28,5 +28,5 @@ app.use('/categories/:category_id/items', require('./routes/itemRoutes'));
 
 // START THE SERVER
 // =============================================================================
-app.listen(process.env.PORT, process.env.IP, done);
+app.listen(port);
 console.log('Magic happens on port ' + port);

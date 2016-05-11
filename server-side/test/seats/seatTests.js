@@ -1,11 +1,14 @@
 var supertest = require("supertest");
 var should = require("should");
-// This agent refers to PORT where program is runninng.
-//var server = supertest.agent("http://localhost:8080");
-var server = supertest.agent("https://tocs-eric06.c9users.io");
+var expect = require("expect");
 
-var putSeatReq = require('./mocks/putSeatReqMock.json');
-var postSeatReq = require('./mocks/postSeatReqMock.json');
+// This agent refers to PORT where program is runninng.
+var server = supertest.agent("http://localhost:8080");
+//var server = supertest.agent("https://tocs-eric06.c9users.io");
+
+var putSeatReq = require('./mocks/putSeatReqMock');
+var postSeatReq = require('./mocks/postSeatReqMock');
+var seat99ZResMock = require('./mocks/seat99ZResMock');
 
 
 var seatId = putSeatReq.position.row + putSeatReq.position.column;
@@ -13,6 +16,7 @@ var seatId = putSeatReq.position.row + putSeatReq.position.column;
 // UNIT test begin
 
 describe("Seat tests",function(){
+
 
   it("should return inserted (id of) seat",function(done) {
     server
@@ -22,9 +26,10 @@ describe("Seat tests",function(){
     .expect(200) // THis is HTTP response
     .end(function(err, res) {
       if(!err) {
-        if(res.body) {
-          done();
-        }
+        expect(res).toExist();
+        expect(res.body).toExist();
+        expect(res.body._id).toEqual(seatId, res.body._id + ' not equal to ' +  seatId + " from res: " + res.body);
+        done();
       } else {
         throw err;
       }
@@ -36,20 +41,19 @@ describe("Seat tests",function(){
     .get("/seats/")
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
-    .end(function(res) {
-      var seats = res.body.seats;
-      var hasExpectedResult = false;
-      for(var i = 0; i < seats.length; i++) {
-        if(seats[i]._id === seatId) {
-          hasExpectedResult = true;
-        }
-      	if(hasExpectedResult.should.equal(true)) {
-          done();
-      	}
+    .end(function(err, res) {
+      if(!err) {
+        expect(res).toExist();
+        expect(res.body).toExist();
+        expect(res.body.seats).toExist();
+        expect(res.body.seats).toInclude(seat99ZResMock, "seats doesn't contains " + seat99ZResMock);
+        done();
+      } else {
+        throw err;
       }
     });
   });
-
+/*
   it("should return seat with field occuped update",function(done) {
     server
     .post("/seats/" + seatId)
@@ -94,5 +98,5 @@ describe("Seat tests",function(){
       done();
     });
   });
-
+*/
 });
