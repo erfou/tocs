@@ -59,8 +59,8 @@ var SeatService = {
 			}
 		});
 	},
-	updateSeat : function(id, callback) {
-		Seat.findById(id, function(err, result) {
+	updateSeat : function(req, callback) {
+		Seat.findById(req.params.seat_id, function(err, result) {
 			if(!err) {
 				if(result) {
 					seatConverter.mergeJsonIntoDao(result, req);

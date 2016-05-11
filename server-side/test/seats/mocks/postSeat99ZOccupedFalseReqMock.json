@@ -3,5 +3,5 @@
         "row": "99",
         "column": "Z"
     },
-    "occuped" : "false"
+    "occuped" : false
 }

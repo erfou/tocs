@@ -1,34 +1,32 @@
 var supertest = require("supertest");
-var should = require("should");
 var expect = require("expect");
 
 // This agent refers to PORT where program is runninng.
 var server = supertest.agent("http://localhost:8080");
-//var server = supertest.agent("https://tocs-eric06.c9users.io");
 
-var putSeatReq = require('./mocks/putSeatReqMock');
-var postSeatReq = require('./mocks/postSeatReqMock');
+var putSeat99ZReqMock = require('./mocks/putSeat99ZReqMock');
+var postSeat99ZOccupedFalseReqMock = require('./mocks/postSeat99ZOccupedFalseReqMock');
 var seat99ZResMock = require('./mocks/seat99ZResMock');
 
 
-var seatId = putSeatReq.position.row + putSeatReq.position.column;
+var seatId = putSeat99ZReqMock.position.row + putSeat99ZReqMock.position.column;
 
 // UNIT test begin
 
-describe("Seat tests",function(){
+describe("Seat tests", function(){
 
 
-  it("should return inserted (id of) seat",function(done) {
+  it("should return inserted (id of) seat", function(done) {
     server
     .put("/seats/")
-    .send(putSeatReq)
+    .send(putSeat99ZReqMock)
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
     .end(function(err, res) {
       if(!err) {
         expect(res).toExist();
         expect(res.body).toExist();
-        expect(res.body._id).toEqual(seatId, res.body._id + ' not equal to ' +  seatId + " from res: " + res.body);
+        expect(res.body._id).toEqual(seatId, res.body._id + ' not equal to ' +  seatId);
         done();
       } else {
         throw err;
@@ -36,7 +34,7 @@ describe("Seat tests",function(){
     });
   });
 
-  it("should return list of seats",function(done) {
+  it("should return list of seats", function(done) {
      server
     .get("/seats/")
     .expect("Content-type",/json/)
@@ -53,19 +51,27 @@ describe("Seat tests",function(){
       }
     });
   });
-/*
-  it("should return seat with field occuped update",function(done) {
+
+  it("should return seat with field occuped update", function(done) {
     server
     .post("/seats/" + seatId)
-    .send(postSeatReq)
+    .send(postSeat99ZOccupedFalseReqMock)
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
-    .end(function(res) {
-      res.should.equal("");
+    .end(function(err, res) {
+      if(!err) {
+        expect(res).toExist();
+        expect(res.body).toExist();
+        expect(res.body._id).toEqual(seatId, res.body._id + ' not equal to ' +  seatId);
+        expect(res.body.occuped).toBe(postSeat99ZOccupedFalseReqMock.occuped, res.body.occuped + ' not equal to ' +  postSeat99ZOccupedFalseReqMock.occuped);
+      } else {
+        throw err;
+      }
       done();
     });
   });
 
+/*
   it("should return asked seat",function(done) {
     server
     .get("/seats/" + seatId)
