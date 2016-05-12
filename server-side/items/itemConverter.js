@@ -1,4 +1,4 @@
-var Item = require('../models/itemDao');
+var Item = require('./itemDao');
 
 var ItemConverter = {
 

@@ -1,5 +1,5 @@
-var Item = require('../models/itemDao');
-var itemConverter = require('../converters/itemConverter');
+var Item = require('./itemDao');
+var itemConverter = require('./itemConverter');
 var ItemService = {
 	getAllItems : function(req, callback) {
 		Item.find({'categoryId' : req.params.category_id},function(err, result) {
