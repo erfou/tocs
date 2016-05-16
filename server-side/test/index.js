@@ -1,2 +1,3 @@
-require("./categories/categoryTests");
-require("./seats/seatTests");
+//require("./seats/seatTests");
+require("./items/itemTests");
+//require("./categories/categoryTests");

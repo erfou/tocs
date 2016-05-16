@@ -18,6 +18,13 @@ var ItemConverter = {
 			currency : itemDao.currency,
 		};
 	},
+	daoListToJson : function(itemListDao) {
+		var itemsForm = { items: [] };
+		for (var item of itemListDao) {
+			itemsForm.items.push(this.daoToJson(item));	
+		}
+		return itemsForm;
+	},
 	
 	mergeJsonIntoDao : function(itemDao, req) {
 		initFields.call(this, itemDao, req);

@@ -4,8 +4,8 @@ var expect = require("expect");
 // This agent refers to PORT where program is runninng.
 var server = supertest.agent("http://localhost:8080");
 
-var putItem99ZReqMock = require('./mocks/putItem99ZReqMock');
-var postItem99ZOccupedFalseReqMock = require('./mocks/postItem99ZOccupedFalseReqMock');
+var putItemReqMock = require('./mocks/putItemReqMock');
+var postItemReqMock = require('./mocks/postItemReqMock');
 //var item99ZResMock = require('./mocks/item99ZResMock');
 
 var itemAdded;
@@ -16,7 +16,7 @@ describe("Item tests", function(){
   it("should return inserted (id of) item", function(done) {
     server
     .put("/items/")
-    .send(putItem99ZReqMock)
+    .send(putItemReqMock)
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
     .end(function(err, res) {
@@ -52,16 +52,16 @@ describe("Item tests", function(){
 
   it("should return item with field occuped update", function(done) {
     server
-    .post("/items/" + itemId)
-    .send(postItem99ZOccupedFalseReqMock)
+    .post("/items/" + itemAdded._id)
+    .send(postItemReqMock)
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
     .end(function(err, res) {
       if(!err) {
         expect(res).toExist();
         expect(res.body).toExist();
-        expect(res.body._id).toEqual(itemId, res.body._id + ' not equal to ' +  itemId);
-        expect(res.body.occuped).toBe(postItem99ZOccupedFalseReqMock.occuped, res.body.occuped + ' not equal to ' +  postItem99ZOccupedFalseReqMock.occuped);
+        expect(res.body._id).toEqual(itemAdded._id, res.body._id + ' not equal to ' +  itemAdded._id);
+        expect(res.body.price).toEqual(postItemReqMock.price, res.body.price + ' not equal to ' +  postItemReqMock.price);
       } else {
         throw err;
       }
@@ -71,14 +71,14 @@ describe("Item tests", function(){
 
   it("should return asked item",function(done) {
     server
-    .get("/items/" + itemId)
+    .get("/items/" + itemAdded._id)
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
     .end(function(err, res) {
       if(!err) {
         expect(res).toExist();
         expect(res.body).toExist();
-        expect(res.body._id).toEqual(itemId);
+        expect(res.body._id).toEqual(itemAdded._id);
         done();
       } else {
         throw err;
@@ -88,14 +88,14 @@ describe("Item tests", function(){
 
   it("should delete asked item",function(done) {
     server
-    .delete("/items/" + itemId)
+    .delete("/items/" + itemAdded._id)
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
     .end(function(err, res) {
       if(!err) {
         expect(res).toExist();
         expect(res.body).toExist();
-        expect(res.body._id).toEqual(itemId);
+        expect(res.body._id).toEqual(itemAdded._id);
         done();
       } else {
         throw err;

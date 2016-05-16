@@ -2,9 +2,9 @@ var Item = require('./itemDao');
 var itemConverter = require('./itemConverter');
 var ItemService = {
 	getAllItems : function(req, callback) {
-		Item.find({'categoryId' : req.params.category_id},function(err, result) {
+		Item.find({'categoryId' : req.params.category_id},function(err, results) {
 			if(!err) {
-				callback(result);
+				callback(itemConverter.daoListToJson(results));
 			} else {
 				console.log("Error occured during retrieve of seats list: " + err);
 				callback({ message: "Error occured during retrieve of seats list."});

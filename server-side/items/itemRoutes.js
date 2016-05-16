@@ -12,7 +12,7 @@ router.route('/')
 				res.json(err);
 			}
 		});
-	}).post(function(req, res) {
+	}).put(function(req, res) {
 		itemService.addNewItem(req, function(err, result) {
 			if(!err) {
 				res.json(result);
@@ -34,7 +34,7 @@ router.route('/:item_id')
 			}
 		});
   	})
-  	.put(function(req, res) {
+  	.post(function(req, res) {
 		itemService.updateItem(req, function(err, result) {
 			if(!err) {
 				res.json(result);
