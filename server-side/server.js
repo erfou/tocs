@@ -21,7 +21,7 @@ var port = process.env.PORT || 8080;        // set our port
 // all of our routes will be prefixed with /api
 app.use(require('./routes/routes'));
 app.use('/seats/', require('./seats').routes);
-//app.use('/clients/', require('./routes/clientRoutes'));
+app.use('/clients/', require('./clients').routes);
 app.use('/categories/', require('./categories').routes);
 app.use('/items/', require('./items').routes);
 

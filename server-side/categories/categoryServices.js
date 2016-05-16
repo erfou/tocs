@@ -4,7 +4,6 @@ var CategoryService = {
 	getAllCategories : function(req, callback) {
 		Category.find(function(err, results) {
 			if(!err) {
-				console.log(results);
 				callback(categoryConverter.daoListToJson(results));
 			} else {
 				console.log("Error occured during retrieve of seats list: " + err);
@@ -48,7 +47,6 @@ var CategoryService = {
 	getCategoryById : function(req, callback) {
 		Category.findById(req.params.category_id, function(err, result) {
 			if(!err) {
-				console.log(categoryConverter.daoToJson(result));
 				callback(categoryConverter.daoToJson(result));
 			} else {
 				callback({ message: "Error occured during the seat retrieve.", error: err });

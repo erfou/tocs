@@ -1,6 +1,6 @@
 var async = require('async');
-var categoryService = require('../services/categoryService');
-var seatService = require('../services/seatService');
+var categoryService = require('../categories').services;
+var seatService = require('../seats').services;
 
 var homeManager = {
     
@@ -36,7 +36,7 @@ var homeManager = {
                     } else {
                         callback(result);
                     }
-                })
+                });
             }
         ],
         // optional callback
@@ -44,6 +44,7 @@ var homeManager = {
             if(!err) {
                 homeForm.seat = results[0];
                 homeForm.categories = results[1];
+                console.log("----------------------------------------------------------------------------------------------------- from callbackAsync: " + homeForm);
                 callback(homeForm);
             } else {
                 callback(err);

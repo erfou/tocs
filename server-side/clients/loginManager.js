@@ -1,4 +1,4 @@
-var seatService = require('../services/seatService');
+var seatService = require('../seats').services;
 
 var loginManager = {
     

@@ -20,8 +20,6 @@ var SeatService = {
 		Seat.findById(id, function(err, result) {
 			if(!err) {
 				if(result) {
-					console.log("from service result: " + result);
-					console.log("from service result._id: " + result._id);
 					callback(seatConverter.daoToJson(result));
 				} else {
 					callback({ message: "No result found for id: " + id })
@@ -32,14 +30,11 @@ var SeatService = {
 		});
 	},
 	getSeatByPosition : function(position, callback) {
-		console.log(position);
 		Seat.find({ 
 			'position.column': position.column,
 			'position.row': position.row
 			}
 			, function(err, result) {
-				console.log("err from service: " + err);
-				console.log("result from service: " + result);
 				if(!err) {
 					if(result) {
 						console.log("from service result: " + result);

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var loginManager = require('../managers/loginManager');
-var homeManager = require('../managers/homeManager');
+var loginManager = require('./loginManager');
+var homeManager = require('./homeManager');
 
 router.route('/login')
 	.post(function(req, res) {
