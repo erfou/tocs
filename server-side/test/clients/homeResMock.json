@@ -1,0 +1,76 @@
+{
+	"view": {
+		"breadcrumbElements": [
+			{
+				"rel": "Acceuil",
+				"href": "/client/home",
+				"current": true
+			}
+		],
+		"seat": {
+			"title": "Siège 20B",
+			"id": "20B",
+			"link": "/client/seats/20B"
+		},
+		"categories": {
+			"title": "Services disponibles",
+			"items": [
+				{
+				  "_id": "5735715aacff1e1c0f000001",
+				  "name": "Repas",
+				  "description": "Choisir un repas",
+				  "compatibleClasses": [
+				    "ECO",
+				    "PRE",
+				    "BUS"
+				  ],
+				  "link": {
+					"rel": "Repas",
+					"href": "/client/seat/20B/category/5735715aacff1e1c0f000001"
+				  }
+				},
+				{
+				  "_id": "5735715aacff1e1c0f000001",
+				  "name": "Collations",
+				  "description": "Encas sucré et salé",
+				  "compatibleClasses": [
+				    "ECO",
+				    "PRE",
+				    "BUS"
+				  ],
+				  "link": {
+					"rel": "Collations",
+					"href": "/client/seat/20B/category/5735715aacff1e1c0f000001"
+				  }
+				},
+				{
+				  "_id": "5735715aacff1e1c0f000001",
+				  "name": "Autres services",
+				  "description": "Réveil, shopping, confort",
+				  "compatibleClasses": [
+				    "PRE",
+				    "BUS"
+				  ],
+				  "link": {
+					"rel": "Autres services",
+					"href": "/client/seat/20B/category/5735715aacff1e1c0f000001"
+				  }
+				},
+				{
+				  "_id": "5735715aacff1e1c0f000001",
+				  "name": "Informations",
+				  "description": "Information sur le vol",
+				  "compatibleClasses": [
+				    "ECO",
+				    "PRE",
+				    "BUS"
+				  ],
+				  "link": {
+					"rel": "Informations",
+					"href": "/client/seat/20B/category/5735715aacff1e1c0f000001"
+				  }
+				}
+			]
+		}
+	}
+}
