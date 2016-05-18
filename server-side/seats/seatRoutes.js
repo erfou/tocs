@@ -28,6 +28,24 @@ router.route('/')
 			res.json(validation);
 		}
   	});
+router.route('/:seat_id?occuped=:occuped')
+	.post(function(req, res) {
+		var validation = seatValidator(req);
+		if(validation.valid) {
+			console.log("seat_id: " + req.params.seat_id);
+			console.log("occuped: " + req.params.occuped);
+	    	seatService.updateSeat(req, function(err, result) {
+				if(!err) {
+					res.json(result);
+				} else {
+					console.log(err);
+					res.json(err);
+				}
+			});
+		} else {
+			res.json(validation);
+		}
+  	});
 router.route('/:seat_id')
   	.get(function(req,res) {
 		seatService.getSeatById(req.params.seat_id, function(err, result) {

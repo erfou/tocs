@@ -20,7 +20,7 @@ var loginManager = {
                 callback(loginForm);
             } else {
                 console.log("from loginManager: " + err);
-                callback(err);
+                callback(err, null);
             }
         });
         

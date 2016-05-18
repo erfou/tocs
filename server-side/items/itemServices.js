@@ -18,7 +18,7 @@ var ItemService = {
 				callback(itemConverter.daoToJson(result));	
 			} else {
 				console.log(err.stack);
-				callback(err);
+				callback(err, null);
 			}
 		});
 	},
@@ -31,7 +31,7 @@ var ItemService = {
 						if(!err) {
 							callback(itemConverter.daoToJson(result));	
 						} else {
-							callback(err);
+							callback(err, null);
 						}
 					});
 					
@@ -39,7 +39,7 @@ var ItemService = {
 					callback({ message : "No result found for id: " + req.params.item_id});
 				}
 			} else {
-				callback(err);
+				callback(err, null);
 			}
 		});
 
@@ -56,9 +56,9 @@ var ItemService = {
 	deleteItem : function(req, callback) {
 		Item.findByIdAndRemove(req.params.item_id, function(err, result) {
 			if(!err) {
-				callback(result);
+				callback(null, result);
 			} else {
-				callback(err);
+				callback(err, null);
 			}
 		});
 	}

@@ -6,9 +6,9 @@ var SeatService = {
 		Seat.find(function(err, results) {
 			if(!err) {
 				if(results) {
-					callback(seatConverter.daoListToJson(results));
+					callback(null, seatConverter.daoListToJson(results));
 				} else {
-					callback({ message: "No seats found."});
+					callback({ message: "No seats found."}, null);
 				}
 			} else {
 				console.log("Error occured during retrieve of seats list: " + err);
@@ -20,9 +20,9 @@ var SeatService = {
 		Seat.findById(id, function(err, result) {
 			if(!err) {
 				if(result) {
-					callback(seatConverter.daoToJson(result));
+					callback(null, seatConverter.daoToJson(result));
 				} else {
-					callback({ message: "No result found for id: " + id })
+					callback({ message: "No result found for id: " + id }, null);
 				}
 			} else {
 				callback({ message: "Error occured during the seat retrieve.", error: err });
@@ -37,8 +37,6 @@ var SeatService = {
 			, function(err, result) {
 				if(!err) {
 					if(result) {
-						console.log("from service result: " + result);
-						console.log("from service result._id: " + result._id);
 						callback(seatConverter.daoToJson(result));
 					} else {
 						callback({ message: "No result found for position: " + position });
@@ -59,7 +57,7 @@ var SeatService = {
 				}
 			} else {
 				console.log(err.stack);
-				callback(err);
+				callback(err, null);
 			}
 		});
 	},
@@ -67,12 +65,16 @@ var SeatService = {
 		Seat.findById(req.params.seat_id, function(err, result) {
 			if(!err) {
 				if(result) {
-					seatConverter.mergeJsonIntoDao(result, req);
+					if(req.query.occuped) {
+						result.occuped = req.query.occuped;
+					} else {
+						seatConverter.mergeJsonIntoDao(result, req);
+					}
 					result.save(function(err, result) {
 						if(!err) {
 							callback(seatConverter.daoToJson(result));	
 						} else {
-							callback(err);
+							callback(err, null);
 						}
 					});
 					
@@ -80,7 +82,7 @@ var SeatService = {
 					callback({ message : "No result found for id: " + req.params.seat_id});
 				}
 			} else {
-				callback(err);
+				callback(err, null);
 			}
 		});
 
@@ -88,9 +90,9 @@ var SeatService = {
 	deleteSeat : function(id, callback) {
 		Seat.findByIdAndRemove(id, function(err, result) {
 			if(!err) {
-				callback(result);
+				callback(null, result);
 			} else {
-				callback(err);
+				callback(err, null);
 			}
 		});
 	}

@@ -4,10 +4,10 @@ var CategoryService = {
 	getAllCategories : function(req, callback) {
 		Category.find(function(err, results) {
 			if(!err) {
-				callback(categoryConverter.daoListToJson(results));
+				callback(null, categoryConverter.daoListToJson(results));
 			} else {
 				console.log("Error occured during retrieve of seats list: " + err);
-				callback({ message: "Error occured during retrieve of seats list."});
+				callback({ message: "Error occured during retrieve of seats list."}, null);
 			}
 		});
 	},
@@ -18,7 +18,7 @@ var CategoryService = {
 				callback(categoryConverter.daoToJson(result));	
 			} else {
 				console.log(err.stack);
-				callback(err);
+				callback(err, null);
 			}
 		});
 	},
@@ -31,7 +31,7 @@ var CategoryService = {
 						if(!err) {
 							callback(categoryConverter.daoToJson(result));	
 						} else {
-							callback(err);
+							callback(err, null);
 						}
 					});
 					
@@ -39,7 +39,7 @@ var CategoryService = {
 					callback({ message: "No result found for id: " + req.params.category_id});
 				}
 			} else {
-				callback(err);
+				callback(err, null);
 			}
 		});
 
@@ -56,9 +56,9 @@ var CategoryService = {
 	deleteCategory : function(req, callback) {
 		Category.findByIdAndRemove(req.params.category_id, function(err, result) {
 			if(!err) {
-				callback(result);
+				callback(null, result);
 			} else {
-				callback(err);
+				callback(err, null);
 			}
 		});
 	}

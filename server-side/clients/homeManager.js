@@ -22,19 +22,20 @@ var homeManager = {
             function(callback) { 
                 seatService.getSeatById(req.params.seat_id, function(err, result) {
                     if(!err) {
-                        callback(result);
+                        callback(null, result);
                     } else {
                         console.log(err);
-                        callback(err);
+                        callback(err, null);
                     }
-                })
+                });
             },
             function(callback) { 
                 categoryService.getAllCategories(req.body.position, function(err, result) {
                     if(!err) {
-                        callback(homeForm);
+                        callback(null, result);
                     } else {
-                        callback(result);
+                        console.log("err occured during retrieve of categories from homeManager: " + err.categories[0].description);
+                        callback(err, null);//callback(err, null);
                     }
                 });
             }
@@ -44,23 +45,12 @@ var homeManager = {
             if(!err) {
                 homeForm.seat = results[0];
                 homeForm.categories = results[1];
-                console.log("----------------------------------------------------------------------------------------------------- from callbackAsync: " + homeForm);
-                callback(homeForm);
+                callback(null, homeForm);
             } else {
-                callback(err);
+                callback(err, null);
             }
             // results is now equal to ['one', 'two']
-        });        
-
-        categoryService.getAllCategories(req.body.position, function(err, result) {
-            if(!err) {
-                homeForm.categories = result;
-                callback(homeForm);
-            } else {
-                callback(err);
-            }
         });
-        
     }
 };
 
