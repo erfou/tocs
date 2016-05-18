@@ -1,28 +1,31 @@
 var async = require('async');
 var categoryService = require('../categories').services;
 var seatService = require('../seats').services;
+var SeatView = require('../seats').view;
 
 var homeManager = {
     
     load : function(req, callback) {
         
         var homeForm = {
-            seat: {},
-            categories : {},
-            links: [
-                {
-                    rel: "Mes services",
-                    desc: "Visualiser la liste des services commandés.",
-                    href: "/orders/:seat_id"
-                }
-            ]
+    		breadcrumbElements: [
+    			{
+    				link: {
+    					rel: "Acceuil",
+    					href: "/clients/home"
+    				},
+    				current: true
+    			}
+    		],
+            seatView: {},
+            categories : {}
         };
         
         async.series([
             function(callback) { 
                 seatService.getSeatById(req.params.seat_id, function(err, result) {
                     if(!err) {
-                        callback(null, result);
+                        callback(null, new SeatView(result));
                     } else {
                         console.log(err);
                         callback(err, null);
@@ -43,7 +46,7 @@ var homeManager = {
         // optional callback
         function(err, results){
             if(!err) {
-                homeForm.seat = results[0];
+                homeForm.seatView = results[0];
                 homeForm.categories = results[1];
                 callback(null, homeForm);
             } else {
