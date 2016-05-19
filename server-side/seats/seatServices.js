@@ -12,7 +12,7 @@ var SeatService = {
 				}
 			} else {
 				console.log("Error occured during retrieve of seats list: " + err);
-				callback({ message: "Error occured during retrieve of seats list."});
+				callback({ message: "Error occured during retrieve of seats list."}, null);
 			}
 		});
 	},
@@ -25,7 +25,7 @@ var SeatService = {
 					callback({ message: "No result found for id: " + id }, null);
 				}
 			} else {
-				callback({ message: "Error occured during the seat retrieve.", error: err });
+				callback({ message: "Error occured during the seat retrieve.", error: err }, null);
 			}
 		});
 	},
@@ -37,12 +37,12 @@ var SeatService = {
 			, function(err, result) {
 				if(!err) {
 					if(result) {
-						callback(seatConverter.daoToJson(result));
+						callback(null, seatConverter.daoToJson(result));
 					} else {
-						callback({ message: "No result found for position: " + position });
+						callback({ message: "No result found for position: " + position }, null);
 					}
 				} else {
-					callback({ message: "Error occured during the seat retrieve.", error: err });
+					callback({ message: "Error occured during the seat retrieve.", error: err }, null);
 				}
 		});
 	},
@@ -51,9 +51,9 @@ var SeatService = {
 		seatDao.save(function(err, result) {
 			if(!err) {
 				if(result) {
-					callback(seatConverter.daoToJson(result));	
+					callback(null, seatConverter.daoToJson(result));	
 				} else {
-					callback({ message: "error saving: " + req + " result doesn't exist: " + result});
+					callback({ message: "error saving: " + req + " result doesn't exist: " + result}, null);
 				}
 			} else {
 				console.log(err.stack);
@@ -72,7 +72,7 @@ var SeatService = {
 					}
 					result.save(function(err, result) {
 						if(!err) {
-							callback(seatConverter.daoToJson(result));	
+							callback(null, seatConverter.daoToJson(result));	
 						} else {
 							callback(err, null);
 						}

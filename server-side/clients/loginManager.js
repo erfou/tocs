@@ -17,7 +17,7 @@ var loginManager = {
             if(!err) {
                 console.log("from loginManager: " + result);
                 loginForm.seat = result;
-                callback(loginForm);
+                callback(null, loginForm);
             } else {
                 console.log("from loginManager: " + err);
                 callback(err, null);

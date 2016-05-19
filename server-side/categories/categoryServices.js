@@ -15,7 +15,7 @@ var CategoryService = {
 		var categoryDao = categoryConverter.jsonToDao(req);
 		categoryDao.save(function(err, result) {
 			if(!err) {
-				callback(categoryConverter.daoToJson(result));	
+				callback(categoryConverter.daoToJson(result), null);	
 			} else {
 				console.log(err.stack);
 				callback(err, null);
@@ -29,14 +29,14 @@ var CategoryService = {
 					categoryConverter.mergeJsonIntoDao(result, req);
 					result.save(function(err, result) {
 						if(!err) {
-							callback(categoryConverter.daoToJson(result));	
+							callback(null, categoryConverter.daoToJson(result));	
 						} else {
 							callback(err, null);
 						}
 					});
 					
 				} else {
-					callback({ message: "No result found for id: " + req.params.category_id});
+					callback({ message: "No result found for id: " + req.params.category_id}, null);
 				}
 			} else {
 				callback(err, null);
@@ -47,9 +47,9 @@ var CategoryService = {
 	getCategoryById : function(req, callback) {
 		Category.findById(req.params.category_id, function(err, result) {
 			if(!err) {
-				callback(categoryConverter.daoToJson(result));
+				callback(null, categoryConverter.daoToJson(result));
 			} else {
-				callback({ message: "Error occured during the seat retrieve.", error: err });
+				callback({ message: "Error occured during the seat retrieve.", error: err }, null);
 			}
 		});
 	},

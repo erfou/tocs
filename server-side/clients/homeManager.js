@@ -38,7 +38,7 @@ var homeManager = {
                         callback(null, result);
                     } else {
                         console.log("err occured during retrieve of categories from homeManager: " + err.categories[0].description);
-                        callback(err, null);//callback(err, null);
+                        callback(err, null);
                     }
                 });
             }
