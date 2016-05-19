@@ -1,0 +1,20 @@
+{
+	"recordLocator": "2GNY6",
+	"passengers": [
+		{
+			"personnalInfos": {
+				"title": "Mr", //can be Mr,Mrs, Miss ?
+				"fisrtname": "Jean",
+				"lastname": "Valjean",
+				"birthdate": "1965-02-01",
+			},
+			"meals": [
+				{
+					"label": "Menu sans gluten"
+				}
+			]
+
+		}
+	]
+
+}
