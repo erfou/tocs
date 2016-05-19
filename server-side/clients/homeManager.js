@@ -2,12 +2,13 @@ var async = require('async');
 var categoryService = require('../categories').services;
 var seatService = require('../seats').services;
 var SeatView = require('../seats').view;
+var CategoryView = require('../categories').view;
 
 var homeManager = {
     
     load : function(req, callback) {
         
-        var homeForm = {
+        var homeView = {
     		breadcrumbElements: [
     			{
     				link: {
@@ -18,7 +19,10 @@ var homeManager = {
     			}
     		],
             seatView: {},
-            categories : {}
+            categoriesView : {
+			    title: "Services disponibles",
+                categories: []
+            }
         };
         
         async.series([
@@ -37,7 +41,7 @@ var homeManager = {
                     if(!err) {
                         callback(null, result);
                     } else {
-                        console.log("err occured during retrieve of categories from homeManager: " + err.categories[0].description);
+                        console.log("err occured during retrieve of categories from homeManager: " + err);
                         callback(err, null);
                     }
                 });
@@ -46,9 +50,14 @@ var homeManager = {
         // optional callback
         function(err, results){
             if(!err) {
-                homeForm.seatView = results[0];
-                homeForm.categories = results[1];
-                callback(null, homeForm);
+                homeView.seatView = results[0];
+                if(results[1].categories) {
+            		for (var category of results[1].categories) {
+            			homeView.categoriesView.categories.push(new CategoryView(results[0].id, category));	
+            		}
+                }
+                homeView.categories = results[1];
+                callback(null, homeView);
             } else {
                 callback(err, null);
             }
