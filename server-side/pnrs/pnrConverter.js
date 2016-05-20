@@ -10,18 +10,16 @@ var PnrConverter = {
 	
 	daoToJson : function(pnrDao){
 		return {
-			_id : pnrDao._id,
-			name : pnrDao.name,
-		 	description : pnrDao.description,		
-		 	compatibleClasses : pnrDao.compatibleClasses			
+			recordLocator : pnrDao.recordLocator,
+			passengers : pnrDao.passengers,
 		};
 	},
 	daoListToJson : function(pnrListDao) {
-		var categoriesForm = { categories: [] };
+		var pnrsForm = { pnrs: [] };
 		for (var pnr of pnrListDao) {
-			categoriesForm.categories.push(this.daoToJson(pnr));	
+			pnrsForm.pnrs.push(this.daoToJson(pnr));	
 		}
-		return categoriesForm;
+		return pnrsForm;
 	},
 	
 	mergeJsonIntoDao : function(pnrDao, req) {
@@ -31,9 +29,9 @@ var PnrConverter = {
 };
 
 function initFields(pnrDao, req) {
-		pnrDao.name = req.body.name;
-		pnrDao.description = req.body.description;
-		pnrDao.compatibleClasses = req.body.compatibleClasses;
+		pnrDao.recordLocator = req.body.name;
+		pnrDao.passengers = req.body.passengers;
 }
+
 
 module.exports = PnrConverter;

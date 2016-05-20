@@ -12,8 +12,11 @@
 				{
 					"label": "Menu sans gluten"
 				}
-			]
-
+			],
+			"ticket": {
+				"seat": "16A",
+				"fareClass": "PRE"
+			}
 		}
 	]
 

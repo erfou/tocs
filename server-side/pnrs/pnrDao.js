@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 var pnrSchema = new Schema({
-	recordLocator: String,
+	recordLocator: Schema.ObjectId,
 	passengers: [
 		{
 			personnalInfos: {
@@ -15,12 +15,15 @@ var pnrSchema = new Schema({
 				{
 					label: String
 				}
-			]
+			],
+			ticket: {
+				seat: String,
+				fareClass: String
+			}
 
 		}
 	]
 
-}
-);
+});
 
 module.exports = mongoose.model('Pnr', pnrSchema);

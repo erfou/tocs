@@ -24,6 +24,7 @@ app.use('/seats/', require('./seats').routes);
 app.use('/clients/', require('./clients').routes);
 app.use('/categories/', require('./categories').routes);
 app.use('/items/', require('./items').routes);
+app.use('/pnrs/', require('./pnrs').routes);
 
 
 // START THE SERVER

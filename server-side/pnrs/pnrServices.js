@@ -23,7 +23,7 @@ var PnrService = {
 		});
 	},
 	updatePnr : function(req, callback) {
-		Pnr.findById(req.params.pnr_id, function(err, result) {
+		Pnr.findById(req.params.record_locator, function(err, result) {
 			if(!err) {
 				if(result) {
 					pnrConverter.mergeJsonIntoDao(result, req);
@@ -45,7 +45,7 @@ var PnrService = {
 
 	},
 	getPnrById : function(req, callback) {
-		Pnr.findById(req.params.pnr_id, function(err, result) {
+		Pnr.findById(req.params.record_locator, function(err, result) {
 			if(!err) {
 				callback(null, pnrConverter.daoToJson(result));
 			} else {
@@ -54,7 +54,7 @@ var PnrService = {
 		});
 	},
 	deletePnr : function(req, callback) {
-		Pnr.findByIdAndRemove(req.params.pnr_id, function(err, result) {
+		Pnr.findByIdAndRemove(req.params.record_locator, function(err, result) {
 			if(!err) {
 				callback(null, result);
 			} else {
