@@ -28,10 +28,11 @@ router.route('/')
 			res.json(validation);
 		}
   	});
-router.route('/:seat_id?occuped=:occuped')
+router.route('/:seat_id')
 	.get(function(req, res) {
-		var validation = seatValidator(req);
-		if(validation.valid) {
+		//var validation = seatValidator(req);
+		//console.log("validation: " + validation);
+		//if(validation.valid) {
 	    	seatService.updateSeat(req, function(err, result) {
 				if(!err) {
 					res.json(result);
@@ -40,12 +41,14 @@ router.route('/:seat_id?occuped=:occuped')
 					res.json(err);
 				}
 			});
-		} else {
-			res.json(validation);
-		}
+	//	} else {
+	//		res.json(validation);
+	//	}
   	});
 router.route('/:seat_id')
-  	.get(function(req,res) {
+/*
+	.get(function(req,res) {
+  		console.log("lol");
 		seatService.getSeatById(req.params.seat_id, function(err, result) {
 			if(!err) {
 				res.json(result);
@@ -55,6 +58,7 @@ router.route('/:seat_id')
 			}
 		});
   	})
+*/
   	.post(function(req, res) {
   		seatService.updateSeat(req, function(err, result) {
 			if(!err) {

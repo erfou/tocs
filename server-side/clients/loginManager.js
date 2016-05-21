@@ -2,6 +2,14 @@ var seatService = require('../seats').services;
 
 var loginManager = {
     
+    load : function(callback) {
+        var loginView = {
+            firstname: "",
+            lastname: "",
+            seatNumber: ""
+        }
+        return loginView;
+    },
     login : function(req, callback) { 
         console.log("from loginManager: " + req);
         var loginForm = {
