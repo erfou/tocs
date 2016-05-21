@@ -14,8 +14,8 @@ router.route('/')
 			}
 		});
 	}).put(function(req, res) {
-		var validation = seatValidator(req);
-		if(validation.valid) {
+//		var validation = seatValidator(req);
+//		if(validation.valid) {
 	    	seatService.addNewSeat(req, function(err, result) {
 			if(!err) {
 				res.json(result);
@@ -24,9 +24,9 @@ router.route('/')
 				res.json(err);
 			}
 		});
-		} else {
-			res.json(validation);
-		}
+//		} else {
+//			res.json(validation);
+//		}
   	});
 router.route('/:seat_id')
 	.get(function(req, res) {
