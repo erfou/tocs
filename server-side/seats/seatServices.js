@@ -17,7 +17,7 @@ var SeatService = {
 		});
 	},
 	getSeatById : function(id, callback) {
-		Seat.findById(id, function(err, result) {
+		getSeatDaoById.call(this, id, function(err, result) {
 			if(!err) {
 				if(result) {
 					callback(null, seatConverter.daoToJson(result));
@@ -61,26 +61,47 @@ var SeatService = {
 			}
 		});
 	},
-	updateSeat : function(req, callback) {
-		Seat.findById(req.params.seat_id, function(err, result) {
+	
+	statusPush : function(req, callback) {
+		getSeatDaoById.call(this, req.params.seat_id, function(err, result) {
 			if(!err) {
-				if(result) {
-					if(req.query.occuped) {
-						result.occuped = req.query.occuped;
+				result.occuped = req.query.occuped;
+				result.save(function(err, result) {
+					if(!err) {
+						callback(null, seatConverter.daoToJson(result));	
 					} else {
-						seatConverter.mergeJsonIntoDao(result, req);
+						callback(err, null);
 					}
-					result.save(function(err, result) {
-						if(!err) {
-							callback(null, seatConverter.daoToJson(result));	
-						} else {
-							callback(err, null);
-						}
-					});
-					
+				});
+			} else {
+				if(!err.error) {
+					var toInsert = seatConverter.pushToDao(req);
+					toInsert.save(function(err, result) {
+					if(!err) {
+						callback(null, seatConverter.daoToJson(toInsert));
+					} else {
+						callback(err, null);
+					}
+				});
 				} else {
-					callback({ message : "No result found for id: " + req.params.seat_id});
-				}
+					
+				}			
+			}
+		});
+			
+	},
+	updateSeat : function(req, callback) {
+		getSeatDaoById.call(this, req.params.seat_id, function(err, result) {
+			if(!err) {
+				seatConverter.mergeJsonIntoDao(result, req);
+				result.save(function(err, result) {
+					if(!err) {
+						callback(null, seatConverter.daoToJson(result));	
+					} else {
+						callback(err, null);
+					}
+				});
+
 			} else {
 				callback(err, null);
 			}
@@ -98,5 +119,19 @@ var SeatService = {
 	}
 
 };
+
+function getSeatDaoById(id, callback) {
+	Seat.findById(id, function(err, result) {
+		if(!err) {
+			if(result) {
+				callback(null, result);
+			} else {
+				callback({ message: "No result found for id: " + id }, null);
+			}
+		} else {
+			callback({ message: "Error occured during the seat retrieve.", error: err }, null);
+		}
+	});
+}
 
 module.exports = SeatService;
