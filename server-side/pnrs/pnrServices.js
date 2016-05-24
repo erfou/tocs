@@ -22,12 +22,32 @@ var PnrService = {
 			}
 		});
 	},
-	updatePnr : function(pnr, callback) {
-		console.log(JSON.stringify(pnr));
+	updatePnrAfterLogin : function (pnr, callback) {
 		Pnr.findById(pnr.record_locator, function(err, result) {
 			if(!err) {
 				if(result) {
 					pnrConverter.mergeJsonIntoDao(result, pnr);
+					result.save(function(err, result) {
+						if(!err) {
+							callback(null, pnrConverter.daoToJson(result));	
+						} else {
+							callback(err, null);
+						}
+					});
+					
+				} else {
+					callback({ message: "No result found for id: " + pnr.record_locator}, null);
+				}
+			} else {
+				callback(err, null);
+			}
+		});
+	},
+	updatePnr : function(req, callback) {
+		Pnr.findById(req.params.record_locator, function(err, result) {
+			if(!err) {
+				if(result) {
+					pnrConverter.mergeJsonIntoDao(result, req);
 					result.save(function(err, result) {
 						if(!err) {
 							callback(null, pnrConverter.daoToJson(result));	

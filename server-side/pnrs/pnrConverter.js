@@ -34,9 +34,17 @@ function initFields(pnrDao, pnr) {
 		pnrDao.passengers = pnr.passengers;
 }
 
-function jsonToResult(req) {
-		var result = {};
-		result.passengers = req.body.passengers;
+function jsonToResult(input) {
+		var result;
+		if(input.params && input.body) {
+			result = {};
+			result.passengers = {};
+			result.record_locator = input.params.record_locator;
+			result.passengers = input.body.passengers;
+		} else {
+			result = input;
+		}
+		
 		return result;
 }
 
