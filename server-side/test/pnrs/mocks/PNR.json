@@ -1,10 +1,10 @@
 {
-	"recordLocator": "2GNY6",
+	"record_locator": "2GNY6",
 	"passengers": [
 		{
 			"personnalInfos": {
-				"title": "Mr", //can be Mr,Mrs, Miss ?
-				"fisrtname": "Jean",
+				"title": "Mr",
+				"firstname": "Jean",
 				"lastname": "Valjean",
 				"birthdate": "1965-02-01",
 			},

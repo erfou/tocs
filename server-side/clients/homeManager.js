@@ -48,7 +48,7 @@ var homeManager = {
             }
         ],
         // optional callback
-        function(err, results){
+        function(err, results) {
             if(!err) {
                 homeView.seatView = results[0];
                 if(results[1].categories) {

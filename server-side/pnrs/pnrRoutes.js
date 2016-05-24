@@ -4,7 +4,7 @@ var pnrService = require('./pnrServices');
 
 router.route('/')
 	.get(function(req, res) {
-		pnrService.getAllCategories(req, function(err, result) {
+		pnrService.getAllPnrs(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -23,9 +23,9 @@ router.route('/')
 		});
   	});
 
-router.route('/:pnr_id')
+router.route('/:record_locator')
     .get(function(req, res) {
-		pnrService.getPnrById(req, function(err, result) {
+		pnrService.getPnrById(req.params.record_locator, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -46,7 +46,7 @@ router.route('/:pnr_id')
 		});
   	})
   	.delete(function(req, res) {
-		pnrService.deletePnr(req, function(err, result) {
+		pnrService.deletePnr(req.params.record_locator, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {

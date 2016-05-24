@@ -2,12 +2,12 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 var pnrSchema = new Schema({
-	recordLocator: Schema.ObjectId,
+	_id: String,
 	passengers: [
 		{
 			personnalInfos: {
 				title: String, //can be Mr,Mrs, Miss ?
-				fisrtname: String,
+				firstname: String,
 				lastname: String,
 				birthdate: Date
 			},

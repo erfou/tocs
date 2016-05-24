@@ -1,7 +1,7 @@
 var Pnr = require('./pnrDao');
 var pnrConverter = require('./pnrConverter');
 var PnrService = {
-	getAllCategories : function(req, callback) {
+	getAllPnrs : function(req, callback) {
 		Pnr.find(function(err, results) {
 			if(!err) {
 				callback(null, pnrConverter.daoListToJson(results));
@@ -22,11 +22,12 @@ var PnrService = {
 			}
 		});
 	},
-	updatePnr : function(req, callback) {
-		Pnr.findById(req.params.record_locator, function(err, result) {
+	updatePnr : function(pnr, callback) {
+		console.log(JSON.stringify(pnr));
+		Pnr.findById(pnr.record_locator, function(err, result) {
 			if(!err) {
 				if(result) {
-					pnrConverter.mergeJsonIntoDao(result, req);
+					pnrConverter.mergeJsonIntoDao(result, pnr);
 					result.save(function(err, result) {
 						if(!err) {
 							callback(null, pnrConverter.daoToJson(result));	
@@ -36,7 +37,7 @@ var PnrService = {
 					});
 					
 				} else {
-					callback({ message: "No result found for id: " + req.params.pnr_id}, null);
+					callback({ message: "No result found for id: " + pnr.record_locator}, null);
 				}
 			} else {
 				callback(err, null);
@@ -44,8 +45,9 @@ var PnrService = {
 		});
 
 	},
-	getPnrById : function(req, callback) {
-		Pnr.findById(req.params.record_locator, function(err, result) {
+	getPnrById : function(id, callback) {
+		console.log(id);
+		Pnr.findById(id, function(err, result) {
 			if(!err) {
 				callback(null, pnrConverter.daoToJson(result));
 			} else {
@@ -53,8 +55,8 @@ var PnrService = {
 			}
 		});
 	},
-	deletePnr : function(req, callback) {
-		Pnr.findByIdAndRemove(req.params.record_locator, function(err, result) {
+	deletePnr : function(id, callback) {
+		Pnr.findByIdAndRemove(id, function(err, result) {
 			if(!err) {
 				callback(null, result);
 			} else {

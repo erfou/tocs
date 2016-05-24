@@ -10,7 +10,7 @@ var PnrConverter = {
 	
 	daoToJson : function(pnrDao){
 		return {
-			recordLocator : pnrDao.recordLocator,
+			record_locator : pnrDao._id,
 			passengers : pnrDao.passengers,
 		};
 	},
@@ -23,15 +23,21 @@ var PnrConverter = {
 	},
 	
 	mergeJsonIntoDao : function(pnrDao, req) {
-		initFields.call(this, pnrDao, req);
+		var pnr = jsonToResult.call(this, req);
+		initFields.call(this, pnrDao, pnr);
 		
 	},
 };
 
-function initFields(pnrDao, req) {
-		pnrDao.recordLocator = req.body.name;
-		pnrDao.passengers = req.body.passengers;
+function initFields(pnrDao, pnr) {
+		pnrDao._id = pnr.record_locator;
+		pnrDao.passengers = pnr.passengers;
 }
 
+function jsonToResult(req) {
+		var result = {};
+		result.passengers = req.body.passengers;
+		return result;
+}
 
 module.exports = PnrConverter;
