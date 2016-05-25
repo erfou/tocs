@@ -7,6 +7,7 @@ var seatSchema = new Schema({
 		row: String,
 		column: String
 	},
+	fareClass: String,
 	occuped: Boolean
 });
 

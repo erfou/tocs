@@ -2,13 +2,13 @@ var Pnr = require('./pnrDao');
 
 var PnrConverter = {
 
-	jsonToDao : function(req){
+	jsonToDao : function(req) {
 		var pnrDao = new Pnr();
 		initFields.call(this, pnrDao, req);
 		return pnrDao;
 	},
 	
-	daoToJson : function(pnrDao){
+	daoToJson : function(pnrDao) {
 		return {
 			record_locator : pnrDao._id,
 			passengers : pnrDao.passengers,
@@ -23,8 +23,7 @@ var PnrConverter = {
 	},
 	
 	mergeJsonIntoDao : function(pnrDao, req) {
-		var pnr = jsonToResult.call(this, req);
-		initFields.call(this, pnrDao, pnr);
+		initFields.call(this, pnrDao, req);
 		
 	},
 };
@@ -32,12 +31,6 @@ var PnrConverter = {
 function initFields(pnrDao, pnr) {
 		pnrDao._id = pnr.record_locator;
 		pnrDao.passengers = pnr.passengers;
-}
-
-function jsonToResult(req) {
-		var result = {};
-		result.passengers = req.body.passengers;
-		return result;
 }
 
 module.exports = PnrConverter;

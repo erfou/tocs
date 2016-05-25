@@ -40,13 +40,12 @@ var loginManager = {
             },
             function(pnr, seat, callback) {
                 var currentPassenger = getCurrentPassanger.call(this, pnr.passengers, req.body.firstname, req.body.lastname);
-                console.log("from async callback: " + currentPassenger);
-                console.log("currentPassenger._id from async callback: " + currentPassenger._id);
                 if(currentPassenger.ticket.seat != seat._id) {
                     if(currentPassenger.ticket.seat.fareClass != seat.fareClass) {
                         callback({ message: "Login failed.", details: "Wrong fare class: " + seat.fareClass + " instead of " + currentPassenger.ticket.seat.fareClass}, null);
                     } else {
                         currentPassenger.ticket.seat = seat._id;
+                        
                         pnrService.updatePnr(pnr, function(err, result) {
                             if(!err) {
                                 callback(null, result, seat);

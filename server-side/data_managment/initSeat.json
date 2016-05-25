@@ -1,0 +1,22 @@
+{
+    "position": {
+        "row": "6",
+        "column": "A"
+    },
+    "occuped" : true
+}
+
+{
+    "position": {
+        "row": "6",
+        "column": "B"
+    },
+    "occuped" : false
+}
+{
+    "position": {
+        "row": "6",
+        "column": "C"
+    },
+    "occuped" : true
+}

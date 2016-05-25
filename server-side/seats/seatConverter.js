@@ -42,6 +42,7 @@ function initFields(seatDao, result) {
 		var pos = result.position;
 		seatDao._id = pos.row + pos.column;
 		seatDao.position = pos;
+		seatDao.fareClass = pos.fareClass;
 		seatDao.occuped = result.occuped;
 }
 
@@ -50,6 +51,7 @@ function jsonToResult(req) {
 		result.position = {};
 		result.position = req.body.position;
 		result.occuped = req.body.occuped;
+		result.fareClass = req.body.fareClass;
 		return result;
 }
 
