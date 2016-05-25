@@ -68,26 +68,4 @@ var PnrService = {
 	}
 };
 
-function updatePnrFromResult(pnr, callback) {
-		console.log("pnr from updatePnr" + JSON.stringify(pnr));
-		Pnr.findById(pnr.record_locator, function(err, result) {
-			if(!err) {
-				if(result) {
-					pnrConverter.mergeJsonIntoDao(result, pnr);
-					result.save(function(err, result) {
-						if(!err) {
-							callback(null, pnrConverter.daoToJson(result));	
-						} else {
-							callback(err, null);
-						}
-					});
-					
-				} else {
-					callback({ message: "No result found for id: " + pnr.record_locator}, null);
-				}
-			} else {
-				callback(err, null);
-			}
-		});
-}
 module.exports = PnrService;

@@ -45,7 +45,7 @@ var loginManager = {
                         callback({ message: "Login failed.", details: "Wrong fare class: " + seat.fareClass + " instead of " + currentPassenger.ticket.seat.fareClass}, null);
                     } else {
                         currentPassenger.ticket.seat = seat._id;
-                        
+
                         pnrService.updatePnr(pnr, function(err, result) {
                             if(!err) {
                                 callback(null, result, seat);
