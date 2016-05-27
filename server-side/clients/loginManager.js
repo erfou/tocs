@@ -7,8 +7,7 @@ var loginManager = {
     login : function(req, callback) { 
         console.log("firstname from login: " + req.body.firstname);
         var loginForm = {
-          seatView: {},
-          pnr: {},
+          token: "",
           links: [
             {
                 rel: "Continue",
@@ -40,6 +39,9 @@ var loginManager = {
             },
             function(pnr, seat, callback) {
                 var currentPassenger = getCurrentPassanger.call(this, pnr.passengers, req.body.firstname, req.body.lastname);
+                var clientInfos = {};
+                clientInfos.seat = seat;
+                clientInfos.pnr = pnr;
                 if(currentPassenger.ticket.seat != seat._id) {
                     if(currentPassenger.ticket.seat.fareClass != seat.fareClass) {
                         callback({ message: "Login failed.", details: "Wrong fare class: " + seat.fareClass + " instead of " + currentPassenger.ticket.seat.fareClass}, null);
@@ -48,24 +50,28 @@ var loginManager = {
 
                         pnrService.updatePnr(pnr, function(err, result) {
                             if(!err) {
-                                callback(null, result, seat);
+                                clientInfos.pnr = result;
+                                callback(null, result);
                             } else {
                                 callback(err, null, null);
                             }
                         });
                     }
-                } else {
-                    callback(null, pnr, seat);
                 }
-
+                generateIdentificationToken(clientInfos, function(err, result) {
+                    if(!err) {
+                        callback(null, result);
+                    } else {
+                        callback(err, null);
+                    }
+                });
                 
             }
         ],
         // optional callback
-        function(err, pnr, seat) {
+        function(err, token) {
             if(!err) {
-                loginForm.seatView = new SeatView(seat);
-        		loginForm.pnr = pnr;	
+                loginForm.token = token;
                 callback(null, loginForm);
             } else {
                 callback(err, null);
@@ -90,6 +96,11 @@ function getCurrentPassanger(passengers, firstname, lastname) {
     }
     console.log("from getCurrentPassanger: " + currentPassenger);
     return currentPassenger;
+}
+
+function generateIdentificationToken(clientInfos, callback) {
+    callback(null, new Buffer(JSON.stingify(clientInfos)).toString('base64'));
+    //console.log(new Buffer("SGVsbG8gV29ybGQ=", 'base64').toString('ascii'))
 }
 
 module.exports = loginManager;
