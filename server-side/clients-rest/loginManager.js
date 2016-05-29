@@ -101,7 +101,7 @@ function getCurrentPassanger(passengers, firstname, lastname) {
 }
 
 function generateIdentificationToken(clientInfos, callback) {
-    callback(null, new Buffer(JSON.stingify(clientInfos)).toString('base64'));
+    callback(null, new Buffer(JSON.stringify(clientInfos)).toString('base64'));
     //console.log(new Buffer("SGVsbG8gV29ybGQ=", 'base64').toString('ascii'))
 }
 
