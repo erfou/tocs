@@ -1,7 +1,9 @@
-var pnrService = require("../pnrs").services;
-var seatService = require('../seats').services;
-var SeatView = require('../seats').view;
 var async = require("async");
+var crudApi = require('app_modules/crud-api');
+
+var pnrService = crudApi.pnrs.services;
+var seatService = crudApi.seats.services;
+var SeatView = crudApi.seats.view;
 
 var loginManager = {
     login : function(req, callback) { 

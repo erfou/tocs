@@ -1,8 +1,11 @@
 var async = require('async');
-var categoryService = require('../categories').services;
-var seatService = require('../seats').services;
-var SeatView = require('../seats').view;
-var CategoryView = require('../categories').view;
+var crudApi = require('app_modules/crud-api');
+
+var categoryService = crudApi.categories.services;
+var CategoryView = crudApi.categories.view;
+
+var seatService = crudApi.seats.services;
+var SeatView = crudApi.seats.view;
 
 var homeManager = {
     

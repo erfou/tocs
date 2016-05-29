@@ -7,6 +7,8 @@ var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var mongoose    = require('mongoose'); 
 
+var crudApi = require('app_modules/crud-api');
+
 mongoose.connect('mongodb://localhost:27017/onBoardRealTimeSeatMap');
 
 // configure app to use bodyParser()
@@ -19,12 +21,13 @@ var port = process.env.PORT || 8080;        // set our port
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
-app.use(require('./routes/routes'));
-app.use('/seats/', require('./seats').routes);
-app.use('/clients/', require('./clients').routes);
-app.use('/categories/', require('./categories').routes);
-app.use('/items/', require('./items').routes);
-app.use('/pnrs/', require('./pnrs').routes);
+app.use(require('./routes'));
+app.use('/seats/', crudApi.seats.routes);
+app.use('/categories/', crudApi.categories.routes);
+app.use('/items/', crudApi.items.routes);
+app.use('/pnrs/', crudApi.pnrs.routes);
+
+app.use('/clients-rest/', require('./clients-rest').routes);
 
 
 // START THE SERVER
