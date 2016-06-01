@@ -14,7 +14,7 @@ var loginManager = {
           links: [
             {
                 rel: "Continue",
-                herf: "/clients/home/"
+                herf: "/passenger/home/"
             }
           ]
         };

@@ -27,7 +27,7 @@ app.use('/categories/', crudApi.categories.routes);
 app.use('/items/', crudApi.items.routes);
 app.use('/pnrs/', crudApi.pnrs.routes);
 
-app.use('/clients-rest/', require('./clients-rest').routes);
+app.use('/passenger/', require('./rest-api/passenger').routes);
 
 
 // START THE SERVER

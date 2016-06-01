@@ -15,7 +15,7 @@ var homeManager = {
     			{
     				link: {
     					rel: "Acceuil",
-    					href: "/clients/home"
+    					href: "/passenger/home"
     				},
     				current: true
     			}
