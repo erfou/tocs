@@ -9,8 +9,8 @@ var SeatView = crudApi.seats.view;
 var homeManager = {
     
     load : function(req, callback) {
-        console.log("in load.");
         var homeView = {
+            token: req.body.token,
     		breadcrumbElements: [
     			{
     				link: {
@@ -29,10 +29,8 @@ var homeManager = {
         
         async.waterfall([
             function(callback) { 
-                console.log("token from load: " + req.body.token);
                 Tokenizer.detokenize(req.body.token, function(err, result) {
                     if(!err) {
-                        console.log("clientInfos from detokenize: " + result);
                         callback(null, result);
                     } else {
                         callback(err, null);
@@ -41,7 +39,6 @@ var homeManager = {
             },
             function(clientInfos, callback) {
                 var seat = clientInfos.seat;
-                console.log("clientInfos from homeManager: " + JSON.stringify(clientInfos));
                 CategoryService.getCategoriesByFareClass(seat.fareClass, function(err, result) {
                     if(!err) {
                         callback(null, seat, result);
@@ -58,7 +55,7 @@ var homeManager = {
                 homeView.seatView = new SeatView(seat);
                 if(result.categories) {
             		for (var category of result.categories) {
-            			homeView.categoriesView.categories.push(new CategoryView(seat._id, category));	
+            			homeView.categoriesView.categories.push(new CategoryView(category));
             		}
                 }
                 callback(null, homeView);

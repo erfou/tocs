@@ -12,6 +12,7 @@ var CategoryConverter = {
 		return {
 			_id : categoryDao._id,
 			name : categoryDao.name,
+			type : categoryDao.type,
 		 	description : categoryDao.description,		
 		 	compatibleClasses : categoryDao.compatibleClasses			
 		};
@@ -32,6 +33,7 @@ var CategoryConverter = {
 
 function initFields(categoryDao, req) {
 		categoryDao.name = req.body.name;
+		categoryDao.type = req.body.type;
 		categoryDao.description = req.body.description;
 		categoryDao.compatibleClasses = req.body.compatibleClasses;
 }

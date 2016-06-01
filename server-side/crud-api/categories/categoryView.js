@@ -1,11 +1,12 @@
-function CategoryView (seatId, categoryJson) {
+function CategoryView (categoryJson) {
     this.name = categoryJson.name;
     this.id = categoryJson._id;
+    this.type = categoryJson.type;
     this.description = categoryJson.description;
 	this.compatibleClasses = categoryJson.compatibleClasses;
     this.link = {
       rel: categoryJson.name,
-      href: "/clients/seat/" + seatId + "/category/" + categoryJson._id
+      href: "/clients/" + categoryJson.type + "/" + categoryJson._id
     };
     
 }
