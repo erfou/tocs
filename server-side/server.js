@@ -28,6 +28,7 @@ app.use('/items/', crudApi.items.routes);
 app.use('/pnrs/', crudApi.pnrs.routes);
 
 app.use('/passenger/', require('./rest-api/passenger').routes);
+app.use('/pnc/', require('./rest-api/pnc').routes);
 
 
 // START THE SERVER

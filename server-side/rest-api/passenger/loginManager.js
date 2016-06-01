@@ -18,7 +18,7 @@ var loginManager = {
             }
           ]
         };
-        
+
         async.waterfall([
             function(callback) {
                 PnrService.getPnrById(req.body.record_locator, function(err, result) {
