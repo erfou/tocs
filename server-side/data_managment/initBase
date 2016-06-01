@@ -1,0 +1,2 @@
+mongo onBoardRealTimeSeatMap --eval "db.dropDatabase()";
+mongorestore --db onBoardRealTimeSeatMap dump/onBoardRealTimeSeatMap;
