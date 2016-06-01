@@ -19,7 +19,7 @@ var CategoryConverter = {
 	daoListToJson : function(categoryListDao) {
 		var categoriesForm = { categories: [] };
 		for (var category of categoryListDao) {
-			categoriesForm.categories.push(this.daoToJson(category));	
+			categoriesForm.categories.push(this.daoToJson(category));
 		}
 		return categoriesForm;
 	},

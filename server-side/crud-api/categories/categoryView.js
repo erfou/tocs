@@ -2,11 +2,7 @@ function CategoryView (seatId, categoryJson) {
     this.name = categoryJson.name;
     this.id = categoryJson._id;
     this.description = categoryJson.description;
-	  this.compatibleClasses = [
-	    "ECO",
-	    "PRE",
-	    "BUS"
-	  ];
+	this.compatibleClasses = categoryJson.compatibleClasses;
     this.link = {
       rel: categoryJson.name,
       href: "/clients/seat/" + seatId + "/category/" + categoryJson._id

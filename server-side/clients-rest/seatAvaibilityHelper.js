@@ -1,11 +1,11 @@
 var pnrServices = require("app_modules/crud-api").pnrs.services;
+
 var seatAvaibilityHelper = {
     checkIfAvailable: function(seatId, callback) {
-        pnrServices.getAllPnrs(function(err, pnrs) {
+        pnrServices.getAllPnrs(function(err, result) {
             if(!err) {
-                console.log("pnrs from seatAvaibilityHelper: " + JSON.stringify(pnrs));
                 var isOccuped = false;
-                for(var pnr of pnrs.pnrs) {
+                for(var pnr of result.pnrs) {
                     for(var passenger of pnr.passengers) {
                         if(passenger.ticket.seat == seatId) {
                             isOccuped = true;

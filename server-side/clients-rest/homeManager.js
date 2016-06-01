@@ -61,7 +61,6 @@ var homeManager = {
             			homeView.categoriesView.categories.push(new CategoryView(seat._id, category));	
             		}
                 }
-                homeView.categories = result.categories;
                 callback(null, homeView);
             } else {
                 callback(err, null);
