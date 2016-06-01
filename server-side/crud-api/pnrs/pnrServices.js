@@ -1,7 +1,7 @@
 var Pnr = require('./pnrDao');
 var pnrConverter = require('./pnrConverter');
 var PnrService = {
-	getAllPnrs : function(req, callback) {
+	getAllPnrs : function(callback) {
 		Pnr.find(function(err, results) {
 			if(!err) {
 				callback(null, pnrConverter.daoListToJson(results));
@@ -22,15 +22,18 @@ var PnrService = {
 			}
 		});
 	},
-	updatePnr : function(pnr, callback) {
-		if(pnr.body) {
-			pnr = pnr.body;
+	updatePnr : function(req, callback) {
+		var pnr;
+		if(req.body) {
+			pnr = req.body;
+		} else {
+			pnr = req;
 		}
-		console.log("pnr from updatePnr" + JSON.stringify(pnr));
+		console.log("pnr from upadtePnr: " + JSON.stringify(pnr));
 		Pnr.findById(pnr.record_locator, function(err, result) {
 			if(!err) {
 				if(result) {
-					pnrConverter.mergeJsonIntoDao(result, pnr);
+					pnrConverter.mergeJsonIntoDao(result, req);
 					result.save(function(err, result) {
 						if(!err) {
 							callback(null, pnrConverter.daoToJson(result));	

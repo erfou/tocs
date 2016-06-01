@@ -1,16 +1,15 @@
 var async = require('async');
 var crudApi = require('app_modules/crud-api');
+var Tokenizer = require('./tokenizer');
 
-var categoryService = crudApi.categories.services;
+var CategoryService = crudApi.categories.services;
 var CategoryView = crudApi.categories.view;
-
-var seatService = crudApi.seats.services;
 var SeatView = crudApi.seats.view;
 
 var homeManager = {
     
     load : function(req, callback) {
-        
+        console.log("in load.");
         var homeView = {
     		breadcrumbElements: [
     			{
@@ -28,38 +27,41 @@ var homeManager = {
             }
         };
         
-        async.series([
+        async.waterfall([
             function(callback) { 
-                seatService.getSeatById(req.params.seat_id, function(err, result) {
+                console.log("token from load: " + req.body.token);
+                Tokenizer.detokenize(req.body.token, function(err, result) {
                     if(!err) {
-                        callback(null, new SeatView(result));
+                        console.log("clientInfos from detokenize: " + result);
+                        callback(null, result);
                     } else {
-                        console.log(err);
                         callback(err, null);
                     }
                 });
             },
-            function(callback) { 
-                categoryService.getAllCategories(req.body.position, function(err, result) {
+            function(clientInfos, callback) {
+                var seat = clientInfos.seat;
+                console.log("clientInfos from homeManager: " + JSON.stringify(clientInfos));
+                CategoryService.getCategoriesByFareClass(seat.fareClass, function(err, result) {
                     if(!err) {
-                        callback(null, result);
+                        callback(null, seat, result);
                     } else {
                         console.log("err occured during retrieve of categories from homeManager: " + err);
-                        callback(err, null);
+                        callback(err, null, null);
                     }
                 });
             }
         ],
         // optional callback
-        function(err, results) {
+        function(err, seat, result) {
             if(!err) {
-                homeView.seatView = results[0];
-                if(results[1].categories) {
-            		for (var category of results[1].categories) {
-            			homeView.categoriesView.categories.push(new CategoryView(results[0].id, category));	
+                homeView.seatView = new SeatView(seat);
+                if(result.categories) {
+            		for (var category of result.categories) {
+            			homeView.categoriesView.categories.push(new CategoryView(seat._id, category));	
             		}
                 }
-                homeView.categories = results[1];
+                homeView.categories = result.categories;
                 callback(null, homeView);
             } else {
                 callback(err, null);

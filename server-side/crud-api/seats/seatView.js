@@ -5,6 +5,7 @@ function SeatView (seatJson) {
       rel: "Détails",
       href: "/clients/seat/" + seatJson._id
     };
+    this.fareClass = seatJson.fareClass;
     
 }
 module.exports = SeatView;

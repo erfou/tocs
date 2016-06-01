@@ -14,8 +14,8 @@ router.route('/login')
 		});
   	});
 
-router.route('/home/:seat_id')
-	.get(function(req, res) {
+router.route('/home')
+	.post(function(req, res) {
 		homeManager.load(req, function(err, result) {
 			if(!err) {
 				res.json(result);

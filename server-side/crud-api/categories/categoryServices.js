@@ -1,8 +1,20 @@
 var Category = require('./categoryDao');
 var categoryConverter = require('./categoryConverter');
 var CategoryService = {
-	getAllCategories : function(req, callback) {
+	getAllCategories : function(callback) {
 		Category.find(function(err, results) {
+			if(!err) {
+				callback(null, categoryConverter.daoListToJson(results));
+			} else {
+				console.log("Error occured during retrieve of seats list: " + err);
+				callback({ message: "Error occured during retrieve of seats list."}, null);
+			}
+		});
+	},
+	getCategoriesByFareClass : function(fareClass, callback) {
+		Category.find({
+			compatibleClasses : fareClass
+		}).exec(function(err, results) {
 			if(!err) {
 				callback(null, categoryConverter.daoListToJson(results));
 			} else {

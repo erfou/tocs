@@ -1,11 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var seatValidator = require('./seatValidator');
-var seatService = require('./seatServices');
+var SeatService = require('./seatServices');
 
 router.route('/')
 	.get(function(req, res) {
-		seatService.getAllSeats(req, function(err, result) {
+		SeatService.getAllSeats(function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -14,7 +13,7 @@ router.route('/')
 			}
 		});
 	}).put(function(req, res) {
-	    	seatService.addNewSeat(req, function(err, result) {
+	    	SeatService.addNewSeat(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -26,7 +25,7 @@ router.route('/')
 router.route('/:seat_id')
 	.get(function(req, res) {
 		if(req.query.occuped) {
-			seatService.statusPush(req, function(err, result) {
+			SeatService.statusPush(req, function(err, result) {
 				if(!err) {
 					res.json(result);
 				} else {
@@ -35,7 +34,7 @@ router.route('/:seat_id')
 				}
 			});
 		} else {
-			seatService.getSeatById(req.params.seat_id, function(err, result) {
+			SeatService.getSeatById(req.params.seat_id, function(err, result) {
 				if(!err) {
 					res.json(result);
 				} else {
@@ -46,7 +45,7 @@ router.route('/:seat_id')
 		}
   	})
   	.post(function(req, res) {
-  		seatService.updateSeat(req, function(err, result) {
+  		SeatService.updateSeat(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -56,7 +55,7 @@ router.route('/:seat_id')
 		});
   	})
   	.delete(function(req, res) {
-		seatService.deleteSeat(req.params.seat_id, function(err, result) {
+		SeatService.deleteSeat(req.params.seat_id, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {

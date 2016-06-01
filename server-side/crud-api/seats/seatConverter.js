@@ -19,6 +19,7 @@ var SeatConverter = {
 		var result = {
 			_id : seatDao._id,
 			position : seatDao.position,
+			fareClass : seatDao.fareClass,
 		 	occuped : seatDao.occuped			
 		};
 		return result;
@@ -42,7 +43,7 @@ function initFields(seatDao, result) {
 		var pos = result.position;
 		seatDao._id = pos.row + pos.column;
 		seatDao.position = pos;
-		seatDao.fareClass = pos.fareClass;
+		seatDao.fareClass = result.fareClass;
 		seatDao.occuped = result.occuped;
 }
 

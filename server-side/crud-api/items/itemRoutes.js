@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var itemService = require('./itemServices');
+var ItemService = require('./itemServices');
 
 router.route('/')
 	.get(function(req, res) {
-		itemService.getAllItems(req, function(err, result) {
+		ItemService.getAllItems(function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -13,7 +13,7 @@ router.route('/')
 			}
 		});
 	}).put(function(req, res) {
-		itemService.addNewItem(req, function(err, result) {
+		ItemService.addNewItem(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -25,7 +25,7 @@ router.route('/')
 
 router.route('/:item_id')
     .get(function(req, res) {
-		itemService.getItemById(req, function(err, result) {
+		ItemService.getItemById(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -35,7 +35,7 @@ router.route('/:item_id')
 		});
   	})
   	.post(function(req, res) {
-		itemService.updateItem(req, function(err, result) {
+		ItemService.updateItem(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -45,7 +45,7 @@ router.route('/:item_id')
 		});
   	})
   	.delete(function(req, res) {
-		itemService.deleteItem(req, function(err, result) {
+		ItemService.deleteItem(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {

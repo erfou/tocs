@@ -2,7 +2,7 @@ var Seat = require('./seatDao');
 var seatConverter = require('./seatConverter');
 
 var SeatService = {
-	getAllSeats : function(req, callback) {
+	getAllSeats : function(callback) {
 		Seat.find(function(err, results) {
 			if(!err) {
 				if(results) {
@@ -91,9 +91,12 @@ var SeatService = {
 			
 	},
 	updateSeat : function(req, callback) {
+		console.log("from update seat: " + JSON.stringify(req.body));
 		getSeatDaoById.call(this, req.params.seat_id, function(err, result) {
 			if(!err) {
+				console.log("dao from update seat: " + result);
 				seatConverter.mergeJsonIntoDao(result, req);
+				console.log("dao from update seat after merge: " + result);
 				result.save(function(err, result) {
 					if(!err) {
 						callback(null, seatConverter.daoToJson(result));	

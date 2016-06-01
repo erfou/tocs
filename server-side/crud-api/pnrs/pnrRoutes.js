@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var pnrService = require('./pnrServices');
+var PnrService = require('./pnrServices');
 
 router.route('/')
 	.get(function(req, res) {
-		pnrService.getAllPnrs(req, function(err, result) {
+		PnrService.getAllPnrs(function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -13,7 +13,7 @@ router.route('/')
 			}
 		});
 	}).put(function(req, res) {
-		pnrService.addNewPnr(req, function(err, result) {
+		PnrService.addNewPnr(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -25,7 +25,7 @@ router.route('/')
 
 router.route('/:record_locator')
     .get(function(req, res) {
-		pnrService.getPnrById(req.params.record_locator, function(err, result) {
+		PnrService.getPnrById(req.params.record_locator, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -36,7 +36,7 @@ router.route('/:record_locator')
   	})
   	.post(function(req, res) {
   		console.log("req from pnr routes: " + req);
-		pnrService.updatePnr(req, function(err, result) {
+		PnrService.updatePnr(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -46,7 +46,7 @@ router.route('/:record_locator')
 		});
   	})
   	.delete(function(req, res) {
-		pnrService.deletePnr(req.params.record_locator, function(err, result) {
+		PnrService.deletePnr(req.params.record_locator, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {

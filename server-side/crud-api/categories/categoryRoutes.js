@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var categoryService = require('./categoryServices');
+var CategoryService = require('./categoryServices');
 
 router.route('/')
 	.get(function(req, res) {
-		categoryService.getAllCategories(req, function(err, result) {
+		CategoryService.getAllCategories(function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -13,7 +13,7 @@ router.route('/')
 			}
 		});
 	}).put(function(req, res) {
-		categoryService.addNewCategory(req, function(err, result) {
+		CategoryService.addNewCategory(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -25,7 +25,7 @@ router.route('/')
 
 router.route('/:category_id')
     .get(function(req, res) {
-		categoryService.getCategoryById(req, function(err, result) {
+		CategoryService.getCategoryById(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -36,7 +36,7 @@ router.route('/:category_id')
   	})
   	.post(function(req, res) {
   		console.log("req from category routes: " + req);
-		categoryService.updateCategory(req, function(err, result) {
+		CategoryService.updateCategory(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -46,7 +46,7 @@ router.route('/:category_id')
 		});
   	})
   	.delete(function(req, res) {
-		categoryService.deleteCategory(req, function(err, result) {
+		CategoryService.deleteCategory(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
