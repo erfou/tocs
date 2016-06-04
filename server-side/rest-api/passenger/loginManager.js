@@ -43,11 +43,10 @@ var loginManager = {
             function(pnr, seat, callback) {
                 var currentPassenger = getCurrentPassanger.call(this, pnr.passengers, req.body.firstname, req.body.lastname);
                 if(currentPassenger) {
-                    var clientInfos = {};
-                    clientInfos.seat = seat;
-                    clientInfos.pnr = pnr;
                     console.log("seat from currentPassenger: " + currentPassenger.ticket.seat + " from db: " + seat._id);
-                    if(currentPassenger.ticket.seat != seat._id) {
+                    if(currentPassenger.ticket.seat == seat._id) {
+                        seat.currentPassenger = currentPassenger;
+                    } else {
                         console.log("fareClass from currentPassenger: " + currentPassenger.ticket.fareClass + " from db: " + seat.fareClass);
                         if(currentPassenger.ticket.fareClass != seat.fareClass) {
                             callback({ message: "Login failed.", details: "Wrong fare class: " + seat.fareClass + " instead of " + currentPassenger.ticket.fareClass}, null);
@@ -55,25 +54,23 @@ var loginManager = {
                             SeatAvaibilityHelper.checkIfAvailable(seat._id, function(err, isAvailable) {
                                 if(!err) {
                                     if(isAvailable) {
-                                        currentPassenger.ticket.seat = seat._id;
-                
-                                        PnrService.updatePnr(pnr, function(err, result) {
-                                            if(!err) {
-                                                clientInfos.pnr = result;
-                                                callback(null, clientInfos);                
-                                            } else {
-                                                callback(err, null, null);
-                                            }
-                                        });
+                                        seat.currentPassenger = currentPassenger;
                                     } else {
                                         callback({ message: "Login failed.", details: "Seat already occuped"}, null);
                                     }
                                 }
                             });
                         }
-                    } else {
-                        callback(null, clientInfos);                
                     }
+                    
+                    SeatService.updateSeat(seat, function(err, result) {
+                        if(!err) {
+                            callback(null, result);                
+                        } else {
+                            callback(err, null, null);
+                        }
+                    });
+                    
                 } else {
                     callback({ message: "Login failed.", details: "Wrong passenger. List of passengers for PNR " + pnr.record_locator + ": " + pnr.passengers}, null);
                 }

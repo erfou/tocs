@@ -91,14 +91,21 @@ var SeatService = {
 			
 	},
 	updateSeat : function(req, callback) {
+//		var reqSeat = req;
+		var seatId = req._id;
+		if(req.body) {
+//			reqSeat = req.body;
+			seatId = req.params.seat_id;
+		}
 		console.log("from update seat: " + JSON.stringify(req.body));
-		getSeatDaoById.call(this, req.params.seat_id, function(err, result) {
+		getSeatDaoById.call(this, seatId, function(err, result) {
 			if(!err) {
 				console.log("dao from update seat: " + result);
 				seatConverter.mergeJsonIntoDao(result, req);
 				console.log("dao from update seat after merge: " + result);
 				result.save(function(err, result) {
 					if(!err) {
+						console.log("dao from after update: " + result);
 						callback(null, seatConverter.daoToJson(result));	
 					} else {
 						callback(err, null);
@@ -119,8 +126,25 @@ var SeatService = {
 				callback(err, null);
 			}
 		});
+	},
+	deleteAll : function(callback) {
+		Seat.remove({}, function(err, result) {
+			if(!err) {
+				callback(null, result);
+			} else {
+				callback(err, null);
+			}
+		});	
+	},
+	addAll : function(seats, callback) {
+		Seat.create(seats, function(err, insertedSeats) {
+			if(!err) {
+				callback(null, insertedSeats);
+			} else {
+				callback(err, null);
+			}
+		});
 	}
-
 };
 
 function getSeatDaoById(id, callback) {

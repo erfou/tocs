@@ -27,7 +27,7 @@ var PnrConverter = {
 	
 	mergeJsonIntoDao : function(pnrDao, pnr) {
 		if(pnr.body) {
-			pnr = reqToResult(pnr);
+			pnr = reqToResult.call(this, pnr);
 		}
 		initFields.call(this, pnrDao, pnr);
 		

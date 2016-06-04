@@ -1,23 +1,96 @@
 {
-	"record_locator": "2GNY6",
-	"passengers": [
-		{
-			"personnalInfos": {
-				"title": "Mr",
-				"firstname": "Jean",
-				"lastname": "Valjean",
-				"birthdate": "1965-02-01",
-			},
-			"meals": [
-				{
-					"label": "Menu sans gluten"
-				}
-			],
-			"ticket": {
-				"seat": "16A",
-				"fareClass": "PRE"
-			}
-		}
-	]
-
+  "record_locator": "6BBUS",
+  "passengers": [
+    {
+      "_id": "574ec28cc9fee85509cbcfde",
+      "ticket": {
+        "seat": "6B",
+        "fareClass": "BUS"
+      },
+      "meals": [
+        {
+          "label": "Menu végétarien",
+          "_id": "574ec28cc9fee85509cbcfdf"
+        }
+      ],
+      "personnalInfos": {
+        "title": "Mr",
+        "firstname": "sixb",
+        "lastname": "business",
+        "birthdate": "1984-05-01T00:00:00.000Z"
+      }
+    }
+  ]
+},
+{
+  "record_locator": "6CECO",
+  "passengers": [
+    {
+      "_id": "574ec2b0c9fee85509cbcfe0",
+      "ticket": {
+        "seat": "6C",
+        "fareClass": "ECO"
+      },
+      "meals": [
+        {
+          "label": "Menu végétarien",
+          "_id": "574ec2b0c9fee85509cbcfe1"
+        }
+      ],
+      "personnalInfos": {
+        "title": "Mr",
+        "firstname": "sixc",
+        "lastname": "economic",
+        "birthdate": "1984-05-01T00:00:00.000Z"
+      }
+    }
+  ]
+},
+{
+  "record_locator": "6APRE",
+  "passengers": [
+    {
+      "_id": "574ed7a14ca43bec097b3ff2",
+      "ticket": {
+        "seat": "6A",
+        "fareClass": "PRE"
+      },
+      "meals": [
+        {
+          "label": "Menu hallal",
+          "_id": "574ed7a14ca43bec097b3ff3"
+        }
+      ],
+      "personnalInfos": {
+        "title": "Mr",
+        "firstname": "sixa",
+        "lastname": "premiere",
+        "birthdate": "1973-08-07T00:00:00.000Z"
+      }
+    }
+  ]
+},
+{
+  "record_locator": "8APRE",
+  "passengers": [
+    {
+      "_id": "574ee45567fcf9f30a84b399",
+      "ticket": {
+        "seat": "8A",
+        "fareClass": "PRE"
+      },
+      "meals": [
+        {
+          "label": "Menu végétarien",
+          "_id": "574ee45567fcf9f30a84b39a"
+        }
+      ],
+      "personnalInfos": {
+        "title": "Mr",
+        "firstname": "huita",
+        "lastname": "premiere",
+        "birthdate": "1986-11-20T00:00:00.000Z"
+      }
+    }
+  ]
 }

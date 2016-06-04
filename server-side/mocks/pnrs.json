@@ -1,0 +1,90 @@
+[
+    {
+      "_id": "6APRE",
+      "passengers": [
+        {
+          "ticket": {
+            "seat": "6A",
+            "fareClass": "PRE"
+          },
+          "meals": [
+            {
+              "label": "Menu hallal"
+            }
+          ],
+          "personnalInfos": {
+            "title": "Mr",
+            "firstname": "sixa",
+            "lastname": "premiere",
+            "birthdate": "1973-08-07"
+          }
+        }
+      ]
+    },
+    {
+      "_id": "6BBUS",
+      "passengers": [
+        {
+          "ticket": {
+            "seat": "6B",
+            "fareClass": "BUS"
+          },
+          "meals": [
+            {
+              "label": "Menu végétarien"
+            }
+          ],
+          "personnalInfos": {
+            "title": "Mr",
+            "firstname": "sixb",
+            "lastname": "business",
+            "birthdate": "1984-05-01"
+          }
+        }
+      ]
+    },
+    {
+      "_id": "6CECO",
+      "passengers": [
+        {
+          "ticket": {
+            "seat": "6C",
+            "fareClass": "ECO"
+          },
+          "meals": [
+            {
+              "label": "Menu végétarien"
+            }
+          ],
+          "personnalInfos": {
+            "title": "Mr",
+            "firstname": "sixc",
+            "lastname": "economic",
+            "birthdate": "1984-05-01"
+          }
+        }
+      ]
+    },
+    {
+      "_id": "8APRE",
+      "passengers": [
+        {
+          "ticket": {
+            "seat": "8A",
+            "fareClass": "PRE"
+          },
+          "meals": [
+            {
+              "label": "Menu végétarien"
+            }
+          ],
+          "personnalInfos": {
+            "title": "Mr",
+            "firstname": "huita",
+            "lastname": "premiere",
+            "birthdate": "1986-11-20"
+          }
+        }
+      ]
+    }
+]

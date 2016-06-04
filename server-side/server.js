@@ -30,8 +30,18 @@ app.use('/pnrs/', crudApi.pnrs.routes);
 app.use('/passenger/', require('./rest-api/passenger').routes);
 app.use('/pnc/', require('./rest-api/pnc').routes);
 
-
-// START THE SERVER
+// START THE SERVER INITIALIZATION
 // =============================================================================
-app.listen(port);
-console.log('Magic happens on port ' + port);
+var ServerInitializer = require('./server-init/serverInitializer');
+ServerInitializer.init(function(err, result) {
+    if(!err) {
+        console.log(result);
+        // START THE SERVER
+        // =============================================================================
+        app.listen(port);
+        console.log('Magic happens on port ' + port);
+    } else {
+        console.log(err);
+    }
+});
+

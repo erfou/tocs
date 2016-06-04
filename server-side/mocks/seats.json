@@ -1,0 +1,50 @@
+[{
+    "_id": "6A",
+    "position": {
+        "row": "6",
+        "column": "A"
+    },
+    "fareClass": "PRE"
+},{
+    "_id": "6B",
+    "position": {
+        "row": "6",
+        "column": "B"
+    },
+    "fareClass": "BUS"
+},{
+    "_id": "6C",
+    "position": {
+        "row": "6",
+        "column": "C"
+    },
+    "fareClass": "ECO"
+},{
+    "_id": "7A",
+    "position": {
+        "row": "7",
+        "column": "A"
+    },
+    "fareClass": "PRE"
+},{
+    "_id": "7B",
+    "position": {
+        "row": "7",
+        "column": "B"
+    },
+    "fareClass": "BUS"
+},{
+    "_id": "7C",
+    "position": {
+        "row": "7",
+        "column": "C"
+    },
+    "fareClass": "ECO"
+},{
+    "_id": "8A",
+    "position": {
+        "row": "8",
+        "column": "A"
+    },
+    "fareClass": "PRE"
+}]

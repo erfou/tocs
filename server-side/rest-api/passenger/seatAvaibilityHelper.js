@@ -1,18 +1,18 @@
-var pnrServices = require("app_modules/crud-api").pnrs.services;
+var seatServices = require("app_modules/crud-api").seats.services;
 
 var seatAvaibilityHelper = {
-    checkIfAvailable: function(seatId, callback) {
-        pnrServices.getAllPnrs(function(err, result) {
+    checkIfAvailable: function(seatInfos, callback) {
+        seatServices.getSeatById(seatInfos._id, function(err, seat) {
             if(!err) {
+                
                 var isOccuped = false;
-                for(var pnr of result.pnrs) {
-                    for(var passenger of pnr.passengers) {
-                        if(passenger.ticket.seat == seatId) {
-                            isOccuped = true;
-                            break;
-                        }
+                
+                if(hasPassenger(seat)) {
+                    if(!samePassenger(seat.currentPassenger, seatInfos.currentPassenger)) {
+                        isOccuped = true;
                     }
                 }
+                
                 if(isOccuped) {
                     callback(null, false);
                 } else {
@@ -24,5 +24,25 @@ var seatAvaibilityHelper = {
         });
     }
 };
+
+function hasPassenger(seat) {
+    var toReturn = false;
+    if(seat.currentPassenger
+        && seat.currentPassenger.personnalInfos 
+        && seat.currentPassenger.personnalInfos.title) {
+        
+        toReturn = true;
+    }
+    return toReturn;
+}
+function samePassenger(passenger, toCompare) {
+    var toReturn = false;
+    if(passenger.personnalInfos.title == toCompare.personnalInfos.title
+        && passenger.personnalInfos.firstname == toCompare.personnalInfos.firstname
+        && passenger.personnalInfos.lastname == toCompare.personnalInfos.lastname) {
+            toReturn = true;
+    }
+    return toReturn;
+}
 
 module.exports = seatAvaibilityHelper;

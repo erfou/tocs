@@ -6,8 +6,8 @@ var PnrService = {
 			if(!err) {
 				callback(null, pnrConverter.daoListToJson(results));
 			} else {
-				console.log("Error occured during retrieve of seats list: " + err);
-				callback({ message: "Error occured during retrieve of seats list."}, null);
+				console.log("Error occured during retrieve of pnrs list: " + err);
+				callback({ message: "Error occured during retrieve of pnrs list."}, null);
 			}
 		});
 	},
@@ -56,7 +56,7 @@ var PnrService = {
 			if(!err) {
 				callback(null, pnrConverter.daoToJson(result));
 			} else {
-				callback({ message: "Error occured during the seat retrieve.", error: err }, null);
+				callback({ message: "Error occured during the pnr retrieve.", error: err }, null);
 			}
 		});
 	},
@@ -64,6 +64,24 @@ var PnrService = {
 		Pnr.findByIdAndRemove(id, function(err, result) {
 			if(!err) {
 				callback(null, result);
+			} else {
+				callback(err, null);
+			}
+		});
+	},
+	deleteAll : function(callback) {
+		Pnr.remove({}, function(err, result) {
+			if(!err) {
+				callback(null, result);
+			} else {
+				callback(err, null);
+			}
+		});	
+	},
+	addAll : function(pnrs, callback) {
+		Pnr.create(pnrs, function(err, insertedPnrs) {
+			if(!err) {
+				callback(null, insertedPnrs);
 			} else {
 				callback(err, null);
 			}
