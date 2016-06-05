@@ -29,16 +29,15 @@ var homeManager = {
         
         async.waterfall([
             function(callback) { 
-                Tokenizer.detokenize(req.body.token, function(err, result) {
+                Tokenizer.detokenize(req.body.token, function(err, seat) {
                     if(!err) {
-                        callback(null, result);
+                        callback(null, seat);
                     } else {
                         callback(err, null);
                     }
                 });
             },
-            function(clientInfos, callback) {
-                var seat = clientInfos.seat;
+            function(seat, callback) {
                 CategoryService.getCategoriesByFareClass(seat.fareClass, function(err, result) {
                     if(!err) {
                         callback(null, seat, result);
@@ -49,7 +48,6 @@ var homeManager = {
                 });
             }
         ],
-        // optional callback
         function(err, seat, result) {
             if(!err) {
                 homeView.seatView = new SeatView(seat);
