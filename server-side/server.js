@@ -6,7 +6,6 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var mongoose    = require('mongoose'); 
-
 var crudApi = require('app_modules/crud-api');
 
 mongoose.connect('mongodb://localhost:27017/onBoardRealTimeSeatMap');
@@ -36,12 +35,19 @@ var ServerInitializer = require('./server-init/serverInitializer');
 ServerInitializer.init(function(err, result) {
     if(!err) {
         console.log(result);
-        // START THE SERVER
-        // =============================================================================
-        app.listen(port);
-        console.log('Magic happens on port ' + port);
+        ServerInitializer.initSeatPassengerCouple(function(err, result) {
+           if(!err) {
+                console.log(result);
+           } else {
+               console.log(err);
+           }
+        });
     } else {
         console.log(err);
     }
 });
 
+// START THE SERVER
+// =============================================================================
+app.listen(port);
+console.log('Magic happens on port ' + port);

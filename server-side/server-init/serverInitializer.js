@@ -33,6 +33,45 @@ var SeatInitializer = {
                     callback("Server initialization failed: " + err, null);
                 }
             });
+    },
+    initSeatPassengerCouple : function(callback) {
+        var seatServices = crudApi.seats.services;
+        var pnrServices = crudApi.pnrs.services;
+        pnrServices.getAllPnrs(function(err, result) {
+            if(!err) {
+                async.each(result.pnrs,
+                    function(pnr, callback) {
+                        async.each(pnr.passengers,
+                            function(passenger, callback) {
+                                async.waterfall([
+                                    function(callback) {
+                                        seatServices.getSeatById(passenger.ticket.seat, function(err, seat) {
+                                            if(!err) {
+                                                callback(null, seat);
+                                            } else {
+                                                callback(err, null);
+                                            }
+                                        });
+                                    },
+                                    function(seat, callback) {
+                                       seat.currentPassenger = passenger;
+                                       seatServices.updateSeat(seat, function(err, updatedSeat) {
+                                          if(!err) {
+                                              callback(null, updatedSeat);
+                                          } else {
+                                              callback(err, null);
+                                          }
+                                       });
+                                    }
+                                ]);
+                            }
+                        );
+                    }
+                );
+            } else {
+                callback(err, null);
+            }
+        });
     }
 };
 

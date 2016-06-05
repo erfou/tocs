@@ -11,7 +11,7 @@ var SeatService = {
 					callback({ message: "No seats found."}, null);
 				}
 			} else {
-				console.log("Error occured during retrieve of seats list: " + err);
+//				console.log("Error occured during retrieve of seats list: " + err);
 				callback({ message: "Error occured during retrieve of seats list."}, null);
 			}
 		});
@@ -56,7 +56,7 @@ var SeatService = {
 					callback({ message: "error saving: " + req + " result doesn't exist: " + result}, null);
 				}
 			} else {
-				console.log(err.stack);
+//				console.log(err.stack);
 				callback(err, null);
 			}
 		});
@@ -97,15 +97,15 @@ var SeatService = {
 //			reqSeat = req.body;
 			seatId = req.params.seat_id;
 		}
-		console.log("from update seat: " + JSON.stringify(req.body));
+//		console.log("from update seat: " + JSON.stringify(req.body));
 		getSeatDaoById.call(this, seatId, function(err, result) {
 			if(!err) {
-				console.log("dao from update seat: " + result);
+//				console.log("dao from update seat: " + result);
 				seatConverter.mergeJsonIntoDao(result, req);
-				console.log("dao from update seat after merge: " + result);
+//				console.log("dao from update seat after merge: " + result);
 				result.save(function(err, result) {
 					if(!err) {
-						console.log("dao from after update: " + result);
+//						console.log("dao from after update: " + result);
 						callback(null, seatConverter.daoToJson(result));	
 					} else {
 						callback(err, null);
