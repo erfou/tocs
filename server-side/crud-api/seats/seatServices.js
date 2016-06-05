@@ -33,8 +33,7 @@ var SeatService = {
 		Seat.find({ 
 			'position.column': position.column,
 			'position.row': position.row
-			}
-			, function(err, result) {
+			}, function(err, result) {
 				if(!err) {
 					if(result) {
 						callback(null, seatConverter.daoToJson(result));
@@ -45,6 +44,22 @@ var SeatService = {
 					callback({ message: "Error occured during the seat retrieve.", error: err }, null);
 				}
 		});
+	},
+	getSeatByFirstAndLastName : function(firstname, lastname, callback) {
+		Seat.find({
+			'currentPassenger.personnalInfos.firstname' : firstname,
+			'currentPassenger.personnalInfos.lastname' : lastname,
+		}, function(err, result) {
+			if(!err) {
+				if(result) {
+					callback(null, result[0]);
+				} else {
+					callback({ message: "No result found for name: " + firstname + " " + lastname }, null);
+				}
+			} else {
+				callback({ message: "Error occured during the seat retrieve.", error: err }, null);
+			}
+		});	
 	},
 	addNewSeat : function(req, callback) {
 		var seatDao = seatConverter.jsonToDao(req);

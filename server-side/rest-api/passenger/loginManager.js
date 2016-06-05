@@ -1,16 +1,13 @@
 var async = require("async");
 var crudApi = require('app_modules/crud-api');
+var PassengerHelper = require('app_modules/passengerHelper');
 
-var PnrService = crudApi.pnrs.services;
 var SeatService = crudApi.seats.services;
 
 var Tokenizer = require('./tokenizer');
-var SeatAvaibilityHelper = require('./seatAvaibilityHelper');
-var PassengerHelper = require('./passengerHelper');
 
 var loginManager = {
     login : function(req, callback) { 
-        console.log("firstname from login: " + req.body.firstname);
         var loginForm = {
           token: "",
           links: [
@@ -21,8 +18,6 @@ var loginManager = {
           ]
         };
 
-        var toCompare = { personnalInfos: { firstname: req.body.firstname, lastname: req.body.lastname } };
-
         async.waterfall([
             //get asked seat
             function(callback) {
@@ -30,96 +25,30 @@ var loginManager = {
                     if(!err) {
                         callback(null, result);
                     } else {
-                        console.log(err);
                         callback(err, null);
                     }
                 });
             },
             function(seat, callback) {
-                //if has a passenger on this seat
-                if(PassengerHelper.hasPassenger(seat)) {
-                    //if passenger match, return seat infos
-                    if(PassengerHelper.samePassenger(seat.currentPassenger, toCompare)) {
-                        callback(null, seat, null);
+                changeCurrentPassenger(seat, req, function(err, seat, oldSeat) {
+                    if(!err) {
+                        callback(null, seat, oldSeat);
                     } else {
-                        callback({ message: "Seat allready reserved." }, null, null);
+                        callback(err, null, null);
                     }
-                //If seat is free
-                } else {
-                    var oldSeat;
-                    console.log("from else");
-                    //looking for the current seat of the passenger (to free it)
-                    async.waterfall([
-                        function(callback) {
-                            SeatService.getAllSeats(function(err, result) {
-                               if(!err) {
-                                   console.log("from getAllSeats");
-                                   callback(null, result.seats);
-                               } else {
-                                   callback(err, null);
-                               }
-                            });
-                        },
-                        function(seats, callback) {
-                            async.each(seats,
-                                function(seatInList, callback) {
-                                   console.log("from async.each on seat list");
-                                    var passengerOfSeat = seatInList.currentPassenger;
-                                    if(PassengerHelper.samePassenger(passengerOfSeat, toCompare)) {
-                                       oldSeat = JSON.parse(JSON.stringify(seatInList));
-                                        seatInList.currentPassenger = null;
-                                        SeatService.updateSeat(seatInList, function(err, updatedSeat) {
-                                            if(!err) {
-                                                console.log("updatedSeat from updateSeat: " + JSON.stringify(updatedSeat));
-                                                callback(null, updatedSeat);
-                                            } else {
-                                                callback(err, null);
-                                            }
-                                        });
-                                    } else {
-                                        callback(null, null);
-                                    }
-                                },
-                                function(err) {
-                                    if(!err) {
-                                        if(oldSeat) {
-                                            callback(null, oldSeat);
-                                        } else {
-                                            callback({ message: "Passenger not found." }, null);
-                                        }
-                                    } else {
-                                        callback(err, null);
-                                    }
-                                }
-                            );
-                        }
-                    ],
-                    function(err, oldSeat) {
-                        if(!err) {
-                            console.log('oldSeat from waterfall callback: ' + JSON.stringify(oldSeat));
-                            console.log('seat from waterfall callback: ' + JSON.stringify(seat));
-                            callback(null, seat, oldSeat);
-                        } else {
-                            callback(err, null, null);
-                        }
-                    });
-                    //set new current passenger and delete it from original seat
-                }
+                });
             },
-            function(err, seat, oldSeat) {
-                if(!err) {
-                    console.log("from last waterfall callback");
-                    if(oldSeat) {
-                        loginForm.prototype.warning = "Your old seat is now free to other people.";
-                    }
-                    Tokenizer.tokenize(seat, function(err, token) {
-                        if(!err) {
-                            callback(null, token);
-                        } else {
-                            callback(err, null);
-                        }
-                    });
+            function(seat, oldSeat, callback) {
+                if(oldSeat) {
+                    loginForm.warning = "Your old seat " + oldSeat._id + " is now free to other people.";
                 }
+                Tokenizer.tokenize(seat, function(err, token) {
+                    if(!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, null);
+                    }
+                });
             }
         ],
         // optional callback
@@ -134,5 +63,81 @@ var loginManager = {
         });
     }
 };
+
+function changeCurrentPassenger(seat, req, changeCurrentPassengerCallback) {
+                var toCompare = { personnalInfos: { firstname: req.body.firstname, lastname: req.body.lastname } };
+                //if has a passenger on this seat
+                if(PassengerHelper.hasPassenger(seat)) {
+                    //if passenger match, return seat infos
+                    if(PassengerHelper.samePassenger(seat.currentPassenger, toCompare)) {
+                        changeCurrentPassengerCallback(null, seat, null);
+                    } else {
+                        changeCurrentPassengerCallback({ message: "Seat allready reserved." }, null, null);
+                    }
+                //If seat is free
+                } else {
+                    //looking for the current seat of the  passenger (to free it)
+                    async.waterfall([
+                        function(callback) {
+                            SeatService.getSeatByFirstAndLastName(req.body.firstname, req.body.lastname, function(err, oldSeat) {
+                               if(!err) {
+                                   if(oldSeat) {
+                                       callback(null, oldSeat);
+                                   } else {
+                                       callback({ message:"no seat found for passenger: " + req.body.firstname + " " + req.body.lastname});
+                                   }
+                               } else {
+                                   callback(err, null);
+                               }
+                            });
+                        },
+                        function(oldSeat, firstWaterFallCallback) {
+                            if(oldSeat.fareClass == seat.fareClass) {
+                                //Copy the currentPassenger to the asked seat
+                                seat.currentPassenger = JSON.parse(JSON.stringify(oldSeat.currentPassenger));
+                                //Free old seat
+                                oldSeat.currentPassenger = null;
+                                
+                                //update seats
+                                async.waterfall([
+                                    function(callback) {
+                                        SeatService.updateSeat(seat, function(err, currentUpdatedSeat) {
+                                           if(!err) {
+                                                callback(null, currentUpdatedSeat);
+                                            } else {
+                                                callback(err, null);
+                                            }
+                                        });
+                                    },
+                                    function(currentSeatUpdated, callback) {
+                                        SeatService.updateSeat(oldSeat, function(err, oldUpdatedSeat) {
+                                           if(!err) {
+                                                callback(null, currentSeatUpdated, oldUpdatedSeat);
+                                            } else {
+                                                callback(err, null, null);
+                                            }
+                                        });
+                                    }
+                                ], function(err, currentSeatUpdated, oldUpdatedSeat) {
+                                    if(!err) {
+                                        firstWaterFallCallback(null, currentSeatUpdated, oldUpdatedSeat);
+                                    } else {
+                                        firstWaterFallCallback(err, null, null);
+                                    }
+                                });
+                            } else {
+                                firstWaterFallCallback({ message: 'Uncombinable fare classes'}, null, null);
+                            }
+                        }
+                    ],
+                    function(err, currentSeat, oldSeat) {
+                        if(!err) {
+                            changeCurrentPassengerCallback(null, currentSeat, oldSeat);
+                        } else {
+                            changeCurrentPassengerCallback(err, null, null);
+                        }
+                    });
+                }
+}
 
 module.exports = loginManager;

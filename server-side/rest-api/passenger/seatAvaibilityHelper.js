@@ -1,5 +1,5 @@
-var seatServices = require("app_modules/crud-api").seats.services;
-var PassengerHelper = require('./passengerHelper');
+var seatServices = require('app_modules/crud-api').seats.services;
+var PassengerHelper = require('app_modules/passengerHelper');
 
 var seatAvaibilityHelper = {
     checkIfAvailable: function(seatInfos, callback) {

@@ -1,4 +1,5 @@
 var Seat = require('./seatDao');
+var PassengerHelper = require('app_modules/passengerHelper');
 
 var SeatConverter = {
 
@@ -16,13 +17,14 @@ var SeatConverter = {
 		return seatDao;
 	},
 	daoToJson : function(seatDao){
-		var result = {
-			_id : seatDao._id,
-			position : seatDao.position,
-			fareClass : seatDao.fareClass,
-		 	occuped : seatDao.occuped,
-		 	currentPassenger : seatDao.currentPassenger
-		};
+		var result = {};
+		result._id = seatDao._id;
+		result.position = seatDao.position;
+		result.fareClass = seatDao.fareClass;
+	 	result.occuped = seatDao.occuped;
+	 	if(PassengerHelper.hasPassenger(seatDao)) {
+		 	result.currentPassenger = seatDao.currentPassenger;
+	 	}
 		return result;
 	},
 	daoListToJson : function(seatListDao) {
