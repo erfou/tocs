@@ -93,32 +93,7 @@ function changeCurrentPassenger(seat, req, changeCurrentPassengerCallback) {
                         },
                         function(oldSeat, firstWaterFallCallback) {
                             if(oldSeat.fareClass == seat.fareClass) {
-                                //Copy the currentPassenger to the asked seat
-                                seat.currentPassenger = JSON.parse(JSON.stringify(oldSeat.currentPassenger));
-                                //Free old seat
-                                oldSeat.currentPassenger = null;
-                                
-                                //update seats
-                                async.waterfall([
-                                    function(callback) {
-                                        SeatService.updateSeat(seat, function(err, currentUpdatedSeat) {
-                                           if(!err) {
-                                                callback(null, currentUpdatedSeat);
-                                            } else {
-                                                callback(err, null);
-                                            }
-                                        });
-                                    },
-                                    function(currentSeatUpdated, callback) {
-                                        SeatService.updateSeat(oldSeat, function(err, oldUpdatedSeat) {
-                                           if(!err) {
-                                                callback(null, currentSeatUpdated, oldUpdatedSeat);
-                                            } else {
-                                                callback(err, null, null);
-                                            }
-                                        });
-                                    }
-                                ], function(err, currentSeatUpdated, oldUpdatedSeat) {
+                                computePassenger(seat, oldSeat, function(err, currentSeatUpdated, oldUpdatedSeat) {
                                     if(!err) {
                                         firstWaterFallCallback(null, currentSeatUpdated, oldUpdatedSeat);
                                     } else {
@@ -138,6 +113,42 @@ function changeCurrentPassenger(seat, req, changeCurrentPassengerCallback) {
                         }
                     });
                 }
+}
+
+function computePassenger(currentSeat, oldSeat, computePassengerCallback) {
+        //Copy the currentPassenger to the asked seat
+        currentSeat.currentPassenger = JSON.parse(JSON.stringify(oldSeat.currentPassenger));
+        //Free old seat
+        oldSeat.currentPassenger = null;
+        
+        //update seats
+        async.waterfall([
+            function(callback) {
+                SeatService.updateSeat(currentSeat, function(err, currentUpdatedSeat) {
+                   if(!err) {
+                        callback(null, currentUpdatedSeat);
+                    } else {
+                        callback(err, null);
+                    }
+                });
+            },
+            function(currentSeatUpdated, callback) {
+                SeatService.updateSeat(oldSeat, function(err, oldUpdatedSeat) {
+                   if(!err) {
+                        callback(null, currentSeatUpdated, oldUpdatedSeat);
+                    } else {
+                        callback(err, null, null);
+                    }
+                });
+            }
+        ], function(err, currentSeatUpdated, oldUpdatedSeat) {
+            if(!err) {
+                computePassengerCallback(null, currentSeatUpdated, oldUpdatedSeat);
+            } else {
+                computePassengerCallback(err, null, null);
+            }
+        });
+    
 }
 
 module.exports = loginManager;
