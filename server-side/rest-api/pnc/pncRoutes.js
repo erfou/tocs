@@ -3,9 +3,9 @@ var router = express.Router();
 
 var SeatMapManager = require('./seatMapManager');
 
-router.route('/service')
+router.route('/seat-map/:view_type')
 	.get(function(req, res) {
-		SeatMapManager.seatMap(req, "service", function(err, result) {
+		SeatMapManager.seatMap(req, req.params.view_type, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
