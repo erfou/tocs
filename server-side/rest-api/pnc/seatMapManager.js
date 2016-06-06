@@ -8,8 +8,8 @@ var SeatMapManager = {
     	};
         SeatService.getAllSeats(function(err, allSeats) {
             if(!err) {
-            	for(var seat of allSeats) {
-            		seatMapView.push(new SeatInfosView(seat));
+            	for(var seat of allSeats.seats) {
+            		seatMapView.seatInfosViews.push(new SeatInfosView(seat));
             	}            	
                 callback(null, seatMapView);
             } else {
