@@ -5,10 +5,6 @@ var seatInfosView = function(seat) {
 		label: "Siège " + seat._id,
 		fareClass: seat.fareClass,
 		occuped: seat.occuped,
-		links: [{
-			rel: "self",
-			href: "/pnc/" + seat._id + "/details"
-		}]
 	};
 
 	if(seat.currentPassenger) {
@@ -19,6 +15,7 @@ var seatInfosView = function(seat) {
 		this.passenger = {
 			label:	fullName,
 			links: [{
+				label: "Détails",				
 				rel: "self",
 				href: "/pnc/" + urlizableFullName + "/details"
 			}]

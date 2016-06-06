@@ -1,37 +1,10 @@
 var SeatService = require('app_modules/crud-api').seats.services;
 var SeatInfosView = require('./seatInfosView');
+var ServiceSeatMapView = require('./serviceSeatMapView');
 
 var SeatMapManager = {
     seatMap : function(req, typeOfView, callback) {
-    	var serviceSeatMapView = {
-            
-            slideView : {
-                label: "Vue",
-                links: [{
-                    rel: "service",
-                    href: "/pnc/seat-map/service"
-                },{
-                    rel: "security",
-                    href: "/pnc/seat-map/security"
-                }]
-            },
-            
-            burgerMenuView : {
-                label: "Menu",
-                links: [{
-                    rel: "passengers",
-                    href: "/pnc/passenger/list",
-                },{
-                    rel: "services",
-                    href: "/pnc/service/list",
-                },{
-                    rel: "messages",
-                    href: "/pnc/message/list",
-                }],
-            },
-    		
-    		seatMapView : []
-    	};
+    	var serviceSeatMapView = new ServiceSeatMapView();
         SeatService.getAllSeats(function(err, allSeats) {
             if(!err) {
             	for(var seat of allSeats.seats) {
