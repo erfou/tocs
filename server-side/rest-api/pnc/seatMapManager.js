@@ -1,10 +1,17 @@
 var SeatService = require('app_modules/crud-api').seats.services;
+var SeatInfosView = require('./seatInfosView');
 
 var SeatMapManager = {
     seatMap : function(req, typeOfView, callback) {
-        SeatService.getAllSeats(function(err, result) {
+    	var seatMapView = {
+    		 seatInfosViews : []
+    	};
+        SeatService.getAllSeats(function(err, allSeats) {
             if(!err) {
-                callback(null, result);
+            	for(var seat of allSeats) {
+            		seatMapView.push(new SeatInfosView(seat));
+            	}            	
+                callback(null, seatMapView);
             } else {
                 callback(err, null);
             }
