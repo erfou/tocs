@@ -3,6 +3,7 @@ var Schema   = mongoose.Schema;
 
 var pnrSchema = new Schema({
 	_id: String,
+
 	passengers: [
 		{
 			personnalInfos: {
@@ -22,7 +23,9 @@ var pnrSchema = new Schema({
 			}
 
 		}
-	]
+	],
+
+	passengersFromDb: { type: Schema.Types.ObjectId, ref: 'Passenger' }
 
 });
 

@@ -26,8 +26,8 @@ var seatSchema = new Schema({
 			fareClass: String
 		}
 	
-	}
-
+	},
+	currentPassengerFromDb : { type: Schema.Types.ObjectId, ref: 'Passenger' }
 });
 
 module.exports = mongoose.model('Seat', seatSchema);

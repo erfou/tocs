@@ -1,0 +1,63 @@
+{
+  "slideView": {
+    "label": "Vue",
+    "links": [
+      {
+        "label": "Services",
+        "rel": "service",
+        "href": "/pnc/seat-map/service"
+      },
+      {
+        "label": "Sécurité",
+        "rel": "security",
+        "href": "/pnc/seat-map/security"
+      }
+    ]
+  },
+  "burgerMenuView": {
+    "label": "Menu",
+    "links": [
+      {
+        "label": "Liste des passagers",
+        "rel": "passengers",
+        "href": "/pnc/passenger/list"
+      },
+      {
+        "label": "Liste des services",
+        "rel": "services",
+        "href": "/pnc/service/list"
+      },
+      {
+        "label": "Messages",
+        "rel": "messages",
+        "href": "/pnc/message/list"
+      }
+    ]
+  },
+  "seatMapView": [
+    {
+      "seat": {
+        "label": "Siège 6A",
+        "fareClass": "PRE",
+        "occuped": false
+      }
+    },
+    {
+      "seat": {
+        "label": "Siège 6C",
+        "fareClass": "ECO",
+        "occuped": true
+      },
+      "passenger": {
+        "label": "Mr sixc economic",
+        "links": [
+          {
+            "label": "Détails",
+            "rel": "self",
+            "href": "/pnc/mr_sixc_economic/details"
+          }
+        ]
+      }
+    }
+  ]
+}
