@@ -1,5 +1,5 @@
 /* body */
-body { background-image: url("../img/Siege.jpg"); background-repeat: no-repeat; background-position: center; }
+body { background-image: url("../img/siege.jpg"); background-repeat: no-repeat; background-position: center; }
 
 /* header */
 .my-header > div.row:first-child  > div{ height: 30px; }
