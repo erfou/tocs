@@ -1,0 +1,13 @@
+<!-- content -->
+<div class="content">
+    <div class="menu">
+        <div class="menu-header h4">Services disponibles</div>
+        <ul class=" nav nav-stacked">
+            <li role="presentation" data-ng-repeat="service in services">
+                <a ui-sref="{{service.url}}">{{ service.title }}<span class="{{service.icon}}"></span></a>
+
+            </li>
+        </ul>
+    </div>
+</div>
+

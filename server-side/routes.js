@@ -10,7 +10,12 @@ router.use(function(req, res, next){
 });
 // test route to make sure everything is working (accessed at GET http://localhost:8080/users-api)
 router.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });   
+    //res.json({ message: 'hooray! welcome to our api!' });
+    res.sendFile('./front/index.html', {root: __dirname});   
+});
+
+router.get('/status', function(req, res){
+	res.send('OK');
 });
 
 // more routes for our API will happen here

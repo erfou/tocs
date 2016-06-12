@@ -3,14 +3,14 @@
   "main": "app-conf/server.js",
   "dependencies": {
     "async": "^2.0.0-rc.4",
-    "body-parser": "~1.0.1",
-    "express": "~4.0.0",
+    "body-parser": "~1.15.1",
+    "express": "~4.8.0",
     "mongoose": "^4.1.12"
   },
   "devDependencies": {
     "expect": "^1.20.1",
     "mocha": "^2.4.5",
-    "should": "^8.2.2",
+    "should": "^9.0.2",
     "supertest": "^1.2.0"
   }
 }
