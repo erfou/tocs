@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080;        // set our port
 
+app.use(express.static('front'));
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api

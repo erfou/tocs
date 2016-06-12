@@ -13,42 +13,42 @@ angular.module('myApp', [
     		abstract: true,
 			url: '',
     		controller: 'GlobalCtrl',
-    		templateUrl: '/front/src/content/view.html'
+    		templateUrl: 'src/content/view.html'
     	})
     	.state('home', {
     		parent: 'main',
     		url: '/home',
     		controller: 'HomeCtrl',
-    		templateUrl: '/front/src/content/home/view.html'
+    		templateUrl: 'src/content/home/view.html'
     	})
     	.state('repas', {
     		parent: 'main',
     		url: '/repas',
     		controller: 'RepasCtrl',
-    		templateUrl: '/front/src/content/repas/view.html'
+    		templateUrl: 'src/content/repas/view.html'
     	})
     	.state('collations', {
     		parent: 'main',
     		url: '/collations',
     		controller: 'CollationsCtrl',
-    		templateUrl: '/front/src/content/collations/view.html'
+    		templateUrl: 'src/content/collations/view.html'
     	})
         .state('autres', {
     		parent: 'main',
     		url: '/autres',
     		controller: 'AutresCtrl',
-    		templateUrl: '/front/src/content/autres/view.html'
+    		templateUrl: 'src/content/autres/view.html'
     	})
         .state('infos', {
     		parent: 'main',
     		url: '/infos',
     		controller: 'InfosCtrl',
-    		templateUrl: '/front/src/content/infos/view.html'
+    		templateUrl: 'src/content/infos/view.html'
     	})
         .state('login', {
     		url: '/login',
     		controller: 'LoginCtrl',
-    		templateUrl: '/front/src/content/login/view.html'
+    		templateUrl: 'src/content/login/view.html'
     	});
 
 }).run(function(){
