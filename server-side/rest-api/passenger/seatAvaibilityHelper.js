@@ -1,18 +1,19 @@
-var pnrServices = require("app_modules/crud-api").pnrs.services;
+var seatServices = require('app_modules/crud-api').seats.services;
+var PassengerHelper = require('app_modules/passengerHelper');
 
 var seatAvaibilityHelper = {
-    checkIfAvailable: function(seatId, callback) {
-        pnrServices.getAllPnrs(function(err, result) {
+    checkIfAvailable: function(seatInfos, callback) {
+        seatServices.getSeatById(seatInfos._id, function(err, seat) {
             if(!err) {
+                
                 var isOccuped = false;
-                for(var pnr of result.pnrs) {
-                    for(var passenger of pnr.passengers) {
-                        if(passenger.ticket.seat == seatId) {
-                            isOccuped = true;
-                            break;
-                        }
+                
+                if(PassengerHelper.hasPassenger(seat)) {
+                    if(!PassengerHelper.samePassenger(seat.currentPassenger, seatInfos.currentPassenger)) {
+                        isOccuped = true;
                     }
                 }
+                
                 if(isOccuped) {
                     callback(null, false);
                 } else {

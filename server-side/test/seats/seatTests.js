@@ -44,7 +44,7 @@ describe("Seat tests", function(){
         expect(res).toExist();
         expect(res.body).toExist();
         expect(res.body.seats).toExist();
-        expect(res.body.seats).toInclude(seatAdded, "seats doesn't contains " + seatAdded);
+        expect(res.body.seats).toInclude(seatAdded, "seats: " + JSON.stringify(res.body.seats)+ " doesn't contains " + JSON.stringify(seatAdded));
         done();
       } else {
         throw err;

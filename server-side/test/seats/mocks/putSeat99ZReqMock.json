@@ -3,5 +3,6 @@
         "row": "99",
         "column": "Z"
     },
-    "occuped" : "true"
+    "occuped": "true",
+    "fareClass": "PRE"
 }

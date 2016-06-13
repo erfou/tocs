@@ -6,6 +6,7 @@ function SeatView (seatJson) {
       href: "/clients/seat/" + seatJson._id
     };
     this.fareClass = seatJson.fareClass;
+    this.occuped = seatJson.occuped;
     
 }
 module.exports = SeatView;

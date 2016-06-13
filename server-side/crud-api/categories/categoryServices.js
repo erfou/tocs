@@ -73,6 +73,24 @@ var CategoryService = {
 				callback(err, null);
 			}
 		});
+	},
+	deleteAll : function(callback) {
+		Category.remove({}, function(err, result) {
+			if(!err) {
+				callback(null, result);
+			} else {
+				callback(err, null);
+			}
+		});	
+	},
+	addAll : function(categories, callback) {
+		Category.create(categories, function(err, insertedCategories) {
+			if(!err) {
+				callback(null, insertedCategories);
+			} else {
+				callback(err, null);
+			}
+		});
 	}
 };
 

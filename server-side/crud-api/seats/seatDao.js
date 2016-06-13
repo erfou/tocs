@@ -8,7 +8,26 @@ var seatSchema = new Schema({
 		column: String
 	},
 	fareClass: String,
-	occuped: Boolean
+	occuped: Boolean,
+	currentPassenger: {
+		personnalInfos: {
+			title: String, //can be Mr,Mrs, Miss ?
+			firstname: String,
+			lastname: String,
+			birthdate: Date
+		},
+		meals: [
+			{
+				label: String
+			}
+		],
+		ticket: {
+			seat: String,
+			fareClass: String
+		}
+	
+	},
+	currentPassengerFromDb : { type: Schema.Types.ObjectId, ref: 'Passenger' }
 });
 
 module.exports = mongoose.model('Seat', seatSchema);

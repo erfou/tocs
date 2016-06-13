@@ -1,10 +1,11 @@
 var Seat = require('./seatDao');
+var PassengerHelper = require('app_modules/passengerHelper');
 
 var SeatConverter = {
 
 	jsonToDao : function(req){
 		var seatDao = new Seat();
-		var result = jsonToResult.call(this, req);
+		var result = reqToResult.call(this, req);
 		initFields.call(this, seatDao, result);
 		return seatDao;
 	},
@@ -16,12 +17,14 @@ var SeatConverter = {
 		return seatDao;
 	},
 	daoToJson : function(seatDao){
-		var result = {
-			_id : seatDao._id,
-			position : seatDao.position,
-			fareClass : seatDao.fareClass,
-		 	occuped : seatDao.occuped			
-		};
+		var result = {};
+		result._id = seatDao._id;
+		result.position = seatDao.position;
+		result.fareClass = seatDao.fareClass;
+	 	result.occuped = seatDao.occuped;
+	 	if(PassengerHelper.hasPassenger(seatDao)) {
+		 	result.currentPassenger = seatDao.currentPassenger;
+	 	}
 		return result;
 	},
 	daoListToJson : function(seatListDao) {
@@ -33,8 +36,11 @@ var SeatConverter = {
 	},
 	
 	mergeJsonIntoDao : function(seatDao, req) {
-		var result = jsonToResult.call(this, req);
-		initFields.call(this, seatDao, result);
+		var seat = req;
+		if(req.body) {
+			seat = reqToResult.call(this, req);
+		}
+		initFields.call(this, seatDao, seat);
 		
 	},
 };
@@ -45,14 +51,16 @@ function initFields(seatDao, result) {
 		seatDao.position = pos;
 		seatDao.fareClass = result.fareClass;
 		seatDao.occuped = result.occuped;
+		seatDao.currentPassenger = result.currentPassenger
 }
 
-function jsonToResult(req) {
+function reqToResult(req) {
 		var result = {};
 		result.position = {};
 		result.position = req.body.position;
 		result.occuped = req.body.occuped;
 		result.fareClass = req.body.fareClass;
+		result.currentPassenger = req.body.currentPassenger;
 		return result;
 }
 

@@ -1,14 +1,13 @@
 var async = require("async");
 var crudApi = require('app_modules/crud-api');
+var PassengerHelper = require('app_modules/passengerHelper');
 
-var PnrService = crudApi.pnrs.services;
 var SeatService = crudApi.seats.services;
+
 var Tokenizer = require('./tokenizer');
-var SeatAvaibilityHelper = require('./seatAvaibilityHelper');
 
 var loginManager = {
     login : function(req, callback) { 
-        console.log("firstname from login: " + req.body.firstname);
         var loginForm = {
           token: "",
           links: [
@@ -18,74 +17,38 @@ var loginManager = {
             }
           ]
         };
-        
+
         async.waterfall([
+            //get asked seat
             function(callback) {
-                PnrService.getPnrById(req.body.record_locator, function(err, result) {
+                SeatService.getSeatById(req.body.seat_id, function(err, result) {
                     if(!err) {
                         callback(null, result);
                     } else {
-                        console.log(err);
                         callback(err, null);
                     }
                 });
             },
-            function(pnr, callback) { 
-                SeatService.getSeatById(req.body.seat_id, function(err, result) {
+            function(seat, callback) {
+                changeCurrentPassenger(seat, req, function(err, seat, oldSeat) {
                     if(!err) {
-                        callback(null, pnr, result);
+                        callback(null, seat, oldSeat);
                     } else {
-                        console.log(err);
-                        callback(err, pnr, null);
+                        callback(err, null, null);
                     }
                 });
             },
-            function(pnr, seat, callback) {
-                var currentPassenger = getCurrentPassanger.call(this, pnr.passengers, req.body.firstname, req.body.lastname);
-                if(currentPassenger) {
-                    var clientInfos = {};
-                    clientInfos.seat = seat;
-                    clientInfos.pnr = pnr;
-                    console.log("seat from currentPassenger: " + currentPassenger.ticket.seat + " from db: " + seat._id);
-                    if(currentPassenger.ticket.seat != seat._id) {
-                        console.log("fareClass from currentPassenger: " + currentPassenger.ticket.fareClass + " from db: " + seat.fareClass);
-                        if(currentPassenger.ticket.fareClass != seat.fareClass) {
-                            callback({ message: "Login failed.", details: "Wrong fare class: " + seat.fareClass + " instead of " + currentPassenger.ticket.fareClass}, null);
-                        } else {
-                            SeatAvaibilityHelper.checkIfAvailable(seat._id, function(err, isAvailable) {
-                                if(!err) {
-                                    if(isAvailable) {
-                                        currentPassenger.ticket.seat = seat._id;
-                
-                                        PnrService.updatePnr(pnr, function(err, result) {
-                                            if(!err) {
-                                                clientInfos.pnr = result;
-                                                callback(null, clientInfos);                
-                                            } else {
-                                                callback(err, null, null);
-                                            }
-                                        });
-                                    } else {
-                                        callback({ message: "Login failed.", details: "Seat already occuped"}, null);
-                                    }
-                                }
-                            });
-                        }
-                    } else {
-                        callback(null, clientInfos);                
-                    }
-                } else {
-                    callback({ message: "Login failed.", details: "Wrong passenger. List of passengers for PNR " + pnr.record_locator + ": " + pnr.passengers}, null);
+            function(seat, oldSeat, callback) {
+                if(oldSeat) {
+                    loginForm.warning = "Your old seat " + oldSeat._id + " is now free to other people.";
                 }
-            },
-            function (clientInfos, callback) {
-                        Tokenizer.tokenize(clientInfos, function(err, result) {
-                            if(!err) {
-                                callback(null, result);
-                            } else {
-                                callback(err, null);
-                            }
-                        });
+                Tokenizer.tokenize(seat, function(err, token) {
+                    if(!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, null);
+                    }
+                });
             }
         ],
         // optional callback
@@ -101,18 +64,91 @@ var loginManager = {
     }
 };
 
-function getCurrentPassanger(passengers, firstname, lastname) {
-    var currentPassenger;
-    console.log("passengers from getCurrentPassanger: " + passengers);
-    for (var passenger of passengers) {
-        if(passenger.personnalInfos.firstname == firstname && passenger.personnalInfos.lastname == lastname) {
-            console.log("passenger found: " + passenger);
-            currentPassenger = passenger;
-            break;
-        }
-    }
-    console.log("from getCurrentPassanger: " + currentPassenger);
-    return currentPassenger;
+function changeCurrentPassenger(seat, req, changeCurrentPassengerCallback) {
+                var toCompare = { personnalInfos: { firstname: req.body.firstname, lastname: req.body.lastname } };
+                //if has a passenger on this seat
+                if(PassengerHelper.hasPassenger(seat)) {
+                    //if passenger match, return seat infos
+                    if(PassengerHelper.samePassenger(seat.currentPassenger, toCompare)) {
+                        changeCurrentPassengerCallback(null, seat, null);
+                    } else {
+                        changeCurrentPassengerCallback({ message: "Seat allready reserved." }, null, null);
+                    }
+                //If seat is free
+                } else {
+                    //looking for the current seat of the  passenger (to free it)
+                    async.waterfall([
+                        function(callback) {
+                            SeatService.getSeatByFirstAndLastName(req.body.firstname, req.body.lastname, function(err, oldSeat) {
+                               if(!err) {
+                                   if(oldSeat) {
+                                       callback(null, oldSeat);
+                                   } else {
+                                       callback({ message:"no seat found for passenger: " + req.body.firstname + " " + req.body.lastname});
+                                   }
+                               } else {
+                                   callback(err, null);
+                               }
+                            });
+                        },
+                        function(oldSeat, firstWaterFallCallback) {
+                            if(oldSeat.fareClass == seat.fareClass) {
+                                computePassenger(seat, oldSeat, function(err, currentSeatUpdated, oldUpdatedSeat) {
+                                    if(!err) {
+                                        firstWaterFallCallback(null, currentSeatUpdated, oldUpdatedSeat);
+                                    } else {
+                                        firstWaterFallCallback(err, null, null);
+                                    }
+                                });
+                            } else {
+                                firstWaterFallCallback({ message: 'Uncombinable fare classes'}, null, null);
+                            }
+                        }
+                    ],
+                    function(err, currentSeat, oldSeat) {
+                        if(!err) {
+                            changeCurrentPassengerCallback(null, currentSeat, oldSeat);
+                        } else {
+                            changeCurrentPassengerCallback(err, null, null);
+                        }
+                    });
+                }
+}
+
+function computePassenger(currentSeat, oldSeat, computePassengerCallback) {
+        //Copy the currentPassenger to the asked seat
+        currentSeat.currentPassenger = JSON.parse(JSON.stringify(oldSeat.currentPassenger));
+        //Free old seat
+        oldSeat.currentPassenger = null;
+        
+        //update seats
+        async.waterfall([
+            function(callback) {
+                SeatService.updateSeat(currentSeat, function(err, currentUpdatedSeat) {
+                   if(!err) {
+                        callback(null, currentUpdatedSeat);
+                    } else {
+                        callback(err, null);
+                    }
+                });
+            },
+            function(currentSeatUpdated, callback) {
+                SeatService.updateSeat(oldSeat, function(err, oldUpdatedSeat) {
+                   if(!err) {
+                        callback(null, currentSeatUpdated, oldUpdatedSeat);
+                    } else {
+                        callback(err, null, null);
+                    }
+                });
+            }
+        ], function(err, currentSeatUpdated, oldUpdatedSeat) {
+            if(!err) {
+                computePassengerCallback(null, currentSeatUpdated, oldUpdatedSeat);
+            } else {
+                computePassengerCallback(err, null, null);
+            }
+        });
+    
 }
 
 module.exports = loginManager;
