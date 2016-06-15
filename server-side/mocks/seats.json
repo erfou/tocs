@@ -13,7 +13,7 @@
         "column": "B"
     },
     "fareClass": "BUS",
-    "occuped": false
+    "occuped": true
 },{
     "_id": "6C",
     "position": {
@@ -45,7 +45,7 @@
         "column": "C"
     },
     "fareClass": "ECO",
-    "occuped": true
+    "occuped": false
 },{
     "_id": "8A",
     "position": {
@@ -53,5 +53,5 @@
         "column": "A"
     },
     "fareClass": "PRE",
-    "occuped": true
+    "occuped": false
 }]

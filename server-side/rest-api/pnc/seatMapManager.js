@@ -1,15 +1,16 @@
 var SeatService = require('app_modules/crud-api').seats.services;
 var SeatInfosView = require('./seatInfosView');
 var ServiceSeatMapView = require('./serviceSeatMapView');
+var PassengerView = require('./passengerView');
 
 var SeatMapManager = {
     seatMap : function(req, typeOfView, callback) {
     	var serviceSeatMapView = new ServiceSeatMapView();
         SeatService.getAllSeats(function(err, allSeats) {
             if(!err) {
-                var listOfKnowMissingPassengersView = [], nbSeatsFree = 0, nbPassengers = 0, nbSeatsOccuped = 0;
-                if('security' == typeOfView) {
-                    for(var seat of allSeats.seats) {
+                var listOfPassengersAway = [], nbSeatsFree = 0, nbPassengers = 0, nbSeatsOccuped = 0;
+                for(var seat of allSeats.seats) {
+                    if('security' == typeOfView) {
                         if(seat.currentPassenger) {
                             nbPassengers++;
                         }
@@ -17,23 +18,23 @@ var SeatMapManager = {
                         if(seat.occuped === false ) {
                             nbSeatsFree++;
                             if(seat.currentPassenger) {
-                                listOfKnowMissingPassengersView.push(seat.currentPassenger);
+                                listOfPassengersAway.push(new PassengerView(seat.currentPassenger));
                             }
                         } else {
                             nbSeatsOccuped++;                            
                         }
-                        serviceSeatMapView.seatMapView.push(new SeatInfosView(seat));
                     }
-                    
+                    serviceSeatMapView.seatMapView.push(new SeatInfosView(seat));
+                }
+                if('security' == typeOfView) {
                     serviceSeatMapView.securityView = {};
-                    if(listOfKnowMissingPassengersView.length > 0) {
-                        serviceSeatMapView.securityView.listOfKnowMissingPassengersView = listOfKnowMissingPassengersView;
+                    if(listOfPassengersAway.length > 0) {
+                        serviceSeatMapView.securityView.listOfPassengersAway = listOfPassengersAway;
                     }
 
                     serviceSeatMapView.securityView.nbPassengers = nbPassengers;
-                    serviceSeatMapView.securityView.nbMissingPassengers = nbPassengers - nbSeatsOccuped;
-                    serviceSeatMapView.securityView.nbSeatsFree = nbSeatsFree;
                     serviceSeatMapView.securityView.nbSeatsOccuped = nbSeatsOccuped;
+                    serviceSeatMapView.securityView.nbPassengersMissing = nbPassengers - nbSeatsOccuped;
                 }
                 callback(null, serviceSeatMapView);
             } else {

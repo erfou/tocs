@@ -1,4 +1,5 @@
 var SeatService = require('app_modules/crud-api').seats.services;
+var PassengerView = require('./passengerView');
 
 var PassengerManager = {
     getAll : function(callback) {
@@ -7,7 +8,7 @@ var PassengerManager = {
             if(!err) {
                 for(var seat of allSeats.seats) {
                     if(seat.currentPassenger) {
-                        allPassengers.push(seat.currentPassenger);
+                        allPassengers.push(new PassengerView(seat.currentPassenger));
                     }
                 }
                 callback(null, allPassengers);
