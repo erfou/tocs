@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var ProductService = require('./productServices');
+var OrderService = require('./orderServices');
 
 router.route('/')
 	.get(function(req, res) {
-		ProductService.getAllProducts(function(err, result) {
+		OrderService.getAllOrders(function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -13,7 +13,7 @@ router.route('/')
 			}
 		});
 	}).put(function(req, res) {
-		ProductService.addNewProduct(req, function(err, result) {
+		OrderService.addNewOrder(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -23,20 +23,10 @@ router.route('/')
 		});
   	});
 
-router.route('/category/:category')
-	.get(function(req, res){
-		ProductService.getProductsByCategory(req.params.category, function(err, results) {
-			if(!err) {
-				res.json(results);
-			} else {
-				res.json(err);
-			}
-		});
-	})
-
-router.route('/:product_id')
+router.route('/:order_id')
     .get(function(req, res) {
-		ProductService.getProductById(req, function(err, result) {
+    	console.log('plop');
+		OrderService.getOrderById(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -46,7 +36,7 @@ router.route('/:product_id')
 		});
   	})
   	.post(function(req, res) {
-		ProductService.updateProduct(req, function(err, result) {
+		OrderService.updateOrder(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -56,7 +46,7 @@ router.route('/:product_id')
 		});
   	})
   	.delete(function(req, res) {
-		ProductService.deleteProduct(req, function(err, result) {
+		OrderService.deleteOrder(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
