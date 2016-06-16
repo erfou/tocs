@@ -1,0 +1,19 @@
+{
+  "pnr": "6APRE",
+  "seat": "6A",
+  "ticket": {
+    "seat": "6A",
+    "fareClass": "PRE"
+  },
+  "meals": [
+    {
+      "label": "Menu hallal"
+    }
+  ],
+  "personnalInfos": {
+    "title": "Mr",
+    "firstname": "sixa",
+    "lastname": "premiere",
+    "birthdate": "1973-08-07"
+  }
+}

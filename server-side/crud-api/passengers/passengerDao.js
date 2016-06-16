@@ -2,9 +2,8 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 var passengerSchema = new Schema({
-	_id: String,
-	_pnr: { type: String, ref: 'Pnr' },
-	_seatId: { type: String, ref: 'Seat' },
+	pnr: { type: String, ref: 'Pnr' },
+	seat: { type: String, ref: 'Seat' },
 	personnalInfos: {
 		title: String, //can be Mr,Mrs, Miss ?
 		firstname: String,

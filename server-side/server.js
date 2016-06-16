@@ -27,6 +27,7 @@ app.use('/categories/', crudApi.categories.routes);
 app.use('/products/', crudApi.products.routes);
 app.use('/orders/', crudApi.orders.routes);
 app.use('/pnrs/', crudApi.pnrs.routes);
+app.use('/passengers/', crudApi.passengers.routes);
 
 app.use('/passenger/', require('./rest-api/passenger').routes);
 app.use('/pnc/', require('./rest-api/pnc').routes);
