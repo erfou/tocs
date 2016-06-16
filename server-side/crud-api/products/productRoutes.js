@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var ItemService = require('./itemServices');
+var ProductService = require('./productServices');
 
 router.route('/')
 	.get(function(req, res) {
-		ItemService.getAllItems(function(err, result) {
+		ProductService.getAllProducts(function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -13,7 +13,7 @@ router.route('/')
 			}
 		});
 	}).put(function(req, res) {
-		ItemService.addNewItem(req, function(err, result) {
+		ProductService.addNewProduct(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -23,9 +23,9 @@ router.route('/')
 		});
   	});
 
-router.route('/:item_id')
+router.route('/:product_id')
     .get(function(req, res) {
-		ItemService.getItemById(req, function(err, result) {
+		ProductService.getProductById(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -35,7 +35,7 @@ router.route('/:item_id')
 		});
   	})
   	.post(function(req, res) {
-		ItemService.updateItem(req, function(err, result) {
+		ProductService.updateProduct(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -45,7 +45,7 @@ router.route('/:item_id')
 		});
   	})
   	.delete(function(req, res) {
-		ItemService.deleteItem(req, function(err, result) {
+		ProductService.deleteProduct(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {

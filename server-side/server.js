@@ -24,7 +24,7 @@ app.use(express.static('front'));
 app.use(require('./routes'));
 app.use('/seats/', crudApi.seats.routes);
 app.use('/categories/', crudApi.categories.routes);
-app.use('/items/', crudApi.items.routes);
+app.use('/products/', crudApi.products.routes);
 app.use('/pnrs/', crudApi.pnrs.routes);
 
 app.use('/passenger/', require('./rest-api/passenger').routes);

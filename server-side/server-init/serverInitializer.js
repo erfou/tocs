@@ -5,6 +5,9 @@ var schemaInfosList = [
     {
         service : crudApi.seats.services,
         mocksFileName : "seats"
+    },    {
+        service : crudApi.products.services,
+        mocksFileName : "products"
     },{
         service : crudApi.pnrs.services,
         mocksFileName : "pnrs"

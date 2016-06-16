@@ -1,34 +1,34 @@
 [
     {
-      "label": "Menu végétarien",
+      "name": "Menu végétarien",
       "categorie": "meal",
       "description": "Repas convenant aux personnes végétarienne",
       "price": "15.0",
       "currency": "EUR"
     },
     {
-      "label": "Menu hallal",
+      "name": "Menu hallal",
       "categorie": "meal",
       "description": "Repas convenant aux personnes musulmanes",
       "price": "15.0",
       "currency": "EUR"
     },
     {
-      "label": "Menu classique",
+      "name": "Menu classique",
       "categorie": "meal",
       "description": "Repas élaboré par un chef étoilé",
       "price": "12.0",
       "currency": "EUR"
     },
     {
-      "label": "Menu enfant",
+      "name": "Menu enfant",
       "categorie": "meal",
       "description": "Repas enfant élaboré par un chef étoilé",
       "price": "10.0",
       "currency": "EUR"
     },
     {
-      "label": "Twix",
+      "name": "Twix",
       "categorie": "snack",
       "type": "sweet",
       "description": "Deux doigts coupe faim",
@@ -36,47 +36,51 @@
       "currency": "EUR"
     },
     {
-      "label": "Chips",
+      "name": "Chips",
       "categorie": "snack",
       "type": "salty",
-      "description": "Repas convenant aux personnes végétarienne",
+      "description": "Chips à l'ancienne dorée au four",
+      "price": "3.0",
+      "currency": "EUR"
+    },
+    {
+      "name": "Mars",
+      "categorie": "snack",
+      "type": "sweet",
+      "description": "Et ça repart",
       "price": "12.0",
       "currency": "EUR"
     },
     {
-      "label": "Bières",
+      "name": "Vodka",
+      "categorie": "drink",
+      "type": "alcohol",
+      "description": "Alcool russe servie avec du jus de pommes",
+      "price": "12.0",
+      "currency": "EUR"
+    },
+    {
+      "name": "Bières",
       "categorie": "drink",
       "type": "alcohol",
       "description": "Bières d'abbaye",
-      "price": "12.0",
+      "price": "7.0",
       "currency": "EUR"
     },
     {
-      "label": "Menu végétarien",
-      "categorie": "meal",
-      "description": "Repas convenant aux personnes végétarienne",
-      "price": "12.0",
+      "name": "Coca cola",
+      "categorie": "drink",
+      "type": "soft",
+      "description": "Boisson à l'extrait de feuilles de coca",
+      "price": "5.0",
       "currency": "EUR"
     },
     {
-      "label": "Menu végétarien",
-      "categorie": "meal",
-      "description": "Repas convenant aux personnes végétarienne",
-      "price": "12.0",
-      "currency": "EUR"
-    },
-    {
-      "label": "Menu végétarien",
-      "categorie": "meal",
-      "description": "Repas convenant aux personnes végétarienne",
-      "price": "12.0",
-      "currency": "EUR"
-    },
-    {
-      "label": "Menu végétarien",
-      "categorie": "meal",
-      "description": "Repas convenant aux personnes végétarienne",
-      "price": "12.0",
+      "name": "Thé glacé",
+      "categorie": "drink",
+      "type": "soft",
+      "description": "Boisson à base de thé",
+      "price": "5.0",
       "currency": "EUR"
     }
 ]
