@@ -57,7 +57,11 @@ var ProductService = {
 	getProductById : function(req, callback) {
 		Product.findById(req.params.product_id, function(err, result) {
 			if(!err) {
-				callback(null, productConverter.daoToJson(result));
+				if(result) {
+					callback(null, productConverter.daoToJson(result));
+				} else {
+					callback({ error: "No result found for id: " + req.params.product_id})
+				}
 			} else {
 				callback({ message: "Error occured during the product retrieve.", error: err }, null);
 			}

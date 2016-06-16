@@ -36,6 +36,7 @@ var ProductConverter = {
 };
 
 function initFields(productDao, req) {
+		productDao._id = req.body._id;
     	productDao.name = req.body.name;
 		productDao.description = req.body.description;
 		productDao.category = req.body.category;

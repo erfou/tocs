@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 var productSchema = new Schema({
+	_id: String,
 	name: String,
 	category: String,
 	type: String,
