@@ -1,41 +1,82 @@
 [
     {
       "label": "Menu végétarien",
-      "type": "meal",
+      "categorie": "meal",
       "description": "Repas convenant aux personnes végétarienne",
-      "compatibleClasses": [
-        "PRE",
-        "BUS",
-        "ECO"
-      ]
+      "price": "15.0",
+      "currency": "EUR"
     },
     {
-      "name": "Collations",
-      "type": "snack",
-      "description": "Choix des collations sucrée et salée.",
-      "compatibleClasses": [
-        "PRE",
-        "BUS",
-        "ECO"
-      ]
+      "label": "Menu hallal",
+      "categorie": "meal",
+      "description": "Repas convenant aux personnes musulmanes",
+      "price": "15.0",
+      "currency": "EUR"
     },
     {
-      "name": "Boissons",
-      "type": "drink",
-      "description": "Choix des boissons chaudes et froides (soda, jus, alcool).",
-      "compatibleClasses": [
-        "PRE",
-        "BUS",
-        "ECO"
-      ]
+      "label": "Menu classique",
+      "categorie": "meal",
+      "description": "Repas élaboré par un chef étoilé",
+      "price": "12.0",
+      "currency": "EUR"
     },
     {
-      "name": "Autres services",
-      "type": "service",
-      "description": "Liste des services disponible à bord.",
-      "compatibleClasses": [
-        "PRE",
-        "BUS"
-      ]
+      "label": "Menu enfant",
+      "categorie": "meal",
+      "description": "Repas enfant élaboré par un chef étoilé",
+      "price": "10.0",
+      "currency": "EUR"
+    },
+    {
+      "label": "Twix",
+      "categorie": "snack",
+      "type": "sweet",
+      "description": "Deux doigts coupe faim",
+      "price": "2.0",
+      "currency": "EUR"
+    },
+    {
+      "label": "Chips",
+      "categorie": "snack",
+      "type": "salty",
+      "description": "Repas convenant aux personnes végétarienne",
+      "price": "12.0",
+      "currency": "EUR"
+    },
+    {
+      "label": "Bières",
+      "categorie": "drink",
+      "type": "alcohol",
+      "description": "Bières d'abbaye",
+      "price": "12.0",
+      "currency": "EUR"
+    },
+    {
+      "label": "Menu végétarien",
+      "categorie": "meal",
+      "description": "Repas convenant aux personnes végétarienne",
+      "price": "12.0",
+      "currency": "EUR"
+    },
+    {
+      "label": "Menu végétarien",
+      "categorie": "meal",
+      "description": "Repas convenant aux personnes végétarienne",
+      "price": "12.0",
+      "currency": "EUR"
+    },
+    {
+      "label": "Menu végétarien",
+      "categorie": "meal",
+      "description": "Repas convenant aux personnes végétarienne",
+      "price": "12.0",
+      "currency": "EUR"
+    },
+    {
+      "label": "Menu végétarien",
+      "categorie": "meal",
+      "description": "Repas convenant aux personnes végétarienne",
+      "price": "12.0",
+      "currency": "EUR"
     }
 ]
