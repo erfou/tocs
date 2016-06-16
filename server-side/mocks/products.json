@@ -1,35 +1,35 @@
 [
     {
       "name": "Menu végétarien",
-      "categorie": "meal",
+      "category": "meal",
       "description": "Repas convenant aux personnes végétarienne",
       "price": "15.0",
       "currency": "EUR"
     },
     {
       "name": "Menu hallal",
-      "categorie": "meal",
+      "category": "meal",
       "description": "Repas convenant aux personnes musulmanes",
       "price": "15.0",
       "currency": "EUR"
     },
     {
       "name": "Menu classique",
-      "categorie": "meal",
+      "category": "meal",
       "description": "Repas élaboré par un chef étoilé",
       "price": "12.0",
       "currency": "EUR"
     },
     {
       "name": "Menu enfant",
-      "categorie": "meal",
+      "category": "meal",
       "description": "Repas enfant élaboré par un chef étoilé",
       "price": "10.0",
       "currency": "EUR"
     },
     {
       "name": "Twix",
-      "categorie": "snack",
+      "category": "snack",
       "type": "sweet",
       "description": "Deux doigts coupe faim",
       "price": "2.0",
@@ -37,7 +37,7 @@
     },
     {
       "name": "Chips",
-      "categorie": "snack",
+      "category": "snack",
       "type": "salty",
       "description": "Chips à l'ancienne dorée au four",
       "price": "3.0",
@@ -45,7 +45,7 @@
     },
     {
       "name": "Mars",
-      "categorie": "snack",
+      "category": "snack",
       "type": "sweet",
       "description": "Et ça repart",
       "price": "12.0",
@@ -53,7 +53,7 @@
     },
     {
       "name": "Vodka",
-      "categorie": "drink",
+      "category": "drink",
       "type": "alcohol",
       "description": "Alcool russe servie avec du jus de pommes",
       "price": "12.0",
@@ -61,7 +61,7 @@
     },
     {
       "name": "Bières",
-      "categorie": "drink",
+      "category": "drink",
       "type": "alcohol",
       "description": "Bières d'abbaye",
       "price": "7.0",
@@ -69,7 +69,7 @@
     },
     {
       "name": "Coca cola",
-      "categorie": "drink",
+      "category": "drink",
       "type": "soft",
       "description": "Boisson à l'extrait de feuilles de coca",
       "price": "5.0",
@@ -77,7 +77,7 @@
     },
     {
       "name": "Thé glacé",
-      "categorie": "drink",
+      "category": "drink",
       "type": "soft",
       "description": "Boisson à base de thé",
       "price": "5.0",

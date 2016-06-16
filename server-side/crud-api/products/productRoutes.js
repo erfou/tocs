@@ -23,6 +23,17 @@ router.route('/')
 		});
   	});
 
+router.route('/:category')
+	.get(function(req, res){
+		ProductService.getProductsByCategory(req.params.category, function(err, results) {
+			if(!err) {
+				res.json(results);
+			} else {
+				res.json(err);
+			}
+		});
+	})
+
 router.route('/:product_id')
     .get(function(req, res) {
 		ProductService.getProductById(req, function(err, result) {

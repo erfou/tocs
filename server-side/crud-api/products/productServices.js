@@ -11,8 +11,8 @@ var ProductService = {
 			}
 		});
 	},
-	getByCategoryProducts : function(categoryId, callback) {
-		Product.find({'categoryId' : categoryId},function(err, results) {
+	getProductsByCategory : function(category, callback) {
+		Product.find({'category' : category},function(err, results) {
 			if(!err) {
 				callback(null, productConverter.daoListToJson(results));
 			} else {

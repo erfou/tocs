@@ -13,7 +13,7 @@ var ProductConverter = {
 			_id : productDao._id,
 			name : productDao.name,
 		 	description : productDao.description,
-		 	catgorie : productDao.catgorie,
+		 	category : productDao.category,
 			price : productDao.price,
 			currency : productDao.currency
 		};
@@ -38,7 +38,7 @@ var ProductConverter = {
 function initFields(productDao, req) {
     	productDao.name = req.body.name;
 		productDao.description = req.body.description;
-		productDao.catgorie = req.body.catgorie;
+		productDao.category = req.body.category;
 		if(req.body.type) {
 			productDao.type = req.body.type;
 		}
