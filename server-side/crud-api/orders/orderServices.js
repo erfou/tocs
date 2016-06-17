@@ -9,7 +9,7 @@ var OrderService = {
 				console.log("Error occured during retrieve of orders list: " + err);
 				callback({ message: "Error occured during retrieve of orders list."}), null;
 			}
-		}).populate('product seat');
+		}).populate('product');
 	},
 	getOrdersByCategory : function(category, callback) {
 		Order.find({'category' : category},function(err, results) {

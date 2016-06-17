@@ -14,6 +14,7 @@ var pnrSchema = new Schema({
 			},
 			meals: [
 				{
+					code: String,
 					label: String
 				}
 			],
@@ -23,10 +24,7 @@ var pnrSchema = new Schema({
 			}
 
 		}
-	],
-
-	passengersFromDb: { type: Schema.Types.ObjectId, ref: 'Passenger' }
-
+	]
 });
 
 module.exports = mongoose.model('Pnr', pnrSchema);

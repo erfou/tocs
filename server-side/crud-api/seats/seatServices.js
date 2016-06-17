@@ -14,7 +14,7 @@ var SeatService = {
 //				console.log("Error occured during retrieve of seats list: " + err);
 				callback({ message: "Error occured during retrieve of seats list."}, null);
 			}
-		});
+		}).populate('currentPassenger');
 	},
 	getSeatById : function(id, callback) {
 		getSeatDaoById.call(this, id, function(err, result) {
@@ -43,7 +43,7 @@ var SeatService = {
 				} else {
 					callback({ message: "Error occured during the seat retrieve.", error: err }, null);
 				}
-		});
+		}).populate('currentPassenger');
 	},
 	getSeatByFirstAndLastName : function(firstname, lastname, callback) {
 		Seat.find({
@@ -59,7 +59,7 @@ var SeatService = {
 			} else {
 				callback({ message: "Error occured during the seat retrieve.", error: err }, null);
 			}
-		});	
+		}).populate('currentPassenger');	
 	},
 	addNewSeat : function(req, callback) {
 		var seatDao = seatConverter.jsonToDao(req);
@@ -173,7 +173,7 @@ function getSeatDaoById(id, callback) {
 		} else {
 			callback({ message: "Error occured during the seat retrieve.", error: err }, null);
 		}
-	});
+	}).populate('currentPassenger');
 }
 
 module.exports = SeatService;

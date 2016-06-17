@@ -9,7 +9,7 @@ var seatSchema = new Schema({
 	},
 	fareClass: String,
 	occuped: Boolean,
-	currentPassenger: {
+/*	currentPassenger: {
 		personnalInfos: {
 			title: String, //can be Mr,Mrs, Miss ?
 			firstname: String,
@@ -27,7 +27,8 @@ var seatSchema = new Schema({
 		}
 	
 	},
-	currentPassengerFromDb : { type: Schema.Types.ObjectId, ref: 'Passenger' }
+*/
+	currentPassenger: { type: Schema.Types.ObjectId, ref: 'Passenger' }
 });
 
 module.exports = mongoose.model('Seat', seatSchema);

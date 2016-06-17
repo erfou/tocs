@@ -9,7 +9,7 @@ var PassengerService = {
 				console.log("Error occured during retrieve of passengers list: " + err);
 				callback({ message: "Error occured during retrieve of passengers list."}), null;
 			}
-		}).populate('product seat');
+		});
 	},
 	getPassengersByCategory : function(category, callback) {
 		Passenger.find({'category' : category},function(err, results) {
