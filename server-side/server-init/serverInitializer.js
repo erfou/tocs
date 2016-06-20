@@ -66,12 +66,13 @@ var SeatInitializer = {
                                         passenger.seat = seat._id;
                                         passengerService.addNewPassenger(passenger, function(err, result){
                                            if(!err) {
-                                               callback(null, result);
+                                               callback(null, seat, result);
                                            } else {
-                                               callback(err, null);
+                                               callback(err, null, null);
                                            }
                                         });
                                     }, function(seat, updatedPassenger) {
+                                        console.log("updatedPassenger._id: " + updatedPassenger._id);
                                        seat.currentPassenger = updatedPassenger._id;
                                        seatServices.updateSeat(seat, function(err, updatedSeat) {
                                           if(!err) {

@@ -70,7 +70,11 @@ var PassengerService = {
 	deletePassenger : function(req, callback) {
 		Passenger.findByIdAndRemove(req.params.passenger_id, function(err, result) {
 			if(!err) {
-				callback(null, result);
+				if(result) {
+					callback(null, result);
+				} else {
+					callback({ error: "NO result found for id: " + req.params.passenger_id}, null);
+				}
 			} else {
 				callback(err, null);
 			}

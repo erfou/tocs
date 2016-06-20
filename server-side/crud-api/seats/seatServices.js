@@ -14,7 +14,7 @@ var SeatService = {
 //				console.log("Error occured during retrieve of seats list: " + err);
 				callback({ message: "Error occured during retrieve of seats list."}, null);
 			}
-		}).populate('currentPassenger');
+		});//.populate('currentPassenger');
 	},
 	getSeatById : function(id, callback) {
 		getSeatDaoById.call(this, id, function(err, result) {
