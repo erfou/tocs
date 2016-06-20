@@ -6,7 +6,7 @@ var SeatService = {
 		Seat.find(function(err, results) {
 			if(!err) {
 				if(results) {
-					callback(null, seatConverter.daoListToJson(results));
+					callback(null, results);
 				} else {
 					callback({ message: "No seats found."}, null);
 				}

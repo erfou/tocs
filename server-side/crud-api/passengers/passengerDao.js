@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 var passengerSchema = new Schema({
+	_id: Schema.Types.ObjectId,
 	personnalInfos: {
 		title: String, //can be Mr,Mrs, Miss ?
 		firstname: String,

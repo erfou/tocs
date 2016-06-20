@@ -5,7 +5,8 @@
         "column": "A"
     },
     "fareClass": "PRE",
-    "occuped": true
+    "occuped": true,
+    "currentPassenger": "5764032abcb45779091b9f33"
 },{
     "_id": "6B",
     "position": {
@@ -13,7 +14,8 @@
         "column": "B"
     },
     "fareClass": "BUS",
-    "occuped": true
+    "occuped": true,
+    "currentPassenger": "5764032abcb45779091b9f35"
 },{
     "_id": "6C",
     "position": {
@@ -21,7 +23,8 @@
         "column": "C"
     },
     "fareClass": "ECO",
-    "occuped": true
+    "occuped": true,
+    "currentPassenger": "5764032abcb45779091b9f37"
 },{
     "_id": "7A",
     "position": {

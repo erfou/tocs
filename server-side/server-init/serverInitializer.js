@@ -1,16 +1,22 @@
 var async = require('async');
 var crudApi = require('app_modules/crud-api');
+var passengerService = crudApi.passengers.services;
 
 var schemaInfosList = [
     {
         service : crudApi.seats.services,
         mocksFileName : "seats"
-    },    {
-        service : crudApi.products.services,
-        mocksFileName : "products"
-    },{
+    }
+    /*,{
+        service : crudApi.passengers.services,
+        mocksFileName : "passengers"
+    }*/
+    ,{
         service : crudApi.pnrs.services,
         mocksFileName : "pnrs"
+    },{
+        service : crudApi.products.services,
+        mocksFileName : "products"
     },{
         service : crudApi.categories.services,
         mocksFileName : "categories"
@@ -57,7 +63,16 @@ var SeatInitializer = {
                                         });
                                     },
                                     function(seat, callback) {
-                                       seat.currentPassenger = passenger;
+                                        passenger.seat = seat._id;
+                                        passengerService.addNewPassenger(passenger, function(err, result){
+                                           if(!err) {
+                                               callback(null, result);
+                                           } else {
+                                               callback(err, null);
+                                           }
+                                        });
+                                    }, function(seat, updatedPassenger) {
+                                       seat.currentPassenger = updatedPassenger._id;
                                        seatServices.updateSeat(seat, function(err, updatedSeat) {
                                           if(!err) {
                                               callback(null, updatedSeat);

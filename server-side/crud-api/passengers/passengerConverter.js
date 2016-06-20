@@ -13,12 +13,16 @@ var PassengerConverter = {
 	},
 };
 
-function initFields(passengerDao, req) {
-    	passengerDao.pnr = req.body.pnr;
-		passengerDao.seat = req.body.seat;
-		passengerDao.personnalInfos = req.body.personnalInfos;
-		passengerDao.meals = req.body.meals;
-		passengerDao.ticket = req.body.ticket;
+function initFields(passengerDao, obj) {
+	if(obj.body) {
+		obj = obj.body;
+	}
+	passengerDao._id = obj._id;
+	passengerDao.pnr = obj.pnr;
+	passengerDao.seat = obj.seat;
+	passengerDao.personnalInfos = obj.personnalInfos;
+	passengerDao.meals = obj.meals;
+	passengerDao.ticket = obj.ticket;
 }
 
 module.exports = PassengerConverter;

@@ -1,20 +1,38 @@
-{
-  "id": "57630d4dc435642015d214cd",
-  "pnr": "6APRE",
-  "seat": "6A",
-  "ticket": {
+[
+  {
+    "_id": "5764032abcb45779091b9f33",
+    "personnalInfos": {
+      "title": "Mr",
+      "firstname": "sixa",
+      "lastname": "premiere",
+      "birthdate": "1973-08-07"
+    },
+    "pnr": "6APRE",
     "seat": "6A",
-    "fareClass": "PRE"
+    "meals": ["MENHAL"]
   },
-  "meals": [
-    {
-      "label": "Menu hallal"
-    }
-  ],
-  "personnalInfos": {
-    "title": "Mr",
-    "firstname": "sixa",
-    "lastname": "premiere",
-    "birthdate": "1973-08-07"
+  {
+    "_id": "5764032abcb45779091b9f35",
+    "personnalInfos": {
+      "title": "Mr",
+      "firstname": "sixb",
+      "lastname": "business",
+      "birthdate": "1973-08-07"
+    },
+    "pnr": "6BBUS",
+    "seat": "6B",
+    "meals": ["MENVEG"]
+  },
+  {
+    "_id": "5764032abcb45779091b9f37",
+    "personnalInfos": {
+      "title": "Mr",
+      "firstname": "sixc",
+      "lastname": "economic",
+      "birthdate": "1973-08-07"
+    },
+    "pnr": "6CECO",
+    "seat": "6C",
+    "meals": ["MENCLA"]
   }
-}
+]
