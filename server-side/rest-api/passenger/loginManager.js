@@ -64,49 +64,120 @@ var loginManager = {
         });
     },
     loginWithPassenger : function(req, callback) {
-        passengerService.getPassengersByNames(req.body.firstname, req.body.lastname, function(err, result) {
-            if(!err) {
-                if(passenger.seat != req.body.seat_id) {
-                    SeatService.getSeatById(req.body.seat_id, function(err, askedSeat) {
-                        if(!err) {
-                            if(PassengerHelper.hasPassenger(askedSeat)) {
-                                callback({ message: "Seat allready reserved." }, null, null);
-                            } else {
-                               async.waterfall([
-                                    function(callback) {
-                                        askedSeat.currentPassenger = passenger._id;
-                                        SeatService.updateSeat(askedSeat, function(err, updatedNewSeat) {
-                                            if(!err) {
-                                                callback(null, updatedNewSeat);
-                                            } else {
-                                                callback(err, null);
-                                            }
-                                        });
-                                    },
-                                    function(updatedNewSeat, callback) {
-                                        passenger.seat.currentPassenger = null;
-                                        SeatService.updateSeat(passenger.seat, function(err, updatedOldSeat) {
-                                            if(!err) {
-                                                callback(null, updatedNewSeat);
-                                            } else {
-                                                callback(err, null);
-                                            }
-                                        });
-                                    }
+        var loginForm = {
+          token: "",
+          links: [
+            {
+                rel: "Continue",
+                herf: "/passenger/home/"
+            }
+          ]
+        };
 
-                                ]);
-                            }
+        async.waterfall([
+            function(callback) {
+                passengerService.getPassengersByNames(req.body.firstname, req.body.lastname, function(err, passenger) {
+                    if(!err) {
+                        callback(null, passenger);
+                    } else {
+                        callback(err);
+                    }
+                });
+            },
+            function(passenger, callback) {
+                if(passenger.seat != req.body.seat_id) {
+                    changeSeatOfPassenger(req, passenger, loginForm, function(err, updatedPassenger) {
+                        if(!err) {
+                            callback(null, updatedPassenger);
                         } else {
                             callback(err, null);
                         }
                     });
+                } else {
+                    callback(null, passenger);
                 }
+            },
+            function(passenger, callback) {
+                Tokenizer.tokenize(passenger, function(err, token) {
+                    if(!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, null);
+                    }
+                });
+            }
+        ], function (err, token) {
+            if(!err) {
+                loginForm.token = token;
+                callback(null, loginForm);
             } else {
                 callback(err, null);
             }
         });
     } 
 };
+
+function changeSeatOfPassenger(req, passenger, loginForm, callback) {
+    SeatService.getSeatById(req.body.seat_id, function(err, askedSeat) {
+        if(!err) {
+            if(PassengerHelper.hasPassenger(askedSeat)) {
+                callback({ message: "Seat allready reserved." }, null, null);
+            } else {
+                //TODO add fare class check
+               async.waterfall([
+                    function(callback) {
+                        askedSeat.currentPassenger = passenger._id;
+                        console.log("askedSeat: " + askedSeat);
+                        SeatService.updateSeat(askedSeat, function(err, updatedNewSeat) {
+                            if(!err) {
+                                console.log("updatedNewSeat: " + updatedNewSeat);
+                                callback(null, updatedNewSeat);
+                            } else {
+                                callback(err, null);
+                            }
+                        });
+                    },
+                    function(updatedNewSeat, callback) {
+                        passenger.seat.currentPassenger = null;
+                        console.log("oldSeat: " + passenger.seat);
+                        SeatService.updateSeat(passenger.seat, function(err, updatedOldSeat) {
+                            if(!err) {
+                                console.log("updateOldSeat: " + passenger.seat);
+                                callback(null, updatedNewSeat, updatedOldSeat);
+                            } else {
+                                callback(err, null);
+                            }
+                        });
+                    },
+                    function(updatedNewSeat, updatedOldSeat, callback) {
+                        if(updatedOldSeat) {
+                            loginForm.warning = "Your old seat " + updatedOldSeat._id + " is now free to other people.";
+                        }
+                        passenger.seat = updatedNewSeat._id;
+                        passengerService.updatePassenger(passenger, function(err, updatedPassenger) {
+                           if(!err) {
+                               callback(null, updatedPassenger);
+                           } else {
+                               callback(err, null, null, null);
+                           }
+                        });
+                    }
+                ],
+                // optional callback
+                function(err, updatedPassenger) {
+                    if(!err) {
+                        callback(null, updatedPassenger);
+                    } else {
+                        callback(err, null);
+                    }
+                    // results is now equal to ['one', 'two']
+                });
+            }
+        } else {
+            callback(err, null);
+        }
+    });
+}
 
 function changeCurrentPassenger(seat, req, changeCurrentPassengerCallback) {
                 var toCompare = { personnalInfos: { firstname: req.body.firstname, lastname: req.body.lastname } };

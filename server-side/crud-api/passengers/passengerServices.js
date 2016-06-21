@@ -12,7 +12,7 @@ var PassengerService = {
 		});
 	},
 	getPassengersByNames: function(firstname, lastname, callback) {
-		Passenger.find({
+		Passenger.findOne({
 			'personnalInfos.firstname' : firstname,
 			'personnalInfos.lastname' : lastname
 		},function(err, result) {
@@ -22,7 +22,7 @@ var PassengerService = {
 				console.log("Error occured during retrieve of passenger: " + err);
 				callback({ error: "Error occured during retrieve of passenger."}), null;
 			}
-		}).populate("pnr");
+		}).populate("seat pnr");
 	},
 	addNewPassenger : function(req, callback) {
 		var passengerDao = passengerConverter.jsonToDao(req);
@@ -36,7 +36,11 @@ var PassengerService = {
 		});
 	},
 	updatePassenger : function(req, callback) {
-		Passenger.findOne({ _id: req.params.passenger_id }, function(err, result) {
+		var id = req._id
+		if(req.body) {
+			id = req.params.passenger_id;
+		}
+		Passenger.findOne({ _id: id }, function(err, result) {
 			if(!err) {
 				if(result) {
 					passengerConverter.mergeJsonIntoDao(result, req);
@@ -49,8 +53,8 @@ var PassengerService = {
 					});
 					
 				} else {
-					console.log("No result found for id: " + req.params.passenger_id);
-					callback({ message : "No result found for id: " + req.params.passenger_id}, null);
+					console.log("No result found for id: " + req.id);
+					callback({ message : "No result found for id: " + req.id}, null);
 				}
 			} else {
 				callback(err, null);

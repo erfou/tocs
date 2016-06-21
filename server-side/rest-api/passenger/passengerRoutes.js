@@ -5,7 +5,8 @@ var homeManager = require('./homeManager');
 
 router.route('/login')
 	.post(function(req, res) {
-		loginManager.login(req, function(err, result) {
+		loginManager.loginWithPassenger(req, function(err, result) {
+		//loginManager.login(req, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {

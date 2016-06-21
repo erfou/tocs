@@ -1,6 +1,6 @@
 var Tokenizer = {
     tokenize : function (seat, callback) {
-        //console.log(JSON.stringify(seat));
+        console.log(seat);
         callback(null, new Buffer(JSON.stringify(seat)).toString('base64'));
     },
     detokenize : function (token, callback) {
