@@ -21,6 +21,14 @@ router.route('/')
 				res.json(err);
 			}
 		});
+  	}).delete(function(req,res) {
+  		PassengerService.deleteAll(function(err, results) {
+  			if(!err) {
+  				res.json(results);
+  			} else {
+  				res.json(err);
+  			}
+  		});
   	});
 
 router.route('/:passenger_id')

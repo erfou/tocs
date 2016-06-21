@@ -6,11 +6,10 @@ var schemaInfosList = [
     {
         service : crudApi.seats.services,
         mocksFileName : "seats"
-    }
-    /*,{
+    },{
         service : crudApi.passengers.services,
         mocksFileName : "passengers"
-    }*/
+    }
     ,{
         service : crudApi.pnrs.services,
         mocksFileName : "pnrs"
@@ -64,6 +63,7 @@ var SeatInitializer = {
                                     },
                                     function(seat, callback) {
                                         passenger.seat = seat._id;
+                                        passenger.pnr = pnr.record_locator;
                                         passengerService.addNewPassenger(passenger, function(err, result){
                                            if(!err) {
                                                callback(null, seat, result);
@@ -106,14 +106,18 @@ function initSchema(service, mocksFileName, callback) {
             });
         },
         function(callback) {
-            var pnrs = require('../mocks/' + mocksFileName);
-            service.addAll(pnrs, function(err, insertedPnrs) {
-                if(!err) {
-                    callback(null, insertedPnrs);
-                } else {
-                    callback(err, null);
-                }
-            });
+            if(mocksFileName != "passengers") {
+                var items = require('../mocks/' + mocksFileName);
+                service.addAll(items, function(err, insertedPnrs) {
+                    if(!err) {
+                        callback(null, insertedPnrs);
+                    } else {
+                        callback(err, null);
+                    }
+                });
+            } else {
+                callback(null, null);
+            }
         }
     ], function(err, result) {
         if(!err) {
