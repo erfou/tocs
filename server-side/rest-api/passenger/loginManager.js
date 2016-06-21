@@ -122,9 +122,10 @@ function changeSeatOfPassenger(req, passenger, loginForm, callback) {
     SeatService.getSeatById(req.body.seat_id, function(err, askedSeat) {
         if(!err) {
             if(PassengerHelper.hasPassenger(askedSeat)) {
-                callback({ message: "Seat allready reserved." }, null, null);
+                callback({ error: "Seat allready reserved." }, null, null);
+            } else if(askedSeat.fareClass != passenger.seat.fareClass) {
+                callback({ error: 'Uncombinable fare classes'}, null, null);
             } else {
-                //TODO add fare class check
                async.waterfall([
                     function(callback) {
                         askedSeat.currentPassenger = passenger._id;
