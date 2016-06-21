@@ -7,20 +7,22 @@ var PassengerService = {
 				callback(null, results);
 			} else {
 				console.log("Error occured during retrieve of passengers list: " + err);
-				callback({ message: "Error occured during retrieve of passengers list."}), null;
+				callback({ error: "Error occured during retrieve of passengers list."}), null;
 			}
 		});
 	},
-	getPassengersByCategory : function(category, callback) {
-		Passenger.find({'category' : category},function(err, results) {
+	getPassengersByNames: function(firstname, lastname, callback) {
+		Passenger.find({
+			'personnalInfos.firstname' : firstname,
+			'personnalInfos.lastname' : lastname
+		},function(err, result) {
 			if(!err) {
-				callback(null, results);
-				//callback(null, passengerConverter.daoListToJson(results));
+				callback(null, result);
 			} else {
-				console.log("Error occured during retrieve of passengers list: " + err);
-				callback({ message: "Error occured during retrieve of passengers list."}), null;
+				console.log("Error occured during retrieve of passenger: " + err);
+				callback({ error: "Error occured during retrieve of passenger."}), null;
 			}
-		});
+		}).populate("pnr");
 	},
 	addNewPassenger : function(req, callback) {
 		var passengerDao = passengerConverter.jsonToDao(req);

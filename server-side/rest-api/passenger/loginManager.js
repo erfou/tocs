@@ -1,6 +1,7 @@
 var async = require("async");
 var crudApi = require('app_modules/crud-api');
 var PassengerHelper = require('app_modules/passengerHelper');
+var passengerService = crudApi.passengers.services;
 
 var SeatService = crudApi.seats.services;
 
@@ -61,7 +62,50 @@ var loginManager = {
             }
             // results is now equal to ['one', 'two']
         });
-    }
+    },
+    loginWithPassenger : function(req, callback) {
+        passengerService.getPassengersByNames(req.body.firstname, req.body.lastname, function(err, result) {
+            if(!err) {
+                if(passenger.seat != req.body.seat_id) {
+                    SeatService.getSeatById(req.body.seat_id, function(err, askedSeat) {
+                        if(!err) {
+                            if(PassengerHelper.hasPassenger(askedSeat)) {
+                                callback({ message: "Seat allready reserved." }, null, null);
+                            } else {
+                               async.waterfall([
+                                    function(callback) {
+                                        askedSeat.currentPassenger = passenger._id;
+                                        SeatService.updateSeat(askedSeat, function(err, updatedNewSeat) {
+                                            if(!err) {
+                                                callback(null, updatedNewSeat);
+                                            } else {
+                                                callback(err, null);
+                                            }
+                                        });
+                                    },
+                                    function(updatedNewSeat, callback) {
+                                        passenger.seat.currentPassenger = null;
+                                        SeatService.updateSeat(passenger.seat, function(err, updatedOldSeat) {
+                                            if(!err) {
+                                                callback(null, updatedNewSeat);
+                                            } else {
+                                                callback(err, null);
+                                            }
+                                        });
+                                    }
+
+                                ]);
+                            }
+                        } else {
+                            callback(err, null);
+                        }
+                    });
+                }
+            } else {
+                callback(err, null);
+            }
+        });
+    } 
 };
 
 function changeCurrentPassenger(seat, req, changeCurrentPassengerCallback) {
