@@ -85,7 +85,8 @@ var loginManager = {
                 });
             },
             function(passenger, callback) {
-                if(passenger.seat != req.body.seat_id) {
+                //console.log(passenger.seat);
+                if(passenger.seat._id != req.body.seat_id) {
                     changeSeatOfPassenger(req, passenger, loginForm, function(err, updatedPassenger) {
                         if(!err) {
                             callback(null, updatedPassenger);
@@ -127,10 +128,10 @@ function changeSeatOfPassenger(req, passenger, loginForm, callback) {
                async.waterfall([
                     function(callback) {
                         askedSeat.currentPassenger = passenger._id;
-                        console.log("askedSeat: " + askedSeat);
+                        //console.log("askedSeat: " + askedSeat);
                         SeatService.updateSeat(askedSeat, function(err, updatedNewSeat) {
                             if(!err) {
-                                console.log("updatedNewSeat: " + updatedNewSeat);
+                                //console.log("updatedNewSeat: " + updatedNewSeat);
                                 callback(null, updatedNewSeat);
                             } else {
                                 callback(err, null);
@@ -139,10 +140,10 @@ function changeSeatOfPassenger(req, passenger, loginForm, callback) {
                     },
                     function(updatedNewSeat, callback) {
                         passenger.seat.currentPassenger = null;
-                        console.log("oldSeat: " + passenger.seat);
+                        //console.log("oldSeat: " + passenger.seat);
                         SeatService.updateSeat(passenger.seat, function(err, updatedOldSeat) {
                             if(!err) {
-                                console.log("updateOldSeat: " + passenger.seat);
+                                //console.log("updateOldSeat: " + passenger.seat);
                                 callback(null, updatedNewSeat, updatedOldSeat);
                             } else {
                                 callback(err, null);
