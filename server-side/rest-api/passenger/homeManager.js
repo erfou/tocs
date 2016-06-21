@@ -30,18 +30,18 @@ var homeManager = {
         
         async.waterfall([
             function(callback) { 
-                Tokenizer.detokenize(req.body.token, function(err, seat) {
+                Tokenizer.detokenize(req.body.token, function(err, passenger) {
                     if(!err) {
-                        callback(null, seat);
+                        callback(null, passenger);
                     } else {
                         callback(err, null);
                     }
                 });
             },
-            function(seat, callback) {
-                CategoryService.getCategoriesByFareClass(seat.fareClass, function(err, result) {
+            function(passenger, callback) {
+                CategoryService.getCategoriesByFareClass(passenger.seat.fareClass, function(err, result) {
                     if(!err) {
-                        callback(null, seat, result);
+                        callback(null, passenger.seat, result);
                     } else {
                         console.log("err occured during retrieve of categories from homeManager: " + err);
                         callback(err, null, null);
