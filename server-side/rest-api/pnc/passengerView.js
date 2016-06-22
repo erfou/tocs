@@ -2,6 +2,7 @@ var DateFormat = require('dateformat');
 DateFormat.masks.frenchDate = 'dd-mm-yyyy';
 
 var passengerView = function (passenger) {
+    console.log(passenger.personnalInfos.birthdate);
     this.personnalInfos = {};
     this.personnalInfos.title = passenger.personnalInfos.title;
     this.personnalInfos.firstname = passenger.personnalInfos.firstname;
@@ -16,12 +17,12 @@ var passengerView = function (passenger) {
     }
     */
     this.seat = {};
-    this.seat.label = "Siège " + passenger.ticket.seat;
-    this.seat.fareClass = passenger.ticket.fareClass;
+    this.seat.label = "Siège " + passenger.seat._id;
+    this.seat.fareClass = passenger.seat.fareClass;
     this.seat.link = {
         label: "Détails",
         rel: "details",
-        href: "/pnc/seat/" + passenger.ticket.seat
+        href: "/pnc/seat/" + passenger.seat._id
     };
 };
 

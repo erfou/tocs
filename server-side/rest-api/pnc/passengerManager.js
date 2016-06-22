@@ -1,15 +1,15 @@
 var SeatService = require('app_modules/crud-api').seats.services;
+var passengerService = require('app_modules/crud-api').passengers.services;
 var PassengerView = require('./passengerView');
 
 var PassengerManager = {
     getAll : function(callback) {
-        var allPassengers = []
-        SeatService.getAllSeats(function(err, allSeats) {
+        var allPassengersView = []
+        passengerService.getAllPassengers(function(err, allPassengers) {
             if(!err) {
-                for(var seat of allSeats.seats) {
-                    if(seat.currentPassenger) {
-                        allPassengers.push(new PassengerView(seat.currentPassenger));
-                    }
+                for(var passenger of allPassengers) {
+                    console.log("from manager: " + passenger.personnalInfos.birthdate);
+                    allPassengersView.push(new PassengerView(passenger));
                 }
                 callback(null, allPassengers);
             } else {
