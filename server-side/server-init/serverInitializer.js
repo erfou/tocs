@@ -72,7 +72,6 @@ var SeatInitializer = {
                                            }
                                         });
                                     }, function(seat, updatedPassenger) {
-                                        console.log("updatedPassenger._id: " + updatedPassenger._id);
                                        seat.currentPassenger = updatedPassenger._id;
                                        seatServices.updateSeat(seat, function(err, updatedSeat) {
                                           if(!err) {
