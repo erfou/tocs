@@ -9,7 +9,8 @@ var SeatMapManager = {
         SeatService.getAllSeats(function(err, allSeats) {
             if(!err) {
                 var listOfPassengersAway = [], nbSeatsFree = 0, nbPassengers = 0, nbSeatsOccuped = 0;
-                for(var seat of allSeats.seats) {
+                console.log(allSeats);
+                for(var seat of allSeats) {
                     if('security' == typeOfView) {
                         if(seat.currentPassenger) {
                             nbPassengers++;

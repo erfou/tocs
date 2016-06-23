@@ -15,6 +15,17 @@ router.route('/seat-map/:view_type')
 		});
   	});
 
+router.route('/passenger/:passenger_id')
+	.get(function(req, res) {
+		PassengerManager.getById(req, function(err, result) {
+			if(!err) {
+				res.json(result);
+			} else {
+				res.json(err);
+			}
+		});
+	});
+
 router.route('/passenger/list')
 	.get(function(req, res) {
 		PassengerManager.getAll(function(err, result) {
@@ -23,7 +34,7 @@ router.route('/passenger/list')
 			} else {
 				res.json(err);
 			}
-		})
+		});
 	});
 
 module.exports = router;

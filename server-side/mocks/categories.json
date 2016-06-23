@@ -1,7 +1,7 @@
 [
     {
+      "_id": "meal",
       "name": "Repas",
-      "type": "meal",
       "description": "Choix du(des) repas en cabine.",
       "compatibleClasses": [
         "PRE",
@@ -10,8 +10,8 @@
       ]
     },
     {
+      "_id": "snack",
       "name": "Collations",
-      "type": "snack",
       "description": "Choix des collations sucrée et salée.",
       "compatibleClasses": [
         "PRE",
@@ -20,8 +20,8 @@
       ]
     },
     {
+      "_id": "drink",
       "name": "Boissons",
-      "type": "drink",
       "description": "Choix des boissons chaudes et froides (soda, jus, alcool).",
       "compatibleClasses": [
         "PRE",
@@ -30,8 +30,8 @@
       ]
     },
     {
+      "_id": "service",
       "name": "Autres services",
-      "type": "service",
       "description": "Liste des services disponible à bord.",
       "compatibleClasses": [
         "PRE",

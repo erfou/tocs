@@ -17,12 +17,12 @@ var passengerView = function (passenger) {
     }
     */
     this.seat = {};
-    this.seat.label = "Siège " + passenger.seat._id;
+    this.seat.label = "Siège " + passenger.seat;
     this.seat.fareClass = passenger.seat.fareClass;
     this.seat.link = {
         label: "Détails",
         rel: "details",
-        href: "/pnc/seat/" + passenger.seat._id
+        href: "/pnc/seat/" + passenger.seat
     };
 };
 
