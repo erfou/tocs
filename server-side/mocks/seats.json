@@ -5,7 +5,8 @@
         "column": "A"
     },
     "fareClass": "PRE",
-    "occuped": true
+    "occuped": true,
+    "belted": false
 },{
     "_id": "6B",
     "position": {
@@ -13,7 +14,8 @@
         "column": "B"
     },
     "fareClass": "BUS",
-    "occuped": true
+    "occuped": true,
+    "belted": false
 },{
     "_id": "6C",
     "position": {
@@ -21,7 +23,8 @@
         "column": "C"
     },
     "fareClass": "ECO",
-    "occuped": true
+    "occuped": true,
+    "belted": false
 },{
     "_id": "7A",
     "position": {
@@ -29,7 +32,8 @@
         "column": "A"
     },
     "fareClass": "PRE",
-    "occuped": false
+    "occuped": false,
+    "belted": false
 },{
     "_id": "7B",
     "position": {
@@ -37,7 +41,8 @@
         "column": "B"
     },
     "fareClass": "BUS",
-    "occuped": false
+    "occuped": false,
+    "belted": false
 },{
     "_id": "7C",
     "position": {
@@ -45,7 +50,8 @@
         "column": "C"
     },
     "fareClass": "ECO",
-    "occuped": false
+    "occuped": false,
+    "belted": false
 },{
     "_id": "8A",
     "position": {
@@ -53,5 +59,6 @@
         "column": "A"
     },
     "fareClass": "PRE",
-    "occuped": false
+    "occuped": false,
+    "belted": false
 }]

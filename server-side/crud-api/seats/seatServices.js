@@ -81,6 +81,7 @@ var SeatService = {
 		getSeatDaoById.call(this, req.params.seat_id, function(err, result) {
 			if(!err) {
 				result.occuped = req.query.occuped;
+				result.belted = req.query.belted;
 				result.save(function(err, result) {
 					if(!err) {
 						callback(null, seatConverter.daoToJson(result));	

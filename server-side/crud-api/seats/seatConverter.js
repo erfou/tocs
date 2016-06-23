@@ -22,6 +22,7 @@ var SeatConverter = {
 		result.position = seatDao.position;
 		result.fareClass = seatDao.fareClass;
 	 	result.occuped = seatDao.occuped;
+	 	result.belted = seatDao.belted;
 	 	if(PassengerHelper.hasPassenger(seatDao)) {
 		 	result.currentPassenger = seatDao.currentPassenger;
 	 	}
@@ -51,6 +52,7 @@ function initFields(seatDao, result) {
 		seatDao.position = pos;
 		seatDao.fareClass = result.fareClass;
 		seatDao.occuped = result.occuped;
+		seatDao.belted = result.belted;
 		seatDao.currentPassenger = result.currentPassenger
 }
 
@@ -59,6 +61,7 @@ function reqToResult(req) {
 		result.position = {};
 		result.position = req.body.position;
 		result.occuped = req.body.occuped;
+		result.belted = req.body.belted;
 		result.fareClass = req.body.fareClass;
 		result.currentPassenger = req.body.currentPassenger;
 		return result;
@@ -70,6 +73,7 @@ function pushToResult(req) {
 		result.position.column = req.params.seat_id.substring(req.params.seat_id.length - 1, req.params.seat_id.length);
 		result.position.row = req.params.seat_id.substring(0, req.params.seat_id.length - 1);
 		result.occuped = req.query.occuped;
+		result.belted = req.query.belted;
 		return result;
 }
 

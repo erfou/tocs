@@ -9,6 +9,7 @@ var seatSchema = new Schema({
 	},
 	fareClass: String,
 	occuped: Boolean,
+	belted: Boolean,
 	currentPassenger: { type: Schema.Types.ObjectId, ref: 'Passenger' }
 });
 
