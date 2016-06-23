@@ -37,4 +37,16 @@ router.route('/:category')
 			}
 		});
 	});
+
+router.route('/book/:product_id')
+	.post(function(req, res) {
+		productManager.getByCategories(req, function(err, results) {
+			if(!err) {
+				res.json(results);
+			} else {
+				res.json(err);
+			}
+		});
+	});
+
 module.exports = router;
