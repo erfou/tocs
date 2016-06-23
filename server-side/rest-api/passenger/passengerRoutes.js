@@ -29,8 +29,7 @@ router.route('/home')
 
 router.route('/:category')
 	.post(function(req, res) {
-		console.log(req.params.category);
-		productManager.getByCategories(req.params.category, function(err, results) {
+		productManager.getByCategories(req, function(err, results) {
 			if(!err) {
 				res.json(results);
 			} else {

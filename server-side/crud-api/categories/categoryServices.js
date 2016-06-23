@@ -56,8 +56,8 @@ var CategoryService = {
 		});
 
 	},
-	getCategoryById : function(req, callback) {
-		Category.findById(req.params.category_id, function(err, result) {
+	getCategoryById : function(id, callback) {
+		Category.findById(id, function(err, result) {
 			if(!err) {
 				callback(null, categoryConverter.daoToJson(result));
 			} else {
