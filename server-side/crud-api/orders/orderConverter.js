@@ -39,7 +39,6 @@ function initFields(orderDao, req) {
     	orderDao.passenger = req.body.passenger;
 		orderDao.quantity = req.body.quantity;
 		orderDao.product = req.body.product;
-		orderDao.seat = req.body.seat;
 }
 
 module.exports = OrderConverter;

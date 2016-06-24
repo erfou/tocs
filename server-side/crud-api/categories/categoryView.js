@@ -6,7 +6,7 @@ function CategoryView (categoryJson) {
 	  this.compatibleClasses = categoryJson.compatibleClasses;
     this.link = {
       rel: categoryJson.name,
-      href: "/passenger/" + categoryJson.type
+      href: "/passenger/" + categoryJson._id
     };
     
 }

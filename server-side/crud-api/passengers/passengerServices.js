@@ -40,8 +40,10 @@ var PassengerService = {
 		if(req.body) {
 			id = req.params.passenger_id;
 		}
+		console.log(id);
 		Passenger.findOne({ _id: id }, function(err, result) {
 			if(!err) {
+				console.log(result);
 				if(result) {
 					passengerConverter.mergeJsonIntoDao(result, req);
 					result.save(function(err, result) {
@@ -53,8 +55,8 @@ var PassengerService = {
 					});
 					
 				} else {
-					console.log("No result found for id: " + req.id);
-					callback({ message : "No result found for id: " + req.id}, null);
+					console.log("No result found for id: " + id);
+					callback({ message : "No result found for id: " + id}, null);
 				}
 			} else {
 				callback(err, null);

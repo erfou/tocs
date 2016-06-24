@@ -3,6 +3,8 @@ var router = express.Router();
 var loginManager = require('./loginManager');
 var homeManager = require('./homeManager');
 var productManager = require('./productManager');
+var bookManager = require('./bookManager');
+
 
 router.route('/login')
 	.post(function(req, res) {
@@ -40,7 +42,7 @@ router.route('/:category')
 
 router.route('/book/:product_id')
 	.post(function(req, res) {
-		productManager.getByCategories(req, function(err, results) {
+		bookManager.book(req, function(err, results) {
 			if(!err) {
 				res.json(results);
 			} else {
