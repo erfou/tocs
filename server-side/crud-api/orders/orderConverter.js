@@ -11,15 +11,10 @@ var OrderConverter = {
 	daoToJson : function(orderDao){
 		var toReturn = {
 			_id : orderDao._id,
-			name : orderDao.name,
-		 	description : orderDao.description,
-		 	category : orderDao.category,
-			price : orderDao.price,
-			currency : orderDao.currency
+			passenger : orderDao.passenger,
+		 	product : orderDao.product,
+		 	quantity : orderDao.quantity,
 		};
-	 	if(orderDao.type) {
-		 	toReturn.type = orderDao.type;
-	 	}
 		return toReturn; 
 	},
 	daoListToJson : function(orderListDao) {

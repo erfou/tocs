@@ -26,6 +26,7 @@ var OrderService = {
 		var orderDao = orderConverter.jsonToDao(req);
 		orderDao.save(function(err, result) {
 			if(!err) {
+				console.log("=====>>>> orderDao: " + orderDao);
 				callback(null, result);	
 			} else {
 				console.log(err.stack);

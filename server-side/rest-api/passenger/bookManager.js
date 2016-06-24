@@ -20,7 +20,6 @@ var bookManager = {
                 });
             },
             function(passenger, callback) {
-                console.log("getProduct");
                 productService.getProductById(req, function(err, result) {
                     if(!err) {
                         if(result) {
@@ -44,6 +43,7 @@ var bookManager = {
                 };
                 orderService.addNewOrder(orderAsReq, function(err, result) {
                     if(!err) {
+                        console.log("orderDaoId: " + result._id);
                         callback(null, passenger, product, result);
                     } else {
                         callback(err, null, null, null);
@@ -52,6 +52,7 @@ var bookManager = {
             },
             function(passenger, product, order, callback) {
                 console.log("update passenger");
+                passenger.orders.push(order._id);
                 passengerService.updatePassenger(passenger, function(err, result) {
                    if(!err) {
                        callback(null, result);
@@ -61,6 +62,7 @@ var bookManager = {
                 });
             },
             function(updatePassenger, callback) {
+                console.log("updatePassenger before Tokenizer: " + updatePassenger);
                 Tokenizer.tokenize(updatePassenger, function(err, result) {
                    if(!err) {
                        callback(null, result);
