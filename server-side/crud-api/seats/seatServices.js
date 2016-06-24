@@ -12,7 +12,7 @@ var SeatService = {
 				}
 			} else {
 //				console.log("Error occured during retrieve of seats list: " + err);
-				callback({ message: "Error occured during retrieve of seats list."}, null);
+				callback({ error: "Error occured during retrieve of seats list."}, null);
 			}
 		}).populate('currentPassenger');
 	},

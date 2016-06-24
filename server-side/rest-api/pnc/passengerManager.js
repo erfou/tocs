@@ -1,17 +1,20 @@
 var passengerService = require('app_modules/crud-api').passengers.services;
-var PassengerView = require('./passengerView');
+var PassengerInfosView = require('./passengerInfosView');
+var PassengerListView = require('./passengerListView');
 
 var PassengerManager = {
     getAll : function(callback) {
-        var allPassengersView = [];
+        var passengerListView = new PassengerListView();
+        //var allPassengersView = [];
         passengerService.getAllPassengers(function(err, allPassengers) {
             if(!err) {
                 for(var passenger of allPassengers) {
                     console.log("from manager: " + passenger.personnalInfos.birthdate);
-                    allPassengersView.push(new PassengerView(passenger));
+                    passengerListView.passengerInfosView.push(new PassengerInfosView(passenger));
                 }
-                callback(null, allPassengersView);
+                callback(null, passengerListView);
             } else {
+                console.log(err);
                 callback(err, null);
             }
         });
@@ -22,7 +25,7 @@ var PassengerManager = {
         passengerService.getPassengerById(req, function(err, result) {
            if(!err) {
                if(result) {
-                   passengerDetailsView.passengerView = new PassengerView(result);
+                   passengerDetailsView.passengerView = new PassengerInfosView(result);
                    callback(passengerDetailsView);
                } else {
                    callback({ error: "No passenger found for id: " + req.params.passenger_id }, null);
