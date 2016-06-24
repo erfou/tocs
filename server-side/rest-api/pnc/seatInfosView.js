@@ -1,4 +1,5 @@
-var seatInfosView = function(seat) {
+
+var SeatInfosView = function(seat) {
 	this.seat = {
 		label: "Siège " + seat._id,
 		fareClass: seat.fareClass,
@@ -14,10 +15,10 @@ var seatInfosView = function(seat) {
 			links: [{
 				label: "Détails",				
 				rel: "self",
-				href: "/pnc/passenger/" + seat.currentPassenger._id
+				href: "/pnc/passengers/" + seat.currentPassenger._id
 			}]
 		};
 	}
 };
 
-module.exports = seatInfosView;
+module.exports = SeatInfosView;

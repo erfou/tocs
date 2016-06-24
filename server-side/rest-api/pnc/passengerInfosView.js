@@ -1,7 +1,7 @@
 var DateFormat = require('dateformat');
 DateFormat.masks.frenchDate = 'dd-mm-yyyy';
 
-var passengerView = function (passenger) {
+var PassengerView = function (passenger) {
     console.log(passenger.personnalInfos.birthdate);
     this.personnalInfos = {};
     this.personnalInfos.title = passenger.personnalInfos.title;
@@ -22,8 +22,8 @@ var passengerView = function (passenger) {
     this.seat.link = {
         label: "Détails",
         rel: "details",
-        href: "/pnc/seat/" + passenger.seat
+        href: "/pnc/seats/" + passenger.seat
     };
 };
 
-module.exports = passengerView;
+module.exports = PassengerView;
