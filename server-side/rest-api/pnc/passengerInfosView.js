@@ -24,6 +24,7 @@ var PassengerView = function (passenger) {
         rel: "details",
         href: "/pnc/seats/" + passenger.seat
     };
+    this.orders = passenger.orders;
 };
 
 module.exports = PassengerView;
