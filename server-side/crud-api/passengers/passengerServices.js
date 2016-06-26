@@ -61,7 +61,7 @@ var PassengerService = {
 			} else {
 				callback(err, null);
 			}
-		});
+		}).populate("seat");
 
 	},
 	getPassengerById : function(req, callback) {

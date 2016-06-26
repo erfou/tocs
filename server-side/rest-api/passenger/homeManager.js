@@ -4,6 +4,7 @@ var crudApi = require('app_modules/crud-api');
 var Tokenizer = require('./tokenizer');
 
 var CategoryService = crudApi.categories.services;
+var seatService = crudApi.seats.services;
 var CategoryView = crudApi.categories.view;
 var SeatView = crudApi.seats.view;
 
@@ -37,6 +38,20 @@ var homeManager = {
                         callback(err, null);
                     }
                 });
+            },
+            function(passenger, callback) {
+              if(!passenger.seat._id) {
+                  seatService.getSeatById(passenger.seat, function(err, result){
+                      if(!err) {
+                          passenger.seat = result;
+                          callback(null, passenger);
+                      } else {
+                          
+                      }
+                  });
+              } else {
+                  callback(null, passenger);
+              }
             },
             function(passenger, callback) {
                 CategoryService.getCategoriesByFareClass(passenger.seat.fareClass, function(err, result) {

@@ -9,6 +9,7 @@ var passengerService = crudApi.passengers.services;
 
 var bookManager = {
     book: function(req, callback) {
+        var bookingView = {};
         async.waterfall([
             function(callback) {
                 Tokenizer.detokenize(req.body.token, function(err, result) {
@@ -33,7 +34,6 @@ var bookManager = {
                 });
             },
             function(passenger, product, callback) {
-                console.log("add order");
                 var orderAsReq = {
                     body: {
                         passenger: passenger,
@@ -51,7 +51,6 @@ var bookManager = {
                 });
             },
             function(passenger, product, order, callback) {
-                console.log("update passenger");
                 passenger.orders.push(order._id);
                 passengerService.updatePassenger(passenger, function(err, result) {
                    if(!err) {
@@ -73,7 +72,8 @@ var bookManager = {
             }
         ], function(err, token) {
             if(!err) {
-                callback(null, token);
+                bookingView.token = token;
+                callback(null, bookingView);
             } else {
                 callback(err, null);
             }
