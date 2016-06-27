@@ -18,9 +18,9 @@ var CommonItemsPncView = function(){
             rel: "passengers",
             href: "/pnc/passengers/",
         },{
-            label: "Liste des services",
-            rel: "services",
-            href: "/pnc/services/",
+            label: "Liste des commandes",
+            rel: "bookings",
+            href: "/pnc/bookings/",
         },{
             label: "Messages",
             rel: "messages",

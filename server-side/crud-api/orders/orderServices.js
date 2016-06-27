@@ -11,8 +11,8 @@ var OrderService = {
 			}
 		}).populate('product');
 	},
-	getOrdersByCategory : function(category, callback) {
-		Order.find({'category' : category},function(err, results) {
+	getOrdersByPassenger : function(passengerId, callback) {
+		Order.find({'passenger' : passengerId},function(err, results) {
 			if(!err) {
 				callback(null, results);
 				//callback(null, orderConverter.daoListToJson(results));

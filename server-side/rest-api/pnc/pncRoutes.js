@@ -60,4 +60,26 @@ router.route('/seats/:seat_id')
 		});
 	});
 
+router.route('/bookings/')
+	.get(function(req, res) {
+		SeatManager.getAll(function(err, result) {
+			if(!err) {
+				res.json(result);
+			} else {
+				res.json(err);
+			}
+		});
+	});
+
+router.route('/bookings/:passenger_id')
+	.get(function(req, res) {
+		SeatManager.getById(req, function(err, result) {
+			if(!err) {
+				res.json(result);
+			} else {
+				res.json(err);
+			}
+		});
+	});
+
 module.exports = router;
