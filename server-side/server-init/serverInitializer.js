@@ -7,10 +7,12 @@ var schemaInfosList = [
         service : crudApi.seats.services,
         mocksFileName : "seats"
     },{
+        service : crudApi.orders.services,
+        mocksFileName : ""
+    },{
         service : crudApi.passengers.services,
-        mocksFileName : "passengers"
-    }
-    ,{
+        mocksFileName : ""
+    },{
         service : crudApi.pnrs.services,
         mocksFileName : "pnrs"
     },{
@@ -105,7 +107,7 @@ function initSchema(service, mocksFileName, callback) {
             });
         },
         function(callback) {
-            if(mocksFileName != "passengers") {
+            if(mocksFileName != "") {
                 var items = require('../mocks/' + mocksFileName);
                 service.addAll(items, function(err, insertedPnrs) {
                     if(!err) {

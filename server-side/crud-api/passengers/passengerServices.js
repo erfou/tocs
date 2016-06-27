@@ -20,7 +20,7 @@ var PassengerService = {
 				callback(null, result);
 			} else {
 				console.log("Error occured during retrieve of passenger: " + err);
-				callback({ error: "Error occured during retrieve of passenger."}), null;
+				callback({ error: "Error occured during retrieve of passenger."}, null);
 			}
 		}).populate("seat pnr");
 	},
@@ -36,14 +36,13 @@ var PassengerService = {
 		});
 	},
 	updatePassenger : function(req, callback) {
-		var id = req._id
+		var id = req._id;
 		if(req.body) {
 			id = req.params.passenger_id;
 		}
 		console.log(id);
 		Passenger.findOne({ _id: id }, function(err, result) {
 			if(!err) {
-				console.log(result);
 				if(result) {
 					passengerConverter.mergeJsonIntoDao(result, req);
 					result.save(function(err, result) {
@@ -61,7 +60,7 @@ var PassengerService = {
 			} else {
 				callback(err, null);
 			}
-		}).populate("seat");
+		});
 
 	},
 	getPassengerById : function(req, callback) {

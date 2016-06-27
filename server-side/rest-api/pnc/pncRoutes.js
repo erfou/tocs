@@ -4,6 +4,7 @@ var router = express.Router();
 var SeatManager = require('./seatManager');
 var SeatMapManager = require('./seatMapManager');
 var PassengerManager = require('./passengerManager');
+var BookingManager = require('./bookingManager');
 
 router.route('/seat-map/:view_type')
 	.get(function(req, res) {
@@ -62,7 +63,7 @@ router.route('/seats/:seat_id')
 
 router.route('/bookings/')
 	.get(function(req, res) {
-		SeatManager.getAll(function(err, result) {
+		BookingManager.getAll(function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
@@ -73,7 +74,7 @@ router.route('/bookings/')
 
 router.route('/bookings/:passenger_id')
 	.get(function(req, res) {
-		SeatManager.getById(req, function(err, result) {
+		BookingManager.getByPassenger(req.params.passenger_id, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {

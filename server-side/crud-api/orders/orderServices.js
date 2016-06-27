@@ -20,13 +20,12 @@ var OrderService = {
 				console.log("Error occured during retrieve of orders list: " + err);
 				callback({ message: "Error occured during retrieve of orders list."}), null;
 			}
-		});
+		}).populate('product');
 	},
 	addNewOrder : function(req, callback) {
 		var orderDao = orderConverter.jsonToDao(req);
 		orderDao.save(function(err, result) {
 			if(!err) {
-				console.log("=====>>>> orderDao: " + orderDao);
 				callback(null, result);	
 			} else {
 				console.log(err.stack);
@@ -58,9 +57,7 @@ var OrderService = {
 
 	},
 	getOrderById : function(req, callback) {
-			console.log("result from getOrderById");
 		Order.findById(req.params.order_id, function(err, result) {
-			console.log("result from getOrderById: " + JSON.stringify(result));
 			if(!err) {
 				callback(null, result);
 			} else {
