@@ -4,6 +4,7 @@ var SeatInfosView = function(seat) {
 		label: "Siège " + seat._id,
 		fareClass: seat.fareClass,
 		occuped: seat.occuped,
+		belted: seat.belted,
 	};
 
 	var passenger = seat.currentPassenger;
