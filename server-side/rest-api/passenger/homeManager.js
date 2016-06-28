@@ -2,32 +2,14 @@ var async = require('async');
 /*TODO : check what is required here*/
 var crudApi = require('app_modules/crud-api');
 var Tokenizer = require('./tokenizer');
+var HomeView = require('./homeView');
 
 var CategoryService = crudApi.categories.services;
-var seatService = crudApi.seats.services;
 var CategoryView = crudApi.categories.view;
-var SeatView = crudApi.seats.view;
 
 var homeManager = {
     
     load : function(req, callback) {
-        var homeView = {
-            token: req.body.token,
-    		breadcrumbElements: [
-    			{
-    				link: {
-    					rel: "Acceuil",
-    					href: "/passenger/home"
-    				},
-    				current: true
-    			}
-    		],
-            seatView: {},
-            categoriesView : {
-			    title: "Services disponibles",
-                categories: []
-            }
-        };
         
         async.waterfall([
             function(callback) { 
@@ -38,20 +20,6 @@ var homeManager = {
                         callback(err, null);
                     }
                 });
-            },
-            function(passenger, callback) {
-              if(!passenger.seat._id) {
-                  seatService.getSeatById(passenger.seat, function(err, result){
-                      if(!err) {
-                          passenger.seat = result;
-                          callback(null, passenger);
-                      } else {
-                          
-                      }
-                  });
-              } else {
-                  callback(null, passenger);
-              }
             },
             function(passenger, callback) {
                 CategoryService.getCategoriesByFareClass(passenger.seat.fareClass, function(err, result) {
@@ -66,7 +34,7 @@ var homeManager = {
         ],
         function(err, seat, result) {
             if(!err) {
-                homeView.seatView = new SeatView(seat);
+                var homeView = new HomeView(seat, 0);
                 if(result.categories) {
             		for (var category of result.categories) {
             			homeView.categoriesView.categories.push(new CategoryView(category));
