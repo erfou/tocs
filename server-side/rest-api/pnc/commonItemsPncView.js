@@ -1,4 +1,9 @@
 var CommonItemsPncView = function(){
+    this.flightInfoView = {
+        label: "Vols AF 001",
+        itinerary: "PAR -> LAX",
+        duration: "9h30"
+    },
     this.slideView = {
         label: "Vue",
         links: [{
