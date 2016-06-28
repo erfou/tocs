@@ -20,7 +20,7 @@ var PassengerService = {
 				callback(null, result);
 			} else {
 				console.log("Error occured during retrieve of passenger: " + err);
-				callback({ error: "Error occured during retrieve of passenger."}), null;
+				callback({ error: "Error occured during retrieve of passenger."}, null);
 			}
 		}).populate("seat pnr");
 	},
@@ -36,10 +36,11 @@ var PassengerService = {
 		});
 	},
 	updatePassenger : function(req, callback) {
-		var id = req._id
+		var id = req._id;
 		if(req.body) {
 			id = req.params.passenger_id;
 		}
+		console.log(id);
 		Passenger.findOne({ _id: id }, function(err, result) {
 			if(!err) {
 				if(result) {
@@ -53,8 +54,8 @@ var PassengerService = {
 					});
 					
 				} else {
-					console.log("No result found for id: " + req.id);
-					callback({ message : "No result found for id: " + req.id}, null);
+					console.log("No result found for id: " + id);
+					callback({ message : "No result found for id: " + id}, null);
 				}
 			} else {
 				callback(err, null);

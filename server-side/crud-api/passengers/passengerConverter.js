@@ -23,6 +23,11 @@ function initFields(passengerDao, obj) {
 	passengerDao.personnalInfos = obj.personnalInfos;
 	passengerDao.meals = obj.meals;
 	passengerDao.ticket = obj.ticket;
+	if(obj.orders) {
+		for(var order of obj.orders) {
+			passengerDao.orders.push(order);
+		}
+	}
 }
 
 module.exports = PassengerConverter;

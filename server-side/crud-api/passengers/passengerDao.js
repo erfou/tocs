@@ -11,7 +11,8 @@ var passengerSchema = new Schema({
 	},
 	pnr: { type: String, ref: 'Pnr' },
 	seat: { type: String, ref: 'Seat' },
-	meals: [{ type: String, ref: "Product" }]
+	meals: [{ type: String, ref: "Product" }],
+	orders: [{ type: String, ref: "Order" }]
 });
 
 module.exports = mongoose.model('Passenger', passengerSchema);

@@ -11,8 +11,8 @@ var OrderService = {
 			}
 		}).populate('product');
 	},
-	getOrdersByCategory : function(category, callback) {
-		Order.find({'category' : category},function(err, results) {
+	getOrdersByPassenger : function(passengerId, callback) {
+		Order.find({'passenger' : passengerId},function(err, results) {
 			if(!err) {
 				callback(null, results);
 				//callback(null, orderConverter.daoListToJson(results));
@@ -20,7 +20,7 @@ var OrderService = {
 				console.log("Error occured during retrieve of orders list: " + err);
 				callback({ message: "Error occured during retrieve of orders list."}), null;
 			}
-		});
+		}).populate('product');
 	},
 	addNewOrder : function(req, callback) {
 		var orderDao = orderConverter.jsonToDao(req);
@@ -57,9 +57,7 @@ var OrderService = {
 
 	},
 	getOrderById : function(req, callback) {
-			console.log("result from getOrderById");
 		Order.findById(req.params.order_id, function(err, result) {
-			console.log("result from getOrderById: " + JSON.stringify(result));
 			if(!err) {
 				callback(null, result);
 			} else {
