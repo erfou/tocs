@@ -12,12 +12,7 @@ var pnrSchema = new Schema({
 				lastname: String,
 				birthdate: Date
 			},
-			meals: [
-				{
-					code: String,
-					label: String
-				}
-			],
+			meals: [{ type: Schema.Types.String, ref: "Product" }],
 			ticket: {
 				seat: String,
 				fareClass: String
