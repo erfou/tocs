@@ -1,6 +1,7 @@
 var passengerService = require('app_modules/crud-api').passengers.services;
 var PassengerInfosView = require('./passengerInfosView');
 var PassengerListView = require('./passengerListView');
+var PassengerDetailsView = require('./passengerDetailsView');
 
 var PassengerManager = {
     getAll : function(callback) {
@@ -20,8 +21,7 @@ var PassengerManager = {
         });
     },
     getById : function(req, callback) {
-        var passengerDetailsView = {
-        };
+        var passengerDetailsView = new PassengerDetailsView();
         passengerService.getPassengerById(req, function(err, result) {
            if(!err) {
                if(result) {
