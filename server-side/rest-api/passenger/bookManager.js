@@ -34,43 +34,13 @@ var bookManager = {
                 });
             },
             function(passenger, product, callback) {
-                console.log("==============> product: " + JSON.stringify(product));
-                console.log("==============> product.category: " + product.category);
                 if(product.category == "meal") {
-                    async.waterfall([
-                        function(callback) {
-                            orderService.getOrdersByPassenger(passenger._id, function(err, results) {
-                                if(!err) {
-                                    callback(null, results);
-                                } else {
-                                    callback(err, null);
-                                }
-                            });
-                        },
-                        function(orders, callback) {
-                            var orderToUpdate = {};
-                            orderToUpdate.body = {};
-                            for(var order of orders) {
-                                if(order.product.category == "meal") {
-                                    orderToUpdate.body = order;
-                                    orderToUpdate.body.product = product._id;
-                                }
-                            }
-                            console.log("orderToUpdate: " + JSON.stringify(orderToUpdate));
-                            orderService.updateOrder(orderToUpdate, function(err, updatedOrder) {
-                                if(!err) {
-                                    callback(null, updatedOrder);
-                                } else {
-                                    callback(err, null);
-                                }
-                            });
-                        }
-                    ], function(err, updatedOrder) {
-                        if(!err) {
-                            callback(null, passenger, product, updatedOrder);
-                        } else {
-                            callback(err, null, null, null);
-                        }
+                    updateMeal(passenger, product, function(err, passenger, product, updatedOrder) {
+                       if(!err) {
+                           callback(null, passenger, product, updatedOrder);
+                       } else {
+                           callback(err, null, null, null);
+                       }
                     });
                 } else {
                     var orderAsReq = {
@@ -119,5 +89,42 @@ var bookManager = {
         });
     }
 };
+
+function updateMeal(passenger, product, callback) {
+    async.waterfall([
+        function(callback) {
+            orderService.getOrdersByPassenger(passenger._id, function(err, results) {
+                if(!err) {
+                    callback(null, results);
+                } else {
+                    callback(err, null);
+                }
+            });
+        },
+        function(orders, callback) {
+            var orderToUpdate = {};
+            orderToUpdate.body = {};
+            for(var order of orders) {
+                if(order.product.category == "meal") {
+                    orderToUpdate.body = order;
+                    orderToUpdate.body.product = product._id;
+                }
+            }
+            orderService.updateOrder(orderToUpdate, function(err, updatedOrder) {
+                if(!err) {
+                    callback(null, updatedOrder);
+                } else {
+                    callback(err, null);
+                }
+            });
+        }
+    ], function(err, updatedOrder) {
+        if(!err) {
+            callback(null, passenger, product, updatedOrder);
+        } else {
+            callback(err, null, null, null);
+        }
+    });
+}
 
 module.exports = bookManager;

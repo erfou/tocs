@@ -41,7 +41,7 @@ var OrderService = {
 		if(req.params) {
 			id = req.params.order_id;
 		}
-		console.log("id: " + id);
+
 		Order.findOne({ _id: id }, function(err, result) {
 			if(!err) {
 				if(result) {
