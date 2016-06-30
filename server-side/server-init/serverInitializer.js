@@ -47,6 +47,7 @@ var SeatInitializer = {
     initSeatPassengerCouple : function(callback) {
         var seatServices = crudApi.seats.services;
         var pnrServices = crudApi.pnrs.services;
+        var orderServices = crudApi.orders.services;
         pnrServices.getAllPnrs(function(err, result) {
             if(!err) {
                 async.each(result.pnrs,
@@ -73,17 +74,47 @@ var SeatInitializer = {
                                                callback(err, null, null);
                                            }
                                         });
-                                    }, function(seat, updatedPassenger) {
+                                    }, function(seat, updatedPassenger, callback) {
                                        seat.currentPassenger = updatedPassenger._id;
                                        seatServices.updateSeat(seat, function(err, updatedSeat) {
                                           if(!err) {
-                                              callback(null, updatedSeat);
+                                              callback(null, updatedSeat, updatedPassenger);
                                           } else {
                                               callback(err, null);
                                           }
                                        });
+                                    }, function(updatedSeat, updatedPassenger, callback) {
+                                        var orderAsReq = {
+                                            body: {
+                                                product: passenger.meals[0],
+                                                passenger: updatedPassenger._id,
+                                                quantity: 1
+                                            }
+                                        };
+                                        orderServices.addNewOrder(orderAsReq, function(err, newOrder) {
+                                           if(!err) {
+                                               callback(null, updatedSeat, updatedPassenger, newOrder);
+                                           } else {
+                                               callback(err, null);
+                                           }
+                                        });
+                                    }, function(seat, updatedPassenger, newOrder, callback) {
+                                        updatedPassenger.orders.push(newOrder._id);
+                                        passengerService.updatePassenger(updatedPassenger, function(err, result) {
+                                            if(!err) {
+                                                callback(null);
+                                            } else {
+                                                callback(err);
+                                            }
+                                        });
                                     }
-                                ]);
+                                ], function(err) {
+                                    if(err) {
+                                        callback(err);
+                                    } else {
+                                        callback();
+                                    }
+                                });
                             }
                         );
                     }

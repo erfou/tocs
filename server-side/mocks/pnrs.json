@@ -9,7 +9,7 @@
           },
           "meals": [
             {
-              "_id": "MENHAL",
+              "_id": "MENHAL"
             }
           ],
           "personnalInfos": {
@@ -31,7 +31,7 @@
           },
           "meals": [
             {
-              "_id": "MENVEG",
+              "_id": "MENVEG"
             }
           ],
           "personnalInfos": {
@@ -53,7 +53,7 @@
           },
           "meals": [
             {
-              "_id": "MENVEG",
+              "_id": "MENVEG"
             }
           ],
           "personnalInfos": {
@@ -75,7 +75,7 @@
           },
           "meals": [
             {
-              "_id": "MENCLA",
+              "_id": "MENCLA"
             }
           ],
           "personnalInfos": {

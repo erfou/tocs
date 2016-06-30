@@ -34,21 +34,61 @@ var bookManager = {
                 });
             },
             function(passenger, product, callback) {
-                var orderAsReq = {
-                    body: {
-                        passenger: passenger,
-                        product: product,
-                        quantity: 1
-                    }
-                };
-                orderService.addNewOrder(orderAsReq, function(err, result) {
-                    if(!err) {
-                        console.log("orderDaoId: " + result._id);
-                        callback(null, passenger, product, result);
-                    } else {
-                        callback(err, null, null, null);
-                    }
-                });
+                console.log("==============> product: " + JSON.stringify(product));
+                console.log("==============> product.category: " + product.category);
+                if(product.category == "meal") {
+                    async.waterfall([
+                        function(callback) {
+                            orderService.getOrdersByPassenger(passenger._id, function(err, results) {
+                                if(!err) {
+                                    callback(null, results);
+                                } else {
+                                    callback(err, null);
+                                }
+                            });
+                        },
+                        function(orders, callback) {
+                            var orderToUpdate = {};
+                            orderToUpdate.body = {};
+                            for(var order of orders) {
+                                if(order.product.category == "meal") {
+                                    orderToUpdate.body = order;
+                                    orderToUpdate.body.product = product._id;
+                                }
+                            }
+                            console.log("orderToUpdate: " + JSON.stringify(orderToUpdate));
+                            orderService.updateOrder(orderToUpdate, function(err, updatedOrder) {
+                                if(!err) {
+                                    callback(null, updatedOrder);
+                                } else {
+                                    callback(err, null);
+                                }
+                            });
+                        }
+                    ], function(err, updatedOrder) {
+                        if(!err) {
+                            callback(null, passenger, product, updatedOrder);
+                        } else {
+                            callback(err, null, null, null);
+                        }
+                    });
+                } else {
+                    var orderAsReq = {
+                        body: {
+                            passenger: passenger,
+                            product: product,
+                            quantity: 1
+                        }
+                    };
+                    orderService.addNewOrder(orderAsReq, function(err, result) {
+                        if(!err) {
+                            console.log("orderDaoId: " + result._id);
+                            callback(null, passenger, product, result);
+                        } else {
+                            callback(err, null, null, null);
+                        }
+                    });
+                }
             },
             function(passenger, product, order, callback) {
                 passenger.orders.push(order._id);
@@ -61,7 +101,6 @@ var bookManager = {
                 });
             },
             function(updatePassenger, callback) {
-                console.log("updatePassenger before Tokenizer: " + updatePassenger);
                 Tokenizer.tokenize(updatePassenger, function(err, result) {
                    if(!err) {
                        callback(null, result);

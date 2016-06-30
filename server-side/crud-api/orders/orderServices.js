@@ -34,7 +34,15 @@ var OrderService = {
 		});
 	},
 	updateOrder : function(req, callback) {
-		Order.findOne({ _id: req.params.order_id }, function(err, result) {
+		var id = req._id;
+		if(req.body) {
+			id = req.body._id;
+		}
+		if(req.params) {
+			id = req.params.order_id;
+		}
+		console.log("id: " + id);
+		Order.findOne({ _id: id }, function(err, result) {
 			if(!err) {
 				if(result) {
 					orderConverter.mergeJsonIntoDao(result, req);
@@ -47,8 +55,8 @@ var OrderService = {
 					});
 					
 				} else {
-					console.log("No result found for id: " + req.params.order_id);
-					callback({ message : "No result found for id: " + req.params.order_id}, null);
+					console.log("No result found for id: " + id);
+					callback({ message : "No result found for id: " + id}, null);
 				}
 			} else {
 				callback(err, null);
