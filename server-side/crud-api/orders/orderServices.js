@@ -11,6 +11,27 @@ var OrderService = {
 			}
 		}).populate('product');
 	},
+	getAllOrdersFullPopulated : function(callback) {
+		Order.find(function(err, results) {
+			if(!err) {
+				callback(null, results);
+			} else {
+				console.log("Error occured during retrieve of orders list: " + err);
+				callback({ message: "Error occured during retrieve of orders list."}), null;
+			}
+		}).populate('product passenger');
+	},
+	getOrdersByPassengerFullPopulated : function(passengerId, callback) {
+		Order.find({'passenger' : passengerId},function(err, results) {
+			if(!err) {
+				callback(null, results);
+				//callback(null, orderConverter.daoListToJson(results));
+			} else {
+				console.log("Error occured during retrieve of orders list: " + err);
+				callback({ message: "Error occured during retrieve of orders list."}), null;
+			}
+		}).populate('product passenger');
+	},
 	getOrdersByPassenger : function(passengerId, callback) {
 		Order.find({'passenger' : passengerId},function(err, results) {
 			if(!err) {
