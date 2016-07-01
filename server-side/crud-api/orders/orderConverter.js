@@ -33,6 +33,10 @@ var OrderConverter = {
 function initFields(orderDao, req) {
     	orderDao.passenger = req.body.passenger;
 		orderDao.quantity = req.body.quantity;
+		orderDao.fromPNR = false;
+		if(req.body.fromPNR) {
+			orderDao.fromPNR = req.body.fromPNR;
+		}
 		orderDao.product = req.body.product;
 }
 

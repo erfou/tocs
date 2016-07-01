@@ -12,7 +12,7 @@ var OrderService = {
 		}).populate('product');
 	},
 	getAllOrdersFullPopulated : function(callback) {
-		Order.find(function(err, results) {
+		Order.find({'fromPNR': false},function(err, results) {
 			if(!err) {
 				callback(null, results);
 			} else {
@@ -22,7 +22,7 @@ var OrderService = {
 		}).populate('product passenger');
 	},
 	getOrdersByPassengerFullPopulated : function(passengerId, callback) {
-		Order.find({'passenger' : passengerId},function(err, results) {
+		Order.find({'fromPNR': false, 'passenger' : passengerId},function(err, results) {
 			if(!err) {
 				callback(null, results);
 				//callback(null, orderConverter.daoListToJson(results));
@@ -58,6 +58,7 @@ var OrderService = {
 		var id = req._id;
 		if(req.body) {
 			id = req.body._id;
+			req.body.fromPNR = false;
 		}
 		if(req.params) {
 			id = req.params.order_id;
@@ -66,7 +67,9 @@ var OrderService = {
 		Order.findOne({ _id: id }, function(err, result) {
 			if(!err) {
 				if(result) {
+					console.log("=========>" + JSON.stringify(req));
 					orderConverter.mergeJsonIntoDao(result, req);
+					console.log("=========>" + JSON.stringify(result));
 					result.save(function(err, result) {
 						if(!err) {
 							callback(null, result);	
