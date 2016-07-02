@@ -51,12 +51,7 @@ ServerInitializer.init(function(err, result) {
 });
 
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
-
-// Quand un client se connecte, on le note dans la console
-io.on('connection', function (socket) {
-    console.log('Un client est connecté !');
-});
+var io = require('./socket').listen(server);
 
 // START THE SERVER
 // =============================================================================

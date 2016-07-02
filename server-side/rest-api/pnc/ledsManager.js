@@ -1,11 +1,14 @@
-var request = require("request");
+var request = require('request');
 
 var ledsAddr = "192.168.0.205";
 
+var reqShutDownAll = "http://" + ledsAddr + "/Z";
+
 var LedsManager = {
     shutDownAll: function() {
+      console.log("shutDownAll: " + reqShutDownAll);
         request
-          .get('http://' + ledsAddr + "/Z")
+          .get(reqShutDownAll)
           .on('error', function(err) {
             console.log(err);
           })
@@ -14,8 +17,10 @@ var LedsManager = {
           });
     },
     lightIt: function(ledId, rgb) {
+      var reqLightIt = "http://" + ledsAddr + "/" + ledId + rgb;
+      console.log("lightIt: " + reqLightIt);
         request
-          .get('http://' + ledsAddr + "/" + ledId + rgb)
+          .get(reqLightIt)
           .on('error', function(err) {
             console.log(err);
           })

@@ -53,7 +53,12 @@
         <!--Socket IO connection -->
         <script src="http://localhost:8080/socket.io/socket.io.js"></script>
         <script>
-            var socket = io.connect('http://localhost:8080');
-        </script>       
+          var socket = io.connect('http://localhost:8080/');
+          
+          socket.on('updateSeats', function (data) {
+            console.log(JSON.stringify(data));
+            socket.emit('updateSeatsCallback', data);
+          });
+        </script>    
 	</body>
 </html>
