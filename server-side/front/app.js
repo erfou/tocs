@@ -35,9 +35,21 @@ angular.module('myApp', [
     	})
         .state('passengers', {
     		parent: 'pnc',
-    		url: '/pnc/passengers',
+    		url: '/pnc/passengers/',
     		controller: 'PassengersCtrl',
     		templateUrl: 'src/content/passengers/view.html'
+    	})
+        .state('bookings', {
+    		parent: 'pnc',
+    		url: '/pnc/bookings/',
+    		controller: 'BookingsCtrl',
+    		templateUrl: 'src/content/bookings/view.html'
+    	})
+        .state('messages', {
+    		parent: 'pnc',
+    		url: '/pnc/messages/',
+    		controller: 'MessagesCtrl',
+    		templateUrl: 'src/content/messages/view.html'
     	})
         .state('service', {
     		parent: 'pnc',
