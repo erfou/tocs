@@ -35,18 +35,25 @@
 		<script src="src/content/controller.js"></script>
 		<script src="src/content/home/controller.js"></script>
         <script src="src/content/login/controller.js"></script>
+
         <script src="src/content/test/controller.js"></script>
         <script src="src/content/pnc/controller.js"></script>
         <script src="src/content/security/controller.js"></script>
         <script src="src/content/service/controller.js"></script>
         <script src="src/content/passengers/controller.js"></script>
         
+
         <script src="src/content/repas/controller.js"></script>
         <script src="src/content/infos/controller.js"></script>
         <script src="src/content/autres/controller.js"></script>
         <script src="src/content/collations/controller.js"></script>
         <script src="src/common/seatMap/service.js"></script>
         <script src="src/common/seatMap/security.js"></script>
-    
+
+        <!--Socket IO connection -->
+        <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://localhost:8080');
+        </script>       
 	</body>
 </html>

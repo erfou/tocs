@@ -4,10 +4,10 @@
 // call the packages we need
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
+
 var bodyParser = require('body-parser');
 var mongoose    = require('mongoose'); 
 var crudApi = require('app_modules/crud-api');
-
 mongoose.connect('mongodb://localhost:27017/onBoardRealTimeSeatMap');
 
 // configure app to use bodyParser()
@@ -50,7 +50,15 @@ ServerInitializer.init(function(err, result) {
     }
 });
 
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+// Quand un client se connecte, on le note dans la console
+io.on('connection', function (socket) {
+    console.log('Un client est connecté !');
+});
+
 // START THE SERVER
 // =============================================================================
-app.listen(port);
+server.listen(port);
 console.log('Magic happens on port ' + port);
