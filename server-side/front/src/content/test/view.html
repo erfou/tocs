@@ -1,0 +1,14 @@
+<div class="content">
+    <div class="menu">
+        <div class="menu-header h4">Liste</div>
+        <ul class=" nav nav-stacked">
+            
+            <li>{{services.flightInfoView.label}} / {{services.flightInfoView.itinerary}}</li>
+            
+            <li role="presentation" data-ng-repeat="link in services.burgerMenuView.links">
+                <p>{{link.label}}</p>
+
+            </li>
+        </ul>
+    </div>
+</div>

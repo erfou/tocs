@@ -1,0 +1,257 @@
+<div class="content">
+
+    <div class="menu">
+        <div class="btn-group col-sm-12" role="group">
+        <div class="row">
+            <a class="btn btn-warning" type="button" href="#/pnc/security">Security</a>
+        </div>   
+    </div>
+        
+        	<div class="container-fluid">
+                
+               <ul class="seat-map">
+                    <li role="plan" data-ng-repeat="seatMapView in services.seatMapView">
+                        <img ng-if="!seatMapView.seat.occuped" src="/public/img/seat_grey.gif"/>
+                        <img ng-if="seatMapView.seat.occuped && seatMapView.seat.belted" src="/public/img/seat_green.gif"/>
+                        <img ng-if="seatMapView.seat.occuped && !seatMapView.seat.belted" src="/public/img/seat_blue.gif"/>
+                                                    
+                </ul>
+                    
+                
+                <br/>
+                
+                <div >
+                    <div class="service-title fontsize-x2">2 demandes de services reçues</div>
+                        <ul class="list-group order-list">
+                            <li class="list-group-item service-items">Siège 20A - Repas végétarien. 
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary btn-xs">Valider</button>
+                                    <button type="button" class="btn btn-default btn-xs">Refuser</button>
+                                </div>
+                              </li>
+                              <li class="list-group-item service-items">Siège 20B - Nouvelle collation
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary btn-xs">Valider</button>
+                                    <button type="button" class="btn btn-default btn-xs">Refuser</button>
+                                </div>
+                              </li>
+                            </ul>
+                            <div class="service-info"><a href="./order" class="service-link">Voir la liste complète</a></divs>
+                </div>
+                </div>
+
+              
+            </div>
+
+            <!-- MODALS -->
+            <!-- Seat 1 -->
+            <div class="modal fade" id="myModalSeat1" role="dialog">
+                <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" style="color: white;">Siège 20A - détails</h4>
+                        <img class="modal-class" src="/public/img/premiere.png"/>
+                    </div>
+                <div class="modal-body">
+                  <ul class="modal-details">
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-A-basic-user77"></span>
+                        <span class="modal-label">
+                            Identité
+                        </span>
+                        Mr Yves Dupont
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-billets"></span>
+                        <span class="modal-label">
+                            Numéro de réservation
+                        </span>
+                        7BN98P
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-flighttrack"></span>
+                        <span class="modal-label">
+                            Voyage
+                        </span>
+                        Nice - Paris - New York
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-flyingblue"></span>
+                        <span class="modal-label">
+                            Fidélité
+                        </span>
+                        Flying Blue - Elite
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-siege"></span>
+                        <span class="modal-label">
+                            Préférences de siège
+                        </span>
+                        Hublot
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-restauration-couverts"></span>
+                        <span class="modal-label">
+                            Préférences de repas
+                        </span>
+                        Repas standard
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-restauration-cafe"></span>
+                        <span class="modal-label">
+                            Préférences de collation
+                        </span>
+                        Sucré
+                    </li>
+                  </ul>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+                </div>
+            </div>
+            </div>
+            <!-- Seat 2 -->
+            <div class="modal fade" id="myModalSeat2" role="dialog">
+                <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" style="color: white;">Siège 20B - détails</h4>
+                        <img class="modal-class" src="/public/img/business.png"/>
+                    </div>
+                <div class="modal-body">
+                  <ul class="modal-details">
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-A-basic-user77"></span>
+                        <span class="modal-label">
+                            Identité
+                        </span>
+                        Mr Yves Dupont
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-billets"></span>
+                        <span class="modal-label">
+                            Numéro de réservation
+                        </span>
+                        7BN98P
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-flighttrack"></span>
+                        <span class="modal-label">
+                            Voyage
+                        </span>
+                        Nice - Paris - New York
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-flyingblue"></span>
+                        <span class="modal-label">
+                            Fidélité
+                        </span>
+                        Flying Blue - Elite
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-siege"></span>
+                        <span class="modal-label">
+                            Préférences de siège
+                        </span>
+                        Hublot
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-restauration-couverts"></span>
+                        <span class="modal-label">
+                            Préférences de repas
+                        </span>
+                        Repas standard
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-restauration-cafe"></span>
+                        <span class="modal-label">
+                            Préférences de collation
+                        </span>
+                        Sucré
+                    </li>
+                  </ul>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+                </div>
+            </div>
+            </div>
+            <!-- Seat 3 -->
+            <div class="modal fade" id="myModalSeat3" role="dialog">
+                <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" style="color: white;">Siège 20C - détails</h4>
+                        <img class="modal-class" src="/public/img/economy.png"/>
+                    </div>
+                <div class="modal-body">
+                  <ul class="modal-details">
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-A-basic-user77"></span>
+                        <span class="modal-label">
+                            Identité
+                        </span>
+                        Mr Yves Dupont
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-billets"></span>
+                        <span class="modal-label">
+                            Numéro de réservation
+                        </span>
+                        7BN98P
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-flighttrack"></span>
+                        <span class="modal-label">
+                            Voyage
+                        </span>
+                        Nice - Paris - New York
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-flyingblue"></span>
+                        <span class="modal-label">
+                            Fidélité
+                        </span>
+                        Flying Blue - Elite
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-siege"></span>
+                        <span class="modal-label">
+                            Préférences de siège
+                        </span>
+                        Hublot
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-restauration-couverts"></span>
+                        <span class="modal-label">
+                            Préférences de repas
+                        </span>
+                        Repas standard
+                    </li>
+                    <li class="modal-detail">
+                        <span class="icon-af icon-af-B-digital-restauration-cafe"></span>
+                        <span class="modal-label">
+                            Préférences de collation
+                        </span>
+                        Sucré
+                    </li>
+                  </ul>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+		</div>
+	</div>
+
+</div>

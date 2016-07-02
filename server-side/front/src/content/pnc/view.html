@@ -1,0 +1,36 @@
+<style>
+    body { background-image:none;}
+</style>
+
+<!-- navbar -->
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-brand burger-menu">
+            <span id="burger-button-show" class="icon-af icon-af-A-basic-reorder" ng-click="openNav()"></span>
+            <span id="burger-button-hide" class="icon-af icon-af-A-basic-reorder" ng-click="closeNav()"></span>
+            <div id="mySidenav" class="sidenav">
+                <p data-ng-repeat="link in services.burgerMenuView.links">
+                    <a href="#{{link.href}}">{{link.label}}</a>
+                </p>
+                
+            </div>
+        </div>
+        
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/#/home">
+                <a class="navbar-brand" href="{{lien}}"><span class="icon-af {{logo}}"></span>  {{services.flightInfoView.label}}</a>
+
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- breadcrumbs -->
+<ol class="breadcrumb">
+    <li ng-if="locA"><a href="/#/pnc">Accueil</a></li>
+    <li class="active">{{loc}}</li>
+</ol>
+
+
+<div ui-view></div>
+

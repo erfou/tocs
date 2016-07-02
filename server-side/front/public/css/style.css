@@ -9,6 +9,8 @@ body { background-image: url("../img/siege.jpg"); background-repeat: no-repeat; 
 .my-header > div.row:last-child  > div:nth-child(2){line-height: 30px; }
 .my-header a{text-decoration: none;}
 
+.navbar-header{ float: right;}
+
 /* breadcrumbs */
 .breadcrumb { margin-bottom: -20px; background-color: transparent;}
 
@@ -39,3 +41,116 @@ body { background-image: url("../img/siege.jpg"); background-repeat: no-repeat; 
 .fontsize-x8 {font-size:8em;}
 .fontsize-x9 {font-size:9em;}
 .fontsize-x10 {font-size:10em;}
+
+
+/* security switch */
+.security_switch{ float : right; padding: 8px;}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary { color: #fff; background: #051039; }
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default { color: #000; background: red; }
+.bootstrap-switch .bootstrap-switch-label { font-size: 1em; color:  darkgrey; background: softgrey;}
+
+/* burger menu */
+.burger-menu{ float: left; padding: 15px 10px;}
+#burger-button-hide{display: none;}
+
+/* notifications */
+.notification {
+	color: red !important;
+	font-weight: bold;
+}
+.badge1 {
+   position:relative;
+}
+.badge1[data-badge]:after {
+   content:attr(data-badge);
+   position:absolute;
+   top:-10px;
+   right:-10px;
+   font-size:.6em;
+   background:red;
+   color:white;
+   width:18px;height:18px;
+   text-align:center;
+   line-height:18px;
+   border-radius:50%;
+   box-shadow:0 0 1px #333;
+}
+
+/* The slider */
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; -webkit-transition: .4s; transition: .4s; }
+.slider:before { position: absolute; content: ""; height: 26px; width: 50px; left: 4px; bottom: 4px; background-color: white; -webkit-transition: .4s; transition: .4s; content: "Test 0";}
+input:checked + .slider { background-color: #2196F3; }
+input:focus + .slider { box-shadow: 0 0 1px #2196F3; }
+input:checked + .slider:before { -webkit-transform: translateX(50px); -ms-transform: translateX(50px); transform: translateX(50px); content: "Test 1";}
+
+/* breadcrumbs */
+.breadcrumb { margin-bottom: 5px; background-color: transparent; width: 50%;}
+
+/* content */
+.content {width: 100%; height: 100%}
+
+/* menu services */
+.menu { border: 1px solid #999; width: 80%; margin: auto; margin-top: 50px;}
+.menu > div.menu-header{ padding: 10px 5px; background-color: #e9e5e6; margin-top: 0px; border-bottom: 1px solid #999;}
+.menu > ul{ padding: 5px 5px; list-style: none; text-decoration: none;}
+.menu > ul > li > a > span {float: right;}
+.menu > ul > li > a { background-color: #e9e5e6; }
+.menu > ul > li > a:focus, .menu > ul > li >a:hover{ text-decoration:none;}
+.menu .list-group { margin : 5px;}
+.menu .list-group .list-group-item > span{ float: right;}
+
+/* formulaires services */
+.form-horizontal .form-group { margin-right: 0px; margin-left: 0px;}
+
+/* seatmap */
+.seat-map { width : 100%; padding: 0; text-align: center;}
+.seat-map > li { list-style-type: none; display: inline;}
+.seat-map > li  > img { height : 200px;}
+.seat-map > li.occupied { }
+.seat-map > li.synchronized { }
+.seat-map > li.unoccupied { }
+
+/* security panel */
+#security-panel { position : absolute; bottom : 0;left:0; width: 100%;background-color:#e9e5e6; border-top:1px solid rgba(0,0,0,.2); box-shadow: 0 1px 15px rgba(0,0,0,.5);}
+#security-panel > .security-title { color: #051039; padding : 0px 15px;}
+#security-panel > .security-items { font-weight: bold; font-size: 17px; }
+#security-panel > .security-items  > li{ list-style-type: none;}
+#security-panel > .security-items  > li p{ margin-left: 50px; font-weight: normal;} 
+#security-panel > .security-items  > li > .security-label{}
+#security-panel > .security-items  > li > p > img { height: 20px; padding: 3px;margin-top: -3px;}
+
+/* service panel */
+#service-panel { position : absolute; bottom : 0;left:0; width: 100%;background-color:#e9e5e6; border-top:1px solid rgba(0,0,0,.2); box-shadow: 0 1px 15px rgba(0,0,0,.5); display: none;}
+#service-panel > .service-title { color: #051039; padding : 0px 15px;}
+#service-panel .service-items { font-weight: bold; font-size: 17px; background-color: #e9e5e6; margin: 5px; border: 1px solid #999;}
+#service-panel .service-info { width: 100%; text-align: center; margin: 5px;}
+#service-panel .service-link { font-weight: bold; font-size: 17px; text-decoration: underline;}
+#service-panel > .service-items  > li{ list-style-type: none;}
+#service-panel > .service-items  > li p{ margin-left: 50px; font-weight: normal;} 
+#service-panel > .service-items  > li > .service-label{}
+#service-panel > .service-items  > li > p > img { height: 20px; padding: 3px;margin-top: -3px;}
+
+/* seat details - modals */
+.modal-dialog { width : 70%; height: 55%; margin: auto; margin-top: 120px;}
+.modal-dialog > .modal-content > .modal-header > h4 {float:left;}
+.modal-dialog > .modal-content> .modal-header > .modal-class {margin-left: 10px; height: 18px;}
+.modal-dialog > .modal-content { width : 100%; height: 100%; }
+.modal-dialog > .modal-content > .modal-header { background-color: #051039;}
+.modal-dialog > .modal-content > .modal-body{ background-image: url("../img/Siege.jpg"); background-repeat: no-repeat; background-position: 100% 65%; background-size: 200px;}
+.modal-dialog > .modal-content > .modal-body > .modal-details > li {list-style-type: none;}
+.modal-dialog > .modal-content > .modal-body > .modal-details > .modal-detail { padding: 6px 0px;}
+.modal-dialog > .modal-content > .modal-body > .modal-details > .modal-detail > span {float:left; width: 50px;}
+.modal-dialog > .modal-content > .modal-body > .modal-details > .modal-detail > span.modal-label {float:left; width: 200px; font-weight:bold;}
+.modal-dialog > .modal-content > .modal-footer { background-color: #051039;}
+
+
+/* The side navigation menu */
+.sidenav { height: 100%; width: 0; position: fixed; z-index: 1; left: 0; background-color: #051039; overflow-x: hidden; padding-top: 20px; transition: 0.5s; margin-top: 13px; }
+.sidenav a { padding: 8px 8px 8px 15px; text-decoration: none; color: #e9e5e6; display: block; transition: 0.3s; }
+.sidenav a:hover, .offcanvas a:focus{color: #f1f1f1;}
+.closebtn { font-size: 36px !important; float: right; margin-top:-17px;	margin-bottom: 30px; width: 100%; text-align: right;}
+#main { transition: margin-left .5s; padding: 20px;}
+
+/* order list */
+.order-list  .btn-group { float: right;}
+.order-list .btn-group > .btn-xs {padding: 1px 20px;}

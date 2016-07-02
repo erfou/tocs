@@ -21,6 +21,30 @@ angular.module('myApp', [
     		controller: 'HomeCtrl',
     		templateUrl: 'src/content/home/view.html'
     	})
+        .state('pnc', {
+            abstract: true,
+            url: '',
+    		controller: 'PncCtrl',
+    		templateUrl: 'src/content/pnc/view.html'
+    	})
+        .state('security', {
+    		parent: 'pnc',
+    		url: '/pnc/security',
+    		controller: 'SecurityCtrl',
+    		templateUrl: 'src/content/security/view.html'
+    	})
+        .state('passengers', {
+    		parent: 'pnc',
+    		url: '/pnc/passengers',
+    		controller: 'PassengersCtrl',
+    		templateUrl: 'src/content/passengers/view.html'
+    	})
+        .state('service', {
+    		parent: 'pnc',
+    		url: '/pnc',
+    		controller: 'ServiceCtrl',
+    		templateUrl: 'src/content/service/view.html'
+    	})  
     	.state('repas', {
     		parent: 'main',
     		url: '/repas',

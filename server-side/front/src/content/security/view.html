@@ -1,0 +1,44 @@
+<div class="content">
+
+    <div class="menu">
+        <div class="btn-group col-sm-12" role="group">
+        <div class="row">
+            <a class="btn btn-info" type="button" href="#/pnc">Service</a>
+        </div>   
+    </div>
+        
+        	<div class="container-fluid">
+                
+               <ul class="seat-map">
+                    <li role="plan" data-ng-repeat="seatMapView in security.seatMapView">
+                        <img ng-if="!seatMapView.seat.occuped" src="/public/img/seat_grey.gif"/>
+                        <img ng-if="seatMapView.seat.occuped && seatMapView.seat.belted" src="/public/img/seat_green.gif"/>
+                        <img ng-if="seatMapView.seat.occuped && !seatMapView.seat.belted" src="/public/img/seat_red.gif"/>
+                                                    
+                </ul>
+                    
+                
+                <br/>
+                
+                
+                <div >
+                    <div class="security-title fontsize-x2">Sécurité en vol</div>
+                    <ul class="security-items">
+                        <li><span class="security-label">Occupation théorique</span>
+                            <p>
+                                3 passagers (3 sièges)<br />
+                                0 siège(s) innocupé(s)
+                            </p>
+                        </li>
+                        <li><span class="security-label">Occupation effective</span>
+                            <p>
+                                3 siège(s) occupé(s) / 2 ceinture(s) bouclée(s)<br />
+                                0 siège(s) innocupé(s) / 1 ceinture(s) débouclée(s)
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                
+             
+              
+            </div>

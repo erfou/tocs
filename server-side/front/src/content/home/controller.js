@@ -7,5 +7,9 @@ angular.module('myApp').controller('HomeCtrl', function($scope, $rootScope){
     
     $rootScope.loc = "Accueil";
     $rootScope.locA=false;
+    
+    $rootScope.seat = "Siège 6A";
+    $rootScope.logo = "icon-af-B-digital-siege";
+    $rootScope.lien = "/#/home";
 
 });
