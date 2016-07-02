@@ -7,7 +7,8 @@ var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var mongoose    = require('mongoose'); 
 var crudApi = require('app_modules/crud-api');
-
+var http = require('http');
+var server = http.createServer(app);
 mongoose.connect('mongodb://localhost:27017/onBoardRealTimeSeatMap');
 
 // configure app to use bodyParser()
@@ -48,6 +49,13 @@ ServerInitializer.init(function(err, result) {
     } else {
         console.log(err);
     }
+});
+// Chargement de socket.io
+var io = require('socket.io').listen(server);
+
+// Quand un client se connecte, on le note dans la console
+io.sockets.on('connection', function (socket) {
+    console.log('Un client est connecté !');
 });
 
 // START THE SERVER

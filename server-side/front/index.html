@@ -30,11 +30,16 @@
 		<script src="src/content/controller.js"></script>
 		<script src="src/content/home/controller.js"></script>
         <script src="src/content/login/controller.js"></script>
-        
         <script src="src/content/repas/controller.js"></script>
         <script src="src/content/infos/controller.js"></script>
         <script src="src/content/autres/controller.js"></script>
         <script src="src/content/collations/controller.js"></script>
+        
+        <!--Socket IO connection -->
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://tocs-eric06.c9users.io');
+        </script>       
     
 	</body>
 </html>
