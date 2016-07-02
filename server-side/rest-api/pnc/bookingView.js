@@ -6,12 +6,12 @@ var BookingView = function(order) {
     	{
     		label: "Valider",
     		rel: "self validate",
-    		href: "/pnc/bookings/validate/" + order._id
+    		href: "/pnc/validate/bookings/" + order._id
     	},
     	{
     		label: "Annuler",
     		rel: "self cancel",
-    		href: "/pnc/bookings/cancel/" + order._id
+    		href: "/pnc/cancel/bookings/" + order._id
     	}
     ]
 };

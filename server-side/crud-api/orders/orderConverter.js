@@ -12,6 +12,8 @@ var OrderConverter = {
 		var toReturn = {
 			_id : orderDao._id,
 			passenger : orderDao.passenger,
+		 	validated : orderDao.validated,
+		 	cancelled : orderDao.cancelled,
 		 	product : orderDao.product,
 		 	quantity : orderDao.quantity,
 		};
@@ -33,6 +35,8 @@ var OrderConverter = {
 function initFields(orderDao, req) {
     	orderDao.passenger = req.body.passenger;
 		orderDao.quantity = req.body.quantity;
+		orderDao.validated = req.body.validated;
+		orderDao.cancelled = req.body.cancelled;
 		orderDao.fromPNR = false;
 		if(req.body.fromPNR) {
 			orderDao.fromPNR = req.body.fromPNR;

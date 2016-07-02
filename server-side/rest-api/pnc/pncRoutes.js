@@ -72,6 +72,29 @@ router.route('/bookings/')
 		});
 	});
 
+router.route('/cancel/bookings/:order_id')
+	.get(function(req, res) {
+		BookingManager.manageBooking("cancel", req.params.order_id, function(err, result) {
+			if(!err) {
+				res.json(result);
+			} else {
+				res.json(err);
+			}
+		});
+	});
+
+router.route('/validate/bookings/:order_id')
+	.get(function(req, res) {
+		console.log("/validate/bookings/" + req.params.order_id);
+		BookingManager.manageBooking("validate", req.params.order_id, function(err, result) {
+			if(!err) {
+				res.json(result);
+			} else {
+				res.json(err);
+			}
+		});
+	});
+
 router.route('/bookings/:passenger_id')
 	.get(function(req, res) {
 		BookingManager.getByPassenger(req.params.passenger_id, function(err, result) {

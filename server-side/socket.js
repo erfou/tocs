@@ -16,6 +16,7 @@ module.exports.listen = function(app){
 	    	console.log(data);
 			seatService.getAllSeats(function(err, allSeats) {
 
+
 			});
 		    socket.emit('updateSeats', [{
 		    	_id: '6A',

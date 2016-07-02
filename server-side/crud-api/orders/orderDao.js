@@ -5,6 +5,8 @@ var orderSchema = new Schema({
 	passenger: { type: Schema.Types.ObjectId, ref: 'Passenger' },
 	quantity: Number,
 	fromPNR: Boolean,
+	validated: Boolean,
+	cancelled: Boolean,
 	product: { type: Schema.Types.String, ref: 'Product' },
 });
 

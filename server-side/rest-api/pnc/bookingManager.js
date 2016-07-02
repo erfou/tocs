@@ -1,3 +1,4 @@
+var async = require('async');
 var BookingListView = require('./bookingListView');
 var orderService = require('app_modules/crud-api').orders.services;
 
@@ -24,6 +25,45 @@ var bookingManager = {
 				} else {
 					callback({ message: "Ce passager n'a pas de commandes." }, null);
 				}
+			} else {
+				callback(err, null);
+			}
+		});
+	},
+
+	manageBooking: function(action, bookingId, callback) {
+		async.waterfall([
+			function(callback) {
+				orderService.getOrderById(bookingId, function(err, order) {
+					if(!err) {
+						callback(null, order);
+					} else {
+						callback(err, null);
+					}
+				});
+			},
+			function(order, callback) {
+				if(action == "validate") {
+					order.validated = true;
+					order.cancelled = false;
+				} else if(action == "cancel"){
+					order.cancelled = true;
+					order.validated = false;
+				}
+				orderAsReq = {
+					body: order
+				};
+				orderService.updateOrder(orderAsReq, function(err, result) {
+					if(!err) {
+						callback(null, result);
+					} else {
+						callback(err, null);
+					}
+				});
+			}
+		], function(err, result) {
+			if(!err) {
+				callback(null, result);
 			} else {
 				callback(err, null);
 			}

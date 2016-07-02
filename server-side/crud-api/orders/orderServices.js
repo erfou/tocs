@@ -88,8 +88,8 @@ var OrderService = {
 		});
 
 	},
-	getOrderById : function(req, callback) {
-		Order.findById(req.params.order_id, function(err, result) {
+	getOrderById : function(id, callback) {
+		Order.findById(id, function(err, result) {
 			if(!err) {
 				callback(null, result);
 			} else {

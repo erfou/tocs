@@ -25,8 +25,7 @@ router.route('/')
 
 router.route('/:order_id')
     .get(function(req, res) {
-    	console.log('plop');
-		OrderService.getOrderById(req, function(err, result) {
+		OrderService.getOrderById(req.params.order_id, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {
