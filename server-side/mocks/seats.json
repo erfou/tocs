@@ -24,7 +24,7 @@
     },
     "fareClass": "ECO",
     "occuped": true,
-    "belted": false
+    "belted": true
 },{
     "_id": "7A",
     "position": {

@@ -28,7 +28,7 @@
         <script src="libs/jquery/jquery.js"></script>
         <script src="libs/bootstrap/bootstrap.js"></script>
         <script src="libs/bootstrap/bootstrap-switch.min.js"></script>
-       
+
 
 		<script src="app.js"></script>
 		<script src="settings.js"></script>
@@ -52,15 +52,22 @@
         <script src="src/common/seatMap/service.js"></script>
         <script src="src/common/seatMap/security.js"></script>
 
-        <!--Socket IO connection -->
         <script src="libs/socket.io/socket.io.js"></script>
+        <!--Socket IO connection
         <script>
-          var socket = io.connect('http://localhost:8080/');
+          var socket = io.connect('http://localhost:8080/pnc');
           
-          socket.on('updateSeats', function (data) {
+          socket.on('updateSeat', function (data) {
+            /*
+            $scope.$apply(function () {
+                if($scope.services.seatMapView) {
+                    $scope.services.seatMapView = [].push(data);
+                }
+            });
+            */
             console.log(JSON.stringify(data));
-            socket.emit('updateSeatsCallback', data);
           });
-        </script>    
+        </script>
+         -->
 	</body>
 </html>

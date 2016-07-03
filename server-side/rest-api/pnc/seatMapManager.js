@@ -14,9 +14,9 @@ var SeatMapManager = {
             if(!err) {
                 var listOfPassengersAway = [], nbSeatsFree = 0, nbPassengers = 0, nbSeatsOccuped = 0;
                 console.log(allSeats);
+                ledsManager.shutDownAll();
                 for(var seat of allSeats) {
                     if('security' == typeOfView) {
-                        ledsManager.shutDownAll();
                         if(seat.currentPassenger) {
                             nbPassengers++;
                         }
@@ -24,10 +24,13 @@ var SeatMapManager = {
                         if(seat.occuped === false ) {
                             nbSeatsFree++;
                             if(seat.currentPassenger) {
-                                ledsManager.lightIt(seat._id.substring(1, seat._id.length), "R")
                                 listOfPassengersAway.push(new PassengerView(seat.currentPassenger));
                             }
                         } else {
+                            if(seat.belted) {
+                                console.log("lightIt: " + seat._id);
+                                ledsManager.lightIt(seat._id.substring(1, seat._id.length), "R");                                
+                            }
                             nbSeatsOccuped++;                            
                         }
                     }

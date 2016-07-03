@@ -1,20 +1,16 @@
 var Seat = require('./seatDao');
 var seatConverter = require('./seatConverter');
+var customEventEmitter = require('../../customEventEmitter');
 
 var SeatService = {
 	getAllSeats : function(callback) {
-		Seat.find(function(err, results) {
+		getSeats.call(this, function(err, result) {
 			if(!err) {
-				if(results) {
-					callback(null, results);
-				} else {
-					callback({ message: "No seats found."}, null);
-				}
+				callback(null, result);
 			} else {
-//				console.log("Error occured during retrieve of seats list: " + err);
-				callback({ error: "Error occured during retrieve of seats list."}, null);
+				callback(err, null);
 			}
-		}).populate('currentPassenger');
+		})
 	},
 	getSeatById : function(id, callback) {
 		getSeatDaoById.call(this, id, function(err, result) {
@@ -84,7 +80,12 @@ var SeatService = {
 				result.belted = req.query.belted;
 				result.save(function(err, result) {
 					if(!err) {
-						callback(null, seatConverter.daoToJson(result));	
+						getSeats.call(this, function(err, seats) {
+							if(!err) {
+								customEventEmitter.emit("updateSeat", seats);
+								callback(null, seatConverter.daoToJson(result));
+							}
+						});
 					} else {
 						callback(err, null);
 					}
@@ -107,21 +108,16 @@ var SeatService = {
 			
 	},
 	updateSeat : function(req, callback) {
-//		var reqSeat = req;
 		var seatId = req._id;
 		if(req.body) {
-//			reqSeat = req.body;
 			seatId = req.params.seat_id;
 		}
-//		console.log("from update seat: " + JSON.stringify(req.body));
+
 		getSeatDaoById.call(this, seatId, function(err, result) {
 			if(!err) {
-//				console.log("dao from update seat: " + result);
 				seatConverter.mergeJsonIntoDao(result, req);
-//				console.log("dao from update seat after merge: " + result);
 				result.save(function(err, result) {
 					if(!err) {
-//						console.log("dao from after update: " + result);
 						callback(null, seatConverter.daoToJson(result));	
 					} else {
 						callback(err, null);
@@ -175,6 +171,22 @@ function getSeatDaoById(id, callback) {
 			callback({ message: "Error occured during the seat retrieve.", error: err }, null);
 		}
 	}).populate('currentPassenger');
+}
+
+function getSeats(callback) {
+	Seat.find(function(err, results) {
+	if(!err) {
+		if(results) {
+			callback(null, results);
+		} else {
+			callback({ message: "No seats found."}, null);
+		}
+	} else {
+//				console.log("Error occured during retrieve of seats list: " + err);
+		callback({ error: "Error occured during retrieve of seats list."}, null);
+	}
+}).populate('currentPassenger');
+
 }
 
 module.exports = SeatService;
