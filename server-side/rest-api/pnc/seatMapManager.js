@@ -36,8 +36,10 @@ var SeatMapManager = {
                     }
                     serviceSeatMapView.seatMapView.push(new SeatInfosView(seat));
                 }
+
+                ledsManager.switchLeds(ledsToLight, typeOfView);
+
                 if('security' == typeOfView) {
-                    manageLeds.call(this, ledsToLight);
                     serviceSeatMapView.securityView = {};
                     if(listOfPassengersAway.length > 0) {
                         serviceSeatMapView.securityView.listOfPassengersAway = listOfPassengersAway;
@@ -54,19 +56,5 @@ var SeatMapManager = {
         });
     }
 };
-
-function manageLeds(ledsToLight) {
-    console.log("shuting down leds...");
-    ledsManager.shutDownAll(function(err,result) {
-//        if(!err) {
-           console.log("start leds light...");
-            for(var led of ledsToLight) {
-                ledsManager.lightIt(led, "R");
-            }
-//        } else {
-//            console.log("leds can't shuting down, we don't light leds");
-//        }
-    })
-}
 
 module.exports = SeatMapManager;

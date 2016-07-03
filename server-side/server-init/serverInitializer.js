@@ -88,7 +88,9 @@ var SeatInitializer = {
                                             body: {
                                                 product: passenger.meals[0],
                                                 passenger: updatedPassenger._id,
-                                                fromPNR: true,
+                                                fromPNR: false,
+                                                confirmed: true,
+                                                cancelled: false,
                                                 quantity: 1
                                             }
                                         };

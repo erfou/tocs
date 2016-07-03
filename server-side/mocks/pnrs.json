@@ -64,27 +64,5 @@
           }
         }
       ]
-    },
-    {
-      "_id": "8APRE",
-      "passengers": [
-        {
-          "ticket": {
-            "seat": "8A",
-            "fareClass": "PRE"
-          },
-          "meals": [
-            {
-              "_id": "MENCLA"
-            }
-          ],
-          "personnalInfos": {
-            "title": "Mr",
-            "firstname": "huita",
-            "lastname": "premiere",
-            "birthdate": "1986-11-20"
-          }
-        }
-      ]
     }
 ]

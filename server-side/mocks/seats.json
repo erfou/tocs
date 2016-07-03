@@ -25,40 +25,4 @@
     "fareClass": "ECO",
     "occuped": true,
     "belted": true
-},{
-    "_id": "7A",
-    "position": {
-        "row": "7",
-        "column": "A"
-    },
-    "fareClass": "PRE",
-    "occuped": false,
-    "belted": false
-},{
-    "_id": "7B",
-    "position": {
-        "row": "7",
-        "column": "B"
-    },
-    "fareClass": "BUS",
-    "occuped": false,
-    "belted": false
-},{
-    "_id": "7C",
-    "position": {
-        "row": "7",
-        "column": "C"
-    },
-    "fareClass": "ECO",
-    "occuped": false,
-    "belted": false
-},{
-    "_id": "8A",
-    "position": {
-        "row": "8",
-        "column": "A"
-    },
-    "fareClass": "PRE",
-    "occuped": false,
-    "belted": false
 }]

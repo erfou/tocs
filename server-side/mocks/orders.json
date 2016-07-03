@@ -3,19 +3,26 @@
       "passenger": "IDDUPASSAGER",
       "quantity": "1",
       "product": "5762d79fee02d4541ec6d2b5",
-      "seat": "6A"
+      "seat": "6A",
+      "fromPNR": false,
+      "confirmed": true,
+      "cancelled": false
     },
     {
       "passenger": "IDDUPASSAGER",
       "quantity": "3",
       "product": "5762d79fee02d4541ec6d2b9",
-      "seat": "6A"
+      "seat": "6A",
+      "fromPNR": false,
+      "cancelled": true
     },
     {
       "passenger": "IDDUPASSAGER",
       "quantity": "1",
       "product": "5762d79fee02d4541ec6d2ba",
-      "seat": "6A"
+      "seat": "6A",
+      "fromPNR": false,
+      "confirmed": true,
     }
 
 ]
