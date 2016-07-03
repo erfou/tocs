@@ -1,13 +1,13 @@
 'use strict';
 
-angular.module('myApp').controller('ServiceCtrl', function($scope, $rootScope){
+angular.module('myApp').controller('ServiceCtrl', function($scope, $rootScope, $window){
 
 	var socket = io.connect('http://localhost:8080/pnc');
 
 	socket.on('updateSeat', function (data) {
 		$scope.$apply(function () {
-		    
-		        $scope.services.seatMapView = data;
+            $scope.services.seatMapView = data;
+            $window.location.reload();
 		  
 		});
         
