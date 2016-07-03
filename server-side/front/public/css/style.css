@@ -106,6 +106,7 @@ input:checked + .slider:before { -webkit-transform: translateX(50px); -ms-transf
 .seat-map { width : 100%; padding: 0; text-align: center;}
 .seat-map > li { list-style-type: none; display: inline;}
 .seat-map > li  > img { height : 200px;}
+.seat-map > li  > span { height : 200px;}
 .seat-map > li.occupied { }
 .seat-map > li.synchronized { }
 .seat-map > li.unoccupied { }
@@ -154,3 +155,8 @@ input:checked + .slider:before { -webkit-transform: translateX(50px); -ms-transf
 /* order list */
 .order-list  .btn-group { float: right;}
 .order-list .btn-group > .btn-xs {padding: 1px 20px;}
+
+.red {color:red;}
+.green {color:green;}
+.grey {color:grey;}
+.blue {color:blue;}

@@ -6,10 +6,11 @@ angular.module('myApp').controller('ServiceCtrl', function($scope, $rootScope){
 
 	socket.on('updateSeat', function (data) {
 		$scope.$apply(function () {
-		    if($scope.services.seatMapView) {
+		    
 		        $scope.services.seatMapView = data;
-		    }
+		  
 		});
+        
 
 		console.log(JSON.stringify(data));
 	});

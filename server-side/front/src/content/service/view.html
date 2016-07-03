@@ -11,9 +11,17 @@
                 
                <ul class="seat-map">
                     <li role="plan" data-ng-repeat="seatMapView in services.seatMapView">
-                        <img ng-if="!seatMapView.seat.occuped" src="/public/img/seat_grey.gif"/>
+                        <span class="icon-af icon-af-B-digital-siege" 
+                              data-ng-class="{green: seatMapView.seat.occuped && seatMapView.seat.belted,
+                                             blue: seatMapView.seat.occuped && !seatMapView.seat.belted,
+                                             grey: !seatMapView.seat.occuped}" 
+                              style="font-size:80px"></span>
+                        
+                        
+                        
+                        <!--<img ng-if="!seatMapView.seat.occuped" src="/public/img/seat_grey.gif"/>
                         <img ng-if="seatMapView.seat.occuped && seatMapView.seat.belted" src="/public/img/seat_green.gif"/>
-                        <img ng-if="seatMapView.seat.occuped && !seatMapView.seat.belted" src="/public/img/seat_blue.gif"/>
+                        <img ng-if="seatMapView.seat.occuped && !seatMapView.seat.belted" src="/public/img/seat_blue.gif"/>-->
                                                     
                 </ul>
                     
