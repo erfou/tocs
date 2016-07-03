@@ -8,6 +8,7 @@
                     <tr>
                         <th>Nom Prénom</th>
                         <th>PNR</th>
+                        <th>Etat</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -17,6 +18,14 @@
                         </td>
                         <td>
                             {{seat.passenger.pnr}}
+                        </td>
+                        <td>
+                            <span class="icon-af icon-af-B-digital-siege" 
+                                  data-ng-class="{green: seat.seat.occuped && seat.seat.belted,
+                                                  blue: seat.seat.occuped && !seat.seat.belted,
+                                                  grey: !seat.seat.occuped}" 
+                                  style="font-size:30px">
+                            </span>
                         </td>
                     </tr>
                 </tbody>
