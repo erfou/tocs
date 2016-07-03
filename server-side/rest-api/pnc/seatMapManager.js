@@ -10,11 +10,11 @@ var PassengerView = require('./passengerInfosView');
 var SeatMapManager = {
     seatMap : function(req, typeOfView, callback) {
     	var serviceSeatMapView = new ServiceSeatMapView();
+        ledsToLight = [];
         SeatService.getAllSeats(function(err, allSeats) {
             if(!err) {
                 var listOfPassengersAway = [], nbSeatsFree = 0, nbPassengers = 0, nbSeatsOccuped = 0;
                 console.log(allSeats);
-                ledsManager.shutDownAll();
                 for(var seat of allSeats) {
                     if('security' == typeOfView) {
                         if(seat.currentPassenger) {
@@ -28,8 +28,8 @@ var SeatMapManager = {
                             }
                         } else {
                             if(!seat.belted) {
-                                console.log("lightIt: " + seat._id);
-                                ledsManager.lightIt(seat._id.substring(1, seat._id.length), "R");                                
+                                console.log("add led: " + seat._id);
+                                ledsToLight.push(seat._id.substring(1, seat._id.length));
                             }
                             nbSeatsOccuped++;                            
                         }
@@ -37,6 +37,7 @@ var SeatMapManager = {
                     serviceSeatMapView.seatMapView.push(new SeatInfosView(seat));
                 }
                 if('security' == typeOfView) {
+                    manageLeds.call(this, ledsToLight);
                     serviceSeatMapView.securityView = {};
                     if(listOfPassengersAway.length > 0) {
                         serviceSeatMapView.securityView.listOfPassengersAway = listOfPassengersAway;
@@ -53,5 +54,19 @@ var SeatMapManager = {
         });
     }
 };
+
+function manageLeds(ledsToLight) {
+    console.log("shuting down leds...");
+    ledsManager.shutDownAll(function(err,result) {
+//        if(!err) {
+           console.log("start leds light...");
+            for(var led of ledsToLight) {
+                ledsManager.lightIt(led, "R");
+            }
+//        } else {
+//            console.log("leds can't shuting down, we don't light leds");
+//        }
+    })
+}
 
 module.exports = SeatMapManager;
