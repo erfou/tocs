@@ -27,7 +27,7 @@ var SeatMapManager = {
                                 listOfPassengersAway.push(new PassengerView(seat.currentPassenger));
                             }
                         } else {
-                            if(seat.belted) {
+                            if(!seat.belted) {
                                 console.log("lightIt: " + seat._id);
                                 ledsManager.lightIt(seat._id.substring(1, seat._id.length), "R");                                
                             }
