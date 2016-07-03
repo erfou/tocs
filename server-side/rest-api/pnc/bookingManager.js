@@ -1,6 +1,7 @@
 var async = require('async');
 var BookingListView = require('./bookingListView');
 var orderService = require('app_modules/crud-api').orders.services;
+var ledsManager = require('app_modules/ledsManager');
 
 var bookingManager = {
 	getAll: function(callback) {
@@ -53,9 +54,15 @@ var bookingManager = {
 				orderAsReq = {
 					body: order
 				};
-				orderService.updateOrder(orderAsReq, function(err, result) {
+				orderService.updateOrder(orderAsReq, function(err, order) {
 					if(!err) {
-						callback(null, result);
+						order.populate('passenger', function(err, popResult) {
+							if(!err) {
+								var color = action == "validate" ? "G" : "A"
+								ledsManager.lightIt(popResult.passenger.seat, color);
+							}
+						});						
+						callback(null, order);
 					} else {
 						callback(err, null);
 					}

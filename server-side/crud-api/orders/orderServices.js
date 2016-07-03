@@ -1,5 +1,7 @@
 var Order = require('./orderDao');
 var orderConverter = require('./orderConverter');
+var ledsManager = require('app_modules/ledsManager');
+
 var OrderService = {
 	getAllOrders : function(callback) {
 		Order.find(function(err, results) {
@@ -45,9 +47,14 @@ var OrderService = {
 	},
 	addNewOrder : function(req, callback) {
 		var orderDao = orderConverter.jsonToDao(req);
-		orderDao.save(function(err, result) {
+		orderDao.save(function(err, order) {
 			if(!err) {
-				callback(null, result);	
+				order.populate('passenger', function(err, popResult) {
+					if(!err) {
+						ledsManager.lightIt(popResult.passenger.seat, "B");
+					}
+				});
+				callback(null, order);	
 			} else {
 				console.log(err.stack);
 				callback(err, null);
@@ -67,9 +74,7 @@ var OrderService = {
 		Order.findOne({ _id: id }, function(err, result) {
 			if(!err) {
 				if(result) {
-					console.log("=========>" + JSON.stringify(req));
 					orderConverter.mergeJsonIntoDao(result, req);
-					console.log("=========>" + JSON.stringify(result));
 					result.save(function(err, result) {
 						if(!err) {
 							callback(null, result);	

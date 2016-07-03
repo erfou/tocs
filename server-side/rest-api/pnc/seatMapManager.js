@@ -1,5 +1,5 @@
 var SeatService = require('app_modules/crud-api').seats.services;
-var ledsManager = require('./ledsManager');
+var ledsManager = require('app_modules/ledsManager');
 
 var SeatInfosView = require('./seatInfosView');
 var ServiceSeatMapView = require('./serviceSeatMapView');
