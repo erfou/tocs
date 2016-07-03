@@ -5,14 +5,16 @@ var ledsAddr = "192.168.0.205";
 var reqShutDownAll = "http://" + ledsAddr + "/Z";
 
 var LedsManager = {
-    shutDownAll: function() {
+    shutDownAll: function(callback) {
       console.log("shutDownAll: " + reqShutDownAll);
         request
           .get(reqShutDownAll)
           .on('error', function(err) {
+            callback(err, null);
             console.log(err);
           })
           .on('response', function(response) {
+            callback(null, error);
             console.log("leds correctly shut down: " + response);
           });
     },
