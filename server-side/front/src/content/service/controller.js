@@ -1,21 +1,8 @@
 'use strict';
 
-angular.module('myApp').controller('ServiceCtrl', function($scope, $rootScope, $window){
+angular.module('myApp').controller('ServiceCtrl', function($scope, $rootScope){
 
-	var socket = io.connect('http://localhost:8080/pnc');
-
-	socket.on('updateSeat', function (data) {
-		$scope.$apply(function () {
-            $scope.services.seatMapView = data;
-            $window.location.reload();
-		  
-		});
-        
-
-		console.log(JSON.stringify(data));
-	});
-
-    $rootScope.loc = "Service";
+	$rootScope.loc = "Service";
     $rootScope.locA = false;
     
     $rootScope.seat = "Avion";

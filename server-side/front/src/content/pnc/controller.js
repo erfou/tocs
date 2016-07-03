@@ -1,10 +1,19 @@
 'use strict';
 
-angular.module('myApp').controller('PncCtrl', function($scope, $rootScope, SeatMapService){
+angular.module('myApp').controller('PncCtrl', function($scope, $rootScope, SeatMapService, settings, $window){
 
+    var socket = io.connect('http://localhost:8080/pnc');
     
     $scope.services = SeatMapService.get();
     
+    socket.on('updateSeat', function (data) {
+    $scope.$apply(function () {
+        $scope.services.seatMapView = data;
+        $window.location.reload();
+
+    });
+
+    });
     
     $rootScope.loc = "SeatMap";
     $rootScope.locA=false;
