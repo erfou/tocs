@@ -6,18 +6,13 @@ angular.module('myApp').controller('PncCtrl', function($scope, $rootScope, Booki
     SeatMapService.get().$promise.then(function(services) {
     	$scope.services = services;
 	 	console.log($scope.services); 
-	 	console.log($scope.services.seatMapView);
+	 	console.log(JSON.stringify($scope.services.seatMapView));
     });
-    $scope.bookings = BookingsService.get();
-    setTimeout(function(){
-    	 	console.log($scope.services); 
-		 	console.log($scope.services.seatMapView);
-    }, 2000);
-
+//    $scope.bookings = BookingsService.get();
 
     socket.on('updateSeat', function (data) {
 	    $scope.$apply(function () {
-	    	console.log(data);
+	    	console.log("from socket: " + JSON.stringify(data));
 	        $scope.services.seatMapView = data;
 	        //$window.location.reload();
 

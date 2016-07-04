@@ -49,9 +49,9 @@ var SeatMapManager = {
                     serviceSeatMapView.securityView.nbSeatsOccuped = nbSeatsOccuped;
                     serviceSeatMapView.securityView.nbPassengersMissing = nbPassengers - nbSeatsOccuped;
                 } else {
-                    orderService.getAllOrders(function(err, result) {
+                    orderService.getAllOrdersFullPopulated(function(err, orders) {
                         if(!err) {
-                            ledsManager.activeServiceMode(ledsToLight);
+                            ledsManager.activeServiceMode(orders);
                         } else {
                             console.log(err);
                         }
