@@ -1,6 +1,6 @@
 var Seat = require('./seatDao');
 var seatConverter = require('./seatConverter');
-var customEventEmitter = require('../../customEventEmitter');
+var customEventEmitter = require('app_modules/customEventEmitter');
 
 var SeatService = {
 	getAllSeats : function(callback) {

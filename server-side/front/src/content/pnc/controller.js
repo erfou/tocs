@@ -1,17 +1,27 @@
 'use strict';
 
-angular.module('myApp').controller('PncCtrl', function($scope, $rootScope, SeatMapService, settings, $window){
+angular.module('myApp').controller('PncCtrl', function($scope, $rootScope, BookingsService, SeatMapService, settings, $window){
 
     var socket = io.connect('http://localhost:8080/pnc');
     
     $scope.services = SeatMapService.get();
+    $scope.bookings = BookingsService.get();
     
     socket.on('updateSeat', function (data) {
-    $scope.$apply(function () {
-        $scope.services.seatMapView = data;
-        $window.location.reload();
+	    $scope.$apply(function () {
+	        $scope.services.seatMapView = data;
+	        $window.location.reload();
+
+	    });
 
     });
+    
+    socket.on('updateBookings', function (data) {
+    	console.log("from client socket event receipt: " + data);
+	    $scope.$apply(function () {
+	    	console.log("from client socket event receipt: " + data);
+	        $scope.bookings = data;
+	    });
 
     });
     

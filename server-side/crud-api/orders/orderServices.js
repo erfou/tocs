@@ -1,6 +1,7 @@
 var Order = require('./orderDao');
 var orderConverter = require('./orderConverter');
 var ledsManager = require('app_modules/ledsManager');
+var customEventEmitter = require('app_modules/customEventEmitter');
 
 var OrderService = {
 	getAllOrders : function(callback) {
@@ -14,14 +15,14 @@ var OrderService = {
 		}).populate('product');
 	},
 	getAllOrdersFullPopulated : function(callback) {
-		Order.find({'fromPNR': false},function(err, results) {
+		getOrdersFullPopulated.call(this, function(err, results) {
 			if(!err) {
 				callback(null, results);
 			} else {
 				console.log("Error occured during retrieve of orders list: " + err);
 				callback({ message: "Error occured during retrieve of orders list."}), null;
 			}
-		}).populate('product passenger');
+		});
 	},
 	getOrdersByPassengerFullPopulated : function(passengerId, callback) {
 		Order.find({'fromPNR': false, 'passenger' : passengerId},function(err, results) {
@@ -49,6 +50,13 @@ var OrderService = {
 		var orderDao = orderConverter.jsonToDao(req);
 		orderDao.save(function(err, order) {
 			if(!err) {
+				getOrdersFullPopulated.call(this, function(err, orders) {
+					if(!err) {
+						customEventEmitter.emit("updateBookings",orders);
+					} else {
+						console.log(err);
+					}
+				});
 				order.populate('passenger', function(err, popResult) {
 					if(!err) {
 						ledsManager.lightIt(popResult.passenger.seat, "B");
@@ -77,6 +85,13 @@ var OrderService = {
 					orderConverter.mergeJsonIntoDao(result, req);
 					result.save(function(err, result) {
 						if(!err) {
+							getOrdersFullPopulated.call(this, function(err, orders) {
+								if(!err) {
+									customEventEmitter.emit("updateBookings",orders);
+								} else {
+									console.log(err);
+								}
+							});
 							callback(null, result);	
 						} else {
 							callback(err, null);
@@ -131,5 +146,16 @@ var OrderService = {
 	}
 
 };
+
+function getOrdersFullPopulated(callback) {
+	Order.find({'fromPNR': false},function(err, results) {
+		if(!err) {
+			callback(null, results);
+		} else {
+			console.log("Error occured during retrieve of orders list: " + err);
+			callback({ message: "Error occured during retrieve of orders list."}), null;
+		}
+	}).populate('product passenger');
+}
 
 module.exports = OrderService;
