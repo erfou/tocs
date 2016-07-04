@@ -1,8 +1,6 @@
 'use strict';
 
-angular.module('myApp').controller('SecurityCtrl', function($scope, $rootScope, SeatMapSecurity){
-
-    $scope.security = SeatMapSecurity.get();
+angular.module('myApp').controller('SecurityCtrl', function($scope, $rootScope){
         
     $rootScope.loc = "Security";
     $rootScope.locA=true;

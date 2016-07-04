@@ -1,14 +1,16 @@
 'use strict';
 
-angular.module('myApp').controller('PncCtrl', function($scope, $rootScope, BookingsService, SeatMapService, settings, $window){
+angular.module('myApp').controller('PncCtrl', function($scope, $rootScope, BookingsService, SeatMapService, SeatMapSecurity, settings, $window){
 
     $scope.services = SeatMapService.get();
     $scope.bookings = BookingsService.get();
+    $scope.security = SeatMapSecurity.get();
 
     var socket = io.connect('http://localhost:8080/pnc');
     socket.on('updateSeat', function (data) {
 	    $scope.$apply(function () {
 	        $scope.services.seatMapView = data;
+	        $scope.security.seatMapView = data;
 	    });
 
     });
