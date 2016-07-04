@@ -1,3 +1,21 @@
+<!-- navbar -->
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/#/home">
+                <a class="navbar-brand" href="{{lien}}"><span class="icon-af {{logo}}"></span>  {{seat}}</a>
+
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- breadcrumbs -->
+<ol class="breadcrumb">
+    <li ng-if="locA"><a href="/#/home">Accueil</a></li>
+    <li class="active">{{loc}}</li>
+</ol>
+
 <div class="content">
     <div class="menu">
         <div class="menu-header h4">Informations</div>
@@ -16,21 +34,12 @@
             </div>
 
             <div class="list-group">
-                <label for="password" class="control-label">Password <sup class="color-red">* </sup></label>
-                <input id="password" name="password" type="password" value="" required class="form-control">
-            </div>
-
-            <div class="list-group">
-                <label for="url"  class="control-label">Url element</label>
-                <input type="url" id="url" name="url" placeholder="http://" required class="form-control">
-            </div>
-            <div class="list-group">
                 <label for="email" class="control-label">Email element</label>
-                <input type="email" id="email" name="email" placeholder="votre@dresse.fr" required class="form-control">
+                <input type="email" id="email" name="email" placeholder="jeandupont@monmail.fr" required class="form-control">
             </div>
             <div class="list-group">
                 <label for="numeric" class="control-label">number element</label>
-                <input type="number" name="numeric" id="numeric" value="99" class="form-control">
+                <input type="number" name="numeric" id="numeric" value="06 12 34 56 78" class="form-control">
             </div>
             <div class="list-group">
                 <label for="date" class="control-label">Date format</label>
