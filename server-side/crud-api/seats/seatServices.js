@@ -107,6 +107,9 @@ var SeatService = {
 						if(result.occuped && !result.belted) {
 							ledsManager.lightIt(result._id, "R");
 						}
+						if(!result.occuped || result.occuped && result.belted){
+							ledsManager.shutIt(result._id);
+						}
 						getSeats.call(this, function(err, seats) {
 							if(!err) {
 								customEventEmitter.emit("updateSeat", seats);
