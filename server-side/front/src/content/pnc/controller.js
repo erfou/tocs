@@ -3,14 +3,23 @@
 angular.module('myApp').controller('PncCtrl', function($scope, $rootScope, BookingsService, SeatMapService, settings, $window){
 
     var socket = io.connect('http://localhost:8080/pnc');
-    
-    $scope.services = SeatMapService.get();
+    SeatMapService.get().$promise.then(function(services) {
+    	$scope.services = services;
+	 	console.log($scope.services); 
+	 	console.log($scope.services.seatMapView);
+    });
     $scope.bookings = BookingsService.get();
-    
+    setTimeout(function(){
+    	 	console.log($scope.services); 
+		 	console.log($scope.services.seatMapView);
+    }, 2000);
+
+
     socket.on('updateSeat', function (data) {
 	    $scope.$apply(function () {
+	    	console.log(data);
 	        $scope.services.seatMapView = data;
-	        $window.location.reload();
+	        //$window.location.reload();
 
 	    });
 

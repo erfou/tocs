@@ -1,8 +1,7 @@
 var Order = require('./orderDao');
 var orderConverter = require('./orderConverter');
-var ledsManager = require('app_modules/ledsManager');
 var customEventEmitter = require('app_modules/customEventEmitter');
-
+var ledsManager = require('app_modules/ledsManager');
 var OrderService = {
 	getAllOrders : function(callback) {
 		Order.find(function(err, results) {

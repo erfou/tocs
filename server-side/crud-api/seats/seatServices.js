@@ -1,6 +1,7 @@
 var Seat = require('./seatDao');
 var seatConverter = require('./seatConverter');
 var customEventEmitter = require('app_modules/customEventEmitter');
+var ledsManager = require('app_modules/ledsManager');
 
 var SeatService = {
 	getAllSeats : function(callback) {
@@ -61,11 +62,15 @@ var SeatService = {
 		var seatDao = seatConverter.jsonToDao(req);
 		seatDao.save(function(err, result) {
 			if(!err) {
-				if(result) {
-					callback(null, seatConverter.daoToJson(result));	
-				} else {
-					callback({ message: "error saving: " + req + " result doesn't exist: " + result}, null);
+				callback(null, seatConverter.daoToJson(result));
+				if(result.occuped && !result.belted) {
+					ledsManager.lightIt(result._id, "R");
 				}
+				getSeats.call(this, function(err, seats) {
+					if(!err) {
+						customEventEmitter.emit("updateSeat", seats);
+					}
+				});
 			} else {
 //				console.log(err.stack);
 				callback(err, null);
@@ -80,10 +85,13 @@ var SeatService = {
 				result.belted = req.query.belted;
 				result.save(function(err, result) {
 					if(!err) {
+						callback(null, seatConverter.daoToJson(result));
+						if(result.occuped && !result.belted) {
+							ledsManager.lightIt(result._id, "R");
+						}
 						getSeats.call(this, function(err, seats) {
 							if(!err) {
 								customEventEmitter.emit("updateSeat", seats);
-								callback(null, seatConverter.daoToJson(result));
 							}
 						});
 					} else {
@@ -96,6 +104,14 @@ var SeatService = {
 					toInsert.save(function(err, result) {
 					if(!err) {
 						callback(null, seatConverter.daoToJson(toInsert));
+						if(result.occuped && !result.belted) {
+							ledsManager.lightIt(result._id, "R");
+						}
+						getSeats.call(this, function(err, seats) {
+							if(!err) {
+								customEventEmitter.emit("updateSeat", seats);
+							}
+						});
 					} else {
 						callback(err, null);
 					}
@@ -104,8 +120,7 @@ var SeatService = {
 					
 				}			
 			}
-		});
-			
+		});			
 	},
 	updateSeat : function(req, callback) {
 		var seatId = req._id;
@@ -119,6 +134,14 @@ var SeatService = {
 				result.save(function(err, result) {
 					if(!err) {
 						callback(null, seatConverter.daoToJson(result));	
+						if(result.occuped && !result.belted) {
+							ledsManager.lightIt(result._id, "R");
+						}
+						getSeats.call(this, function(err, seats) {
+							if(!err) {
+								customEventEmitter.emit("updateSeat", seats);
+							}
+						});						
 					} else {
 						callback(err, null);
 					}
@@ -134,6 +157,14 @@ var SeatService = {
 		Seat.findByIdAndRemove(id, function(err, result) {
 			if(!err) {
 				callback(null, result);
+				if(result.occuped && !result.belted) {
+					ledsManager.lightIt(result._id, "R");
+				}
+				getSeats.call(this, function(err, seats) {
+					if(!err) {
+						customEventEmitter.emit("updateSeat", seats);
+					}
+				});
 			} else {
 				callback(err, null);
 			}

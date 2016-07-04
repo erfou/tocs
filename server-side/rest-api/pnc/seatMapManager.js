@@ -1,4 +1,5 @@
 var SeatService = require('app_modules/crud-api').seats.services;
+var orderService = require('app_modules/crud-api').orders.services;
 var ledsManager = require('app_modules/ledsManager');
 
 var SeatInfosView = require('./seatInfosView');
@@ -37,9 +38,8 @@ var SeatMapManager = {
                     serviceSeatMapView.seatMapView.push(new SeatInfosView(seat));
                 }
 
-                ledsManager.switchLeds(ledsToLight, typeOfView);
-
                 if('security' == typeOfView) {
+                    ledsManager.activeSecurityMode(ledsToLight);
                     serviceSeatMapView.securityView = {};
                     if(listOfPassengersAway.length > 0) {
                         serviceSeatMapView.securityView.listOfPassengersAway = listOfPassengersAway;
@@ -48,6 +48,14 @@ var SeatMapManager = {
                     serviceSeatMapView.securityView.nbPassengers = nbPassengers;
                     serviceSeatMapView.securityView.nbSeatsOccuped = nbSeatsOccuped;
                     serviceSeatMapView.securityView.nbPassengersMissing = nbPassengers - nbSeatsOccuped;
+                } else {
+                    orderService.getAllOrders(function(err, result) {
+                        if(!err) {
+                            ledsManager.activeServiceMode(ledsToLight);
+                        } else {
+                            console.log(err);
+                        }
+                    });
                 }
                 callback(null, serviceSeatMapView);
             } else {
