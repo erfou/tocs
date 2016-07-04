@@ -2,6 +2,9 @@ var Order = require('./orderDao');
 var orderConverter = require('./orderConverter');
 var customEventEmitter = require('app_modules/customEventEmitter');
 var ledsManager = require('app_modules/ledsManager');
+var BookingListView = require('../../rest-api/pnc/BookingListView');
+
+
 var OrderService = {
 	getAllOrders : function(callback) {
 		Order.find(function(err, results) {
@@ -51,7 +54,8 @@ var OrderService = {
 			if(!err) {
 				getOrdersFullPopulated.call(this, function(err, orders) {
 					if(!err) {
-						customEventEmitter.emit("updateBookings",orders);
+						var restBookingListView = new BookingListView(orders);
+						customEventEmitter.emit("updateBookings", restBookingListView.bookingListView);
 					} else {
 						console.log(err);
 					}
@@ -86,7 +90,8 @@ var OrderService = {
 						if(!err) {
 							getOrdersFullPopulated.call(this, function(err, orders) {
 								if(!err) {
-									customEventEmitter.emit("updateBookings",orders);
+									var restBookingListView = new BookingListView(orders);
+									customEventEmitter.emit("updateBookings", restBookingListView.bookingListView);
 								} else {
 									console.log(err);
 								}

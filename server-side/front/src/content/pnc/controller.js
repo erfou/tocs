@@ -2,29 +2,21 @@
 
 angular.module('myApp').controller('PncCtrl', function($scope, $rootScope, BookingsService, SeatMapService, settings, $window){
 
-    var socket = io.connect('http://localhost:8080/pnc');
-    SeatMapService.get().$promise.then(function(services) {
-    	$scope.services = services;
-	 	console.log($scope.services); 
-	 	console.log(JSON.stringify($scope.services.seatMapView));
-    });
-//    $scope.bookings = BookingsService.get();
+    $scope.services = SeatMapService.get();
+    $scope.bookings = BookingsService.get();
 
+    var socket = io.connect('http://localhost:8080/pnc');
     socket.on('updateSeat', function (data) {
 	    $scope.$apply(function () {
-	    	console.log("from socket: " + JSON.stringify(data));
 	        $scope.services.seatMapView = data;
-	        //$window.location.reload();
-
 	    });
 
     });
     
     socket.on('updateBookings', function (data) {
-    	console.log("from client socket event receipt: " + data);
 	    $scope.$apply(function () {
 	    	console.log("from client socket event receipt: " + data);
-	        $scope.bookings = data;
+	        $scope.bookings.bookingListView = data;
 	    });
 
     });

@@ -9,10 +9,8 @@ var seatManager = {
         seatService.getAllSeats(function(err, results) {
            if(!err)  {
                if(results) {
-                   for(var seat of results) {
-                       seatListView.seatInfosView.push(new SeatInfosView(seat));
-                   }
-                   callback(null, seatListView);
+                  seatListView.initSeatInfosViewFromSeatList(results);
+                  callback(null, seatListView);
                } else {
                    callback({ error: "retrieve seats failed"}, null);
                }

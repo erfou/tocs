@@ -94,7 +94,9 @@ var SeatService = {
 						}
 						getSeats.call(this, function(err, seats) {
 							if(!err) {
-								customEventEmitter.emit("updateSeat", seats);
+								var SeatListView = require('../../rest-api/pnc/seatListView');
+								var seatListView = new SeatListView(seats);
+								customEventEmitter.emit("updateSeat", seatListView.seatInfosView);
 							}
 						});
 					} else {
