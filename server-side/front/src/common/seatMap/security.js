@@ -5,7 +5,8 @@ angular.module('myApp').factory('SeatMapSecurity', function($resource, settings)
        settings.backendUrl + 'pnc/seat-map/security',
        {},
        {
-            'get': {method:'GET', isArray: false}
+            'get': {method:'GET', isArray: false},
+		   'option': {method:'OPTION', isArray:false}
        }
    ); 
 });

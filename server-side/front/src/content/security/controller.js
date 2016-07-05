@@ -2,7 +2,7 @@
 
 angular.module('myApp').controller('SecurityCtrl', function($scope, $rootScope, SeatMapSecurity){
 	
-	$scope.security = SeatMapSecurity.get();
+	$scope.security = SeatMapSecurity.option();
         
     $rootScope.loc = "Security";
     $rootScope.locA=true;

@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('myApp').controller('ServiceCtrl', function($scope, $rootScope){
+angular.module('myApp').controller('ServiceCtrl', function($scope, $rootScope, SeatMapService){
+	
+	$scope.service = SeatMapService.option();
 
 	$rootScope.loc = "Service";
     $rootScope.locA = false;
