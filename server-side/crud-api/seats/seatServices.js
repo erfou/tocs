@@ -92,11 +92,14 @@ var SeatService = {
 						if(!result.occuped || result.occuped && result.belted){
 							ledsManager.shutIt(result._id);
 						}
-						getSeats.call(this, function(err, seats) {
+						var SeatMapManager = require('../../rest-api/pnc/seatMapManager');
+						SeatMapManager.seatMap("security", function(err, result) {
 							if(!err) {
-								var SeatListView = require('../../rest-api/pnc/seatListView');
-								var seatListView = new SeatListView(seats);
-								customEventEmitter.emit("updateSeat", seatListView.seatInfosView);
+
+								var data = {};
+								data.seatMapView = result.seatMapView;
+								data.securityView = result.securityView;
+								customEventEmitter.emit("updateSeat", data);
 							}
 						});
 					} else {

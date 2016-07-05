@@ -9,15 +9,21 @@ angular.module('myApp').controller('PncCtrl', function($scope, $rootScope, Booki
     var socket = io.connect('http://localhost:8080/pnc');
     socket.on('updateSeat', function (data) {
 	    $scope.$apply(function () {
-	        $scope.services.seatMapView = data;
-	        $scope.security.seatMapView = data;
+	    	console.log("$scope.services.seatMapView : " + JSON.stringify($scope.services.seatMapView));
+	    	console.log("$scope.security.seatMapView : " + JSON.stringify($scope.security.seatMapView));
+	    	console.log("$scope.security.securityView : " + JSON.stringify($scope.security.securityView));
+	    	console.log("data.seatMapView : " + JSON.stringify(data.seatMapView));
+	    	console.log("data.securityView : " + JSON.stringify(data.securityView));
+	        $scope.services.seatMapView = data.seatMapView;
+	        $scope.security.seatMapView = data.seatMapView;
+	        $scope.security.securityView = data.securityView;
 	    });
 
     });
     
     socket.on('updateBookings', function (data) {
 	    $scope.$apply(function () {
-	    	console.log("from client socket event receipt: " + data);
+	    	//console.log("from client socket event receipt: " + data);
 	        $scope.bookings.bookingListView = data;
 	    });
 

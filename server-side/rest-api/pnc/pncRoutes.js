@@ -8,7 +8,7 @@ var BookingManager = require('./bookingManager');
 
 router.route('/seat-map/:view_type')
 	.get(function(req, res) {
-		SeatMapManager.seatMap(req, req.params.view_type, function(err, result) {
+		SeatMapManager.seatMap(req.params.view_type, function(err, result) {
 			if(!err) {
 				res.json(result);
 			} else {

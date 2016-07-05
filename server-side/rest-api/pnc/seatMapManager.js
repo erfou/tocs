@@ -9,12 +9,12 @@ var PassengerView = require('./passengerInfosView');
 
 
 var SeatMapManager = {
-    seatMap : function(req, typeOfView, callback) {
+    seatMap : function(typeOfView, callback) {
     	var serviceSeatMapView = new ServiceSeatMapView();
         ledsToLight = [];
         SeatService.getAllSeats(function(err, allSeats) {
             if(!err) {
-                var listOfPassengersAway = [], nbSeatsFree = 0, nbPassengers = 0, nbSeatsOccuped = 0;
+                var listOfPassengersAway = [], nbPassengersUnbelted = 0, nbSeatsFree = 0, nbPassengers = 0, nbSeatsOccuped = 0;
 //                console.log(allSeats);
                 for(var seat of allSeats) {
                     if('security' == typeOfView) {
@@ -22,13 +22,14 @@ var SeatMapManager = {
                             nbPassengers++;
                         }
 
-                        if(seat.occuped === false ) {
+                        if(!seat.occuped) {
                             nbSeatsFree++;
                             if(seat.currentPassenger) {
                                 listOfPassengersAway.push(new PassengerView(seat.currentPassenger));
                             }
                         } else {
                             if(!seat.belted) {
+                                nbPassengersUnbelted ++;
                                 console.log("add led: " + seat._id);
                                 ledsToLight.push(seat._id.substring(1, seat._id.length));
                             }
@@ -48,6 +49,7 @@ var SeatMapManager = {
                     serviceSeatMapView.securityView.nbPassengers = nbPassengers;
                     serviceSeatMapView.securityView.nbSeatsOccuped = nbSeatsOccuped;
                     serviceSeatMapView.securityView.nbPassengersMissing = nbPassengers - nbSeatsOccuped;
+                    serviceSeatMapView.securityView.nbPassengersUnbelted = nbPassengersUnbelted;
                 } else {
                     orderService.getAllOrdersFullPopulated(function(err, orders) {
                         if(!err) {
