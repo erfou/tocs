@@ -14,8 +14,8 @@
           ],
           "personnalInfos": {
             "title": "Mr",
-            "firstname": "sixa",
-            "lastname": "premiere",
+            "firstname": "Jean",
+            "lastname": "Dupont",
             "birthdate": "1973-08-07"
           }
         }
@@ -36,8 +36,8 @@
           ],
           "personnalInfos": {
             "title": "Mr",
-            "firstname": "sixb",
-            "lastname": "business",
+            "firstname": "Marcel",
+            "lastname": "BLOIS",
             "birthdate": "1984-05-01"
           }
         }
@@ -57,9 +57,9 @@
             }
           ],
           "personnalInfos": {
-            "title": "Mr",
-            "firstname": "sixc",
-            "lastname": "economic",
+            "title": "Mme",
+            "firstname": "Nathalie",
+            "lastname": "BOULOT",
             "birthdate": "1984-05-01"
           }
         }
