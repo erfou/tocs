@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+var ledsManager = require('app_modules/ledsManager');
 var SeatManager = require('./seatManager');
 var SeatMapManager = require('./seatMapManager');
 var PassengerManager = require('./passengerManager');
@@ -15,6 +16,10 @@ router.route('/seat-map/:view_type')
 				res.json(err);
 			}
 		});
+  	})
+	.options(function(req, res) {
+		ledsManager.setTypeOfView(req.params.view_type);
+		res.json({ message : "type of view changed"});
   	});
 
 router.route('/passengers/:passenger_id')
