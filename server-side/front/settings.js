@@ -2,5 +2,5 @@
 
 angular.module('myApp').constant('settings', {
 	//backendUrl: 'http://192.168.0.200/'
-    backendUrl: 'http://localhost:8080/'
+    backendUrl: 'http://localhost:80/'
 });
