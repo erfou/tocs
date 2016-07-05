@@ -17,7 +17,7 @@ router.route('/seat-map/:view_type')
 			}
 		});
   	})
-	.options(function(req, res) {
+	.put(function(req, res) {
 		ledsManager.setTypeOfView(req.params.view_type);
 		res.json({ message : "type of view changed"});
   	});

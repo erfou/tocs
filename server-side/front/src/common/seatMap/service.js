@@ -6,7 +6,7 @@ angular.module('myApp').factory('SeatMapService', function($resource, settings){
        {},
        {
             'get': {method:'GET', isArray: false},
-		   'option': {method:'OPTION', isArray:false}
+		   'option': {method:'PUT', isArray:false}
        }
    ); 
 });
