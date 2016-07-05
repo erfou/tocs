@@ -25,22 +25,17 @@
                 <br/>
                 
                 <div >
-                    <div class="service-title fontsize-x2">2 demandes de services reçues</div>
+                    <div class="service-title fontsize-x2">{{bookings.bookingListView.length}} demandes de services reçues</div>
                         <ul class="list-group order-list">
-                            <li class="list-group-item service-items">Siège 20A - Repas végétarien. 
+                            <li class="list-group-item service-items" ng-repeat="list in bookings.bookingListView | limitTo:2">{{list.seat}} - {{list.booking}}. 
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary btn-xs">Valider</button>
                                     <button type="button" class="btn btn-default btn-xs">Refuser</button>
                                 </div>
-                              </li>
-                              <li class="list-group-item service-items">Siège 20B - Nouvelle collation
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary btn-xs">Valider</button>
-                                    <button type="button" class="btn btn-default btn-xs">Refuser</button>
-                                </div>
-                              </li>
-                            </ul>
-                            <div class="service-info"><a href="./order" class="service-link">Voir la liste complète</a></divs>
+                            </li>
+                              
+                        </ul>
+                        <div class="service-info"><a href="#/pnc/bookings/" class="service-link">Voir la liste complète</a></divs>
                 </div>
                 </div>
 

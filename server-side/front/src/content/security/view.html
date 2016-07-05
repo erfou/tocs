@@ -34,23 +34,20 @@
                             <tr>
                                 <th>Sièges</th>
                                 <td>
-                                     3 sièges occupés<br />
-                                     0 sièges innocupés
+                                     6 sièges <br />
                                 </td>
-                                <td>
-                                    3 sièges occupés<br />
-                                    0 sièges innocupés
+                                <td ng-class="{red: security.securityView.nbPassengers != security.securityView.nbSeatsOccuped}">
+                                    {{security.securityView.nbSeatsOccuped}} sièges occupés  /  {{security.securityView.nbPassengers}}<br />
+                                
                                 </td>
                             </tr>
                             <tr>
                                 <th>Ceintures</th>
-                                <td>
-                                    3 ceintures bouclées<br />
-                                    0 ceintures débouclées
+                                <td >
+                                    {{security.securityView.nbPassengers}} passagers
                                 </td>
-                                <td>
-                                    3 ceintures bouclées<br />
-                                    0 ceintures débouclées
+                                <td ng-class="{red: security.securityView.nbPassengersUnbelted > 0}">
+                                    {{security.securityView.nbPassengersUnbelted}} ceintures débouclées  /  {{security.securityView.nbSeatsOccuped}}<br />
                                 </td>
                             </tr>
                         </tbody>

@@ -12,12 +12,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr role="presentation" data-ng-repeat="seat in services.seatMapView">
+                    <tr role="presentation" data-ng-repeat="list in bookings.bookingListView">
                         <td>
-                            
+                            {{list.booking}}
                         </td>
                         <td>
-                           
+                           {{list.seat}}
                         </td>
                         <td>
                             <div class="btn-group" style="float:right;">
