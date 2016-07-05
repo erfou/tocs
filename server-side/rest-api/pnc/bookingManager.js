@@ -56,12 +56,14 @@ var bookingManager = {
 				};
 				orderService.updateOrder(orderAsReq, function(err, order) {
 					if(!err) {
+/*
 						order.populate('passenger', function(err, popResult) {
 							if(!err) {
 								var color = action == "validate" ? "G" : "A"
 								ledsManager.lightIt(popResult.passenger.seat, color);
 							}
 						});						
+*/
 						callback(null, order);
 					} else {
 						callback(err, null);

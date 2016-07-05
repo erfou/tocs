@@ -6,7 +6,7 @@ angular.module('myApp').controller('PncCtrl', function($scope, $rootScope, Booki
     $scope.bookings = BookingsService.get();
     $scope.security = SeatMapSecurity.get();
 
-    var socket = io.connect('http://localhost:8080/pnc');
+    var socket = io.connect(settings.backendUrl + '/pnc');
     socket.on('updateSeat', function (data) {
 	    $scope.$apply(function () {
 	    	console.log("$scope.services.seatMapView : " + JSON.stringify($scope.services.seatMapView));

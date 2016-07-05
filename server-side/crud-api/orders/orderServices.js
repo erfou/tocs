@@ -60,11 +60,13 @@ var OrderService = {
 						console.log(err);
 					}
 				});
+/*
 				order.populate('passenger', function(err, popResult) {
 					if(!err) {
 						ledsManager.lightIt(popResult.passenger.seat, "B");
 					}
 				});
+*/
 				callback(null, order);	
 			} else {
 				console.log(err.stack);
