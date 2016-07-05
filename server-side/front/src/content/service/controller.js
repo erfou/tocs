@@ -2,7 +2,7 @@
 
 angular.module('myApp').controller('ServiceCtrl', function($scope, $rootScope, SeatMapService){
 	
-	$scope.service = SeatMapService.option();
+	SeatMapService.option();
 
 	$rootScope.loc = "Service";
     $rootScope.locA = false;
