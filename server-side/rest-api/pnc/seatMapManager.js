@@ -50,9 +50,9 @@ var SeatMapManager = {
                     serviceSeatMapView.securityView.nbSeatsOccuped = nbSeatsOccuped;
                     serviceSeatMapView.securityView.nbPassengersMissing = nbPassengers - nbSeatsOccuped;
                     serviceSeatMapView.securityView.nbPassengersUnbelted = nbPassengersUnbelted;
-                }
+                } else {
+                    ledsManager.shutAll();
 /*
-                 else {
                     orderService.getAllOrdersFullPopulated(function(err, orders) {
                         if(!err) {
                             ledsManager.activeServiceMode(orders);
@@ -60,8 +60,8 @@ var SeatMapManager = {
                             console.log(err);
                         }
                     });
-                }
 */
+                }
                 callback(null, serviceSeatMapView);
             } else {
                 callback(err, null);
