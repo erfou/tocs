@@ -33,6 +33,12 @@ angular.module('myApp', [
     		controller: 'SecurityCtrl',
     		templateUrl: 'src/content/security/view.html'
     	})
+		.state('securityBis', {
+    		parent: 'pnc',
+    		url: '/pnc/securityBis',
+    		controller: 'SecurityCtrl',
+    		templateUrl: 'src/content/securityBis/view.html'
+    	})
         .state('passengers', {
     		parent: 'pnc',
     		url: '/pnc/passengers/',

@@ -1,0 +1,78 @@
+<div class="content">
+
+    <div class="menu">
+        <div class="btn-group col-sm-12" role="group">
+        <div class="row">
+            <a class="btn btn-info" type="button" href="#/pnc">Service</a>
+        </div>   
+    </div>
+        
+        	<div class="container-fluid">
+                
+               <ul class="seat-map">
+                    <li role="plan" data-ng-repeat="seatMapView in security.seatMapView">
+                        <img ng-if="!seatMapView.seat.occuped" src="/public/img/seat_grey.png"/>
+                        <img ng-if="seatMapView.seat.occuped && seatMapView.seat.belted" src="/public/img/seat_green.png"/>
+                        <img ng-if="seatMapView.seat.occuped && !seatMapView.seat.belted" src="/public/img/seat_red.png"/>
+                                                    
+                </ul>
+				
+<!--				<ul class="seat-map">
+                    <li>
+                        <img  src="/public/img/seat_grey.png"/>
+                        
+					</li>
+					
+					<li>
+                        
+                        <img  src="/public/img/seat_green.png"/>
+                        
+					</li>
+					
+					<li>
+                       
+                        <img  src="/public/img/seat_red.png"/>
+					</li>
+                                                    
+                </ul>-->
+                    
+                
+                <br/>
+                
+                
+                <div >
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><b>Sécurité en vol</b></th>
+                                <th><b>Occupation théorique</b></th>
+                                <th><b>Occupation effective</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Sièges</th>
+                                <td>
+                                     6 sièges <br />
+                                </td>
+                                <td ng-class="{red: security.securityView.nbPassengers != security.securityView.nbSeatsOccuped}">
+                                    {{security.securityView.nbSeatsOccuped}} sièges occupés  /  {{security.securityView.nbPassengers}}<br />
+                                
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Ceintures</th>
+                                <td >
+                                    {{security.securityView.nbPassengers}} passagers
+                                </td>
+                                <td ng-class="{red: security.securityView.nbPassengersUnbelted > 0}">
+                                    {{security.securityView.nbPassengersUnbelted}} ceintures débouclées  /  {{security.securityView.nbSeatsOccuped}}<br />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+             
+              
+            </div>
