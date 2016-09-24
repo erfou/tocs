@@ -14,7 +14,7 @@
         "column": "B"
     },
     "fareClass": "BUS",
-    "occuped": true,
+    "occuped": false,
     "belted": false
 },{
     "_id": "6C",
@@ -23,6 +23,6 @@
         "column": "C"
     },
     "fareClass": "ECO",
-    "occuped": true,
-    "belted": true
+    "occuped": false,
+    "belted": false
 }]
