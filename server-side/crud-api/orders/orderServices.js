@@ -2,7 +2,7 @@ var Order = require('./orderDao');
 var orderConverter = require('./orderConverter');
 var customEventEmitter = require('app_modules/customEventEmitter');
 var ledsManager = require('app_modules/ledsManager');
-var BookingListView = require('../../rest-api/pnc/BookingListView');
+var BookingListView = require('../../rest-api/pnc/bookingListView');
 
 
 var OrderService = {
