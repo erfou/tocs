@@ -4,7 +4,7 @@
 // call the packages we need
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
-
+console.log = function() {};
 var bodyParser = require('body-parser');
 var mongoose    = require('mongoose'); 
 var crudApi = require('app_modules/crud-api');
